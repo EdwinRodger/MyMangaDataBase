@@ -8,6 +8,7 @@ flask = "*"
 flask-sqlalchemy = "*"
 flask-wtf = "*"
 pillow = "*"
+python-dotenv = "*"
 
 [dev-packages]
 black = "*"
