@@ -8,6 +8,11 @@
                 <legend class="border-bottom mb-4">
                     {{ legend }}
                 </legend>
+                {% if action != 'create' %}
+                <div class="d-flex justify-content-center">
+                    <img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}" alt="Manga Cover" style="height: 100px;">
+                </div>
+                {% endif %}
                 <div class="form mb-3">
                     {{ form.title.label(class="form-label") }}
                     {% if form.title.errors %}
