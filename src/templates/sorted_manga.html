@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="d-sm-none">
+    <div>
+        <div class=" dropdown">
+            <button class="btn btn-secondary dropdown-toggle px-5" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Filter
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="{{ url_for('main.home') }}">All</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="{{ url_for('mangas.sort_manga', sort_func='Reading') }}">Reading</a>
+                </li>
+                <li><a class="dropdown-item"
+                        href="{{ url_for('mangas.sort_manga', sort_func='Completed') }}">Completed</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('mangas.sort_manga', sort_func='On hold') }}">On Hold</a>
+                </li>
+                <li><a class="dropdown-item" href="{{ url_for('mangas.sort_manga', sort_func='Dropped') }}">Dropped</a>
+                </li>
+                <li><a class="dropdown-item" href="{{ url_for('mangas.sort_manga', sort_func='Plan to read') }}">Plan To
+                        Read</a></li>
+                <li><a class="dropdown-item"
+                        href="{{ url_for('mangas.sort_manga', sort_func='Rereading') }}">Rereading</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="d-none d-sm-block">
+    <div class="d-flex mb-5 mt-3">
+        <a class="btn btn-info rounded-0 flex-grow-1" href="{{ url_for('main.home') }}"><b>All</b></a>
+        <a class="btn btn-info rounded-0 flex-grow-1"
+            href="{{ url_for('mangas.sort_manga', sort_func='Reading') }}"><b>Reading</b></a>
+        <a class="btn btn-info rounded-0 flex-grow-1"
+            href="{{ url_for('mangas.sort_manga', sort_func='Completed') }}"><b>Completed</b></a>
+        <a class="btn btn-info rounded-0 flex-grow-1"
+            href="{{ url_for('mangas.sort_manga', sort_func='On hold') }}"><b>On
+                Hold</b></a>
+        <a class="btn btn-info rounded-0 flex-grow-1"
+            href="{{ url_for('mangas.sort_manga', sort_func='Dropped') }}"><b>Dropped</b></a>
+        <a class="btn btn-info rounded-0 flex-grow-1"
+            href="{{ url_for('mangas.sort_manga', sort_func='Plan to read') }}"><b>Plan To Read</b></a>
+        <a class="btn btn-info rounded-0 flex-grow-1"
+            href="{{ url_for('mangas.sort_manga', sort_func='Rereading') }}"><b>Rereading</b></a>
+    </div>
+</div>
+<div>
+    <div class="table-responsive">
+        <table class="table table-dark table-striped align-middle">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Score</th>
+                    <th scope="col">Volumes</th>
+                    <th scope="col">Chapters</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for manga in mangas %}
+                <tr class="align-middle">
+                    <td><img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}" alt="Manga Cover"></td>
+                    <td><a href="{{ url_for('mangas.update_manga', manga_id=manga.id) }}"
+                            class="text-decoration-none text-reset"><u>{{ manga.title }}</u></a></td>
+                    {% if manga.status == "Plan to read" %}
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{ manga.status }}</td>
+                    {% else %}
+                    <td>{{ manga.score }}</td>
+                    <td>{{ manga.volume }}</td>
+                    <td>{{ manga.chapter }}</td>
+                    {% if manga.start_date == date %}
+                    <td>-</td>
+                    {% else %}
+                    <td>{{ manga.start_date }}</td>
+                    {% endif %}
+                    {% if manga.end_date == date %}
+                    <td>-</td>
+                    {% else %}
+                    <td>{{ manga.end_date }}</td>
+                    {% endif %}
+                    <td>{{ manga.status }}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock body %}

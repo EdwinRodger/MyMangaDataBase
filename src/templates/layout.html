@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+    <title>{{ title }} - MyMangaDataBase</title>
+    {% else %}
+    <title>MyMangaDataBase</title>
+    {% endif %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</head>
+
+<style>
+    :root{
+        color-scheme: dark;
+    }
+</style>
+
+<body class="bg-dark text-white" style="overflow: visible;">
+    <div>
+        <nav class="navbar navbar-expand-md navbar-transparent" style="z-index: 1;">
+            <div class="container-fluid">
+                <a class="navbar-brand border-end pe-3 text-white" href="{{ url_for('main.home') }}">MyMangaDataBase</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ url_for('main.home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ url_for('main.about') }}">About</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto pe-5">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ url_for('mangas.new_manga') }}">New Manga</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, messages in messages %}
+        <div class="alert alert-{{ category }} text-center rounded-0">
+            {{ messages }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% block body %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>
