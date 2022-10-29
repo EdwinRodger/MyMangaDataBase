@@ -34,15 +34,6 @@ def new_manga():
     )
 
 
-# See Manga Id
-@mangas.route("/manga/<int:manga_id>")
-def manga_id(manga_id):
-    manga = Manga.query.get_or_404(manga_id)
-    return render_template(
-        "manga_id.html", title=f"{manga.title}", manga=manga, date=date
-    )
-
-
 # Update a Manga
 @mangas.route("/manga/<int:manga_id>/update", methods=["GET", "POST"])
 def update_manga(manga_id):
