@@ -30,6 +30,7 @@ A database to keep a track of all your mangas
 
 ### For those who uses python programming language
 
+- Install latest release from releases page
 - Make a virtual environment using virtualenv or pipenv (This project uses pipenv)
 - Install external libraries from requirements.txt or pipfile
 - Run app.py
