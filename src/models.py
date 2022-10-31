@@ -1,5 +1,6 @@
 from src import db
 
+
 class Manga(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cover = db.Column(db.String, nullable=False, default="default.png")

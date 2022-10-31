@@ -10,7 +10,8 @@
                 </legend>
                 {% if action != 'create' %}
                 <div class="d-flex justify-content-center">
-                    <img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}" alt="Manga Cover" style="height: 100px;">
+                    <img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}" alt="Manga Cover"
+                        style="height: 100px;">
                 </div>
                 {% endif %}
                 <div class="form mb-3">
@@ -118,13 +119,12 @@
             </div>
             {% else %}
             <div>
-                    {{ form.submit(class="btn btn-info fs-5") }}
+                {{ form.submit(class="btn btn-info fs-5") }}
                 <button type="button" class="btn btn-danger fs-5 ms-2" data-bs-toggle="modal"
                     data-bs-target="#deleteModal">Delete</button>
             </div>
         </form>
     </div>
-</div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
