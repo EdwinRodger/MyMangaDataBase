@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileField
 from wtforms import DateField, IntegerField, SelectField, StringField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length
 
 
 class MangaForm(FlaskForm):
-    title = StringField("Title", validators=[DataRequired()])
+    title = StringField("Title", validators=[DataRequired(), Length(min=2, max=100)])
     cover = FileField("Cover Image", validators=[FileAllowed(["jpg", "png"])])
     start_date = DateField("Start Date")
     end_date = DateField("End Date")
