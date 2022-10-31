@@ -5,10 +5,13 @@ A database to keep a track of all your mangas
 ## Features
 
 - [x] Add Manga
+- [ ] Add Manga Cover
 - [ ] Better UI
 - [x] Dark Theme
+- [ ] Export
 - [x] FOSS
-- [ ] Manga Cover
+- [ ] Import
+- [x] Responsive UI
 - [x] Sorting Mangas
 
 ## How To Use
@@ -30,3 +33,14 @@ A database to keep a track of all your mangas
 - Make a virtual environment using virtualenv or pipenv (This project uses pipenv)
 - Install external libraries from requirements.txt or pipfile
 - Run app.py
+- Or simply run `MyMangaDataBase` file based on your OS. It will install pipenv package, make virtual environment and run the program
+
+## Want To Contribute?
+
+Git clone this repository or download the source code from latest releases
+
+Make sure you have python 3.7 or greater
+
+Install packages from pipfile or requirements.txt
+
+Run app.py to run the program
