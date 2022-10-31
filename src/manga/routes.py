@@ -30,7 +30,11 @@ def new_manga():
         flash(f"{form.title.data} is added!", "success")
         return redirect(url_for("main.home"))
     return render_template(
-        "create_edit_manga.html", title="New Manga", form=form, legend="New Manga", action='create'
+        "create_edit_manga.html",
+        title="New Manga",
+        form=form,
+        legend="New Manga",
+        action="create",
     )
 
 
@@ -61,7 +65,11 @@ def update_manga(manga_id):
         form.score.data = manga.score
         form.status.data = manga.status
     return render_template(
-        "create_edit_manga.html", title="Edit Manga", form=form, legend="Update Manga", manga=manga
+        "create_edit_manga.html",
+        title="Edit Manga",
+        form=form,
+        legend="Update Manga",
+        manga=manga,
     )
 
 
@@ -83,6 +91,7 @@ def sort_manga(sort_func):
         "sorted_manga.html", title=f"{sort_func} Manga", mangas=mangas, date=date
     )
 
+
 # Add One Chapter To The Manga
 @mangas.route("/add_one_chapter/<int:manga_id>/<int:number>")
 def add_one_chapter(manga_id, number):
@@ -90,6 +99,7 @@ def add_one_chapter(manga_id, number):
     manga.chapter = number + 1
     db.session.commit()
     return redirect(url_for("main.home"))
+
 
 # Add One Volume To The Manga
 @mangas.route("/add_one_volume/<int:manga_id>/<int:number>")
