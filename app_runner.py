@@ -1,12 +1,9 @@
 import os
 import platform
-from webbrowser import open_new_tab
 
 try:
     if os.path.exists("Pipfile"):
         if os.path.exists("Pipfile.lock"):
-            os.system("echo opening http://127.0.0.1:6070")
-            open_new_tab("http://127.0.0.1:6070")
             os.system("echo pipenv run app.py")
             os.system("pipenv run app.py")
         else:
@@ -18,8 +15,6 @@ try:
                 os.system("pip3 install pipenv")
             os.system("echo pipenv install")
             os.system("pipenv install")
-            os.system("echo opening http://127.0.0.1:6070")
-            open_new_tab("http://127.0.0.1:6070")
             os.system("echo pipenv run app.py")
             os.system("pipenv run app.py")
 except Exception as e:

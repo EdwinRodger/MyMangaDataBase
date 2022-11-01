@@ -26,7 +26,7 @@ A database to keep a track of all your mangas
   2. Enter command `pip3 install pipenv` (Do this only when running the program for the first time)
   3. Then enter command `pipenv run app.py` to run the program
   - If `MyMangadataBase.sh` file fails, you can debug and correct it and if you want, you can make a pull request so that other people can run the application without any problem
-- A new tab will open, refresh it in intervals and after 10-15 seconds (based on system speed), the website will open
+- MyMangaDataBase will open on your default browser
 
 ### For those who uses python programming language
 
@@ -40,7 +40,7 @@ A database to keep a track of all your mangas
 
 Git clone this repository or download the source code from latest releases
 
-Make sure you have python 3.7 or greater
+Make sure you have python 3.7 or higher
 
 Install packages from pipfile or requirements.txt
 
