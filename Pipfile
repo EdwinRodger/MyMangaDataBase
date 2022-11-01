@@ -9,6 +9,7 @@ flask-sqlalchemy = "*"
 flask-wtf = "*"
 pillow = "*"
 python-dotenv = "*"
+waitress = "*"
 
 [dev-packages]
 black = "*"
