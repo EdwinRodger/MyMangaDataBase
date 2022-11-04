@@ -1,6 +1,6 @@
 # MyMangaDataBase
 
-A database to keep a track of all your mangas
+One database to keep a track of all your mangas
 
 ## Features
 
@@ -8,9 +8,9 @@ A database to keep a track of all your mangas
 - [ ] Add Manga Cover
 - [ ] Better UI
 - [x] Dark Theme
-- [ ] Export
+- [ ] Export [~~MMDB~~, MAL, AniList and Kitsu]
 - [x] FOSS
-- [ ] Import
+- [ ] Import [~~MMDB~~, MAL, AniList and Kitsu]
 - [x] Responsive UI
 - [x] Sorting Mangas
 
