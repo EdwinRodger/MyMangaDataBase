@@ -1,6 +1,14 @@
 from datetime import datetime
 
-from flask import Blueprint, redirect, render_template, send_file, url_for, request, flash
+from flask import (
+    Blueprint,
+    redirect,
+    render_template,
+    send_file,
+    url_for,
+    request,
+    flash,
+)
 from src.models import Manga
 from src.main.utils import export_backup, extract_backup
 
@@ -10,6 +18,7 @@ date = d.date()
 main = Blueprint("main", __name__)
 
 today_date = datetime.date(datetime.today())
+
 
 @main.route("/")
 @main.route("/home")
@@ -30,18 +39,19 @@ def export():
 
 
 # The path for uploading the file
-@main.route('/import', methods = ['GET', 'POST'])
+@main.route("/import", methods=["GET", "POST"])
 def import_backup():
-    return render_template('import.html')
+    return render_template("import.html")
 
-@main.route('/import/backup', methods = ['GET', 'POST'])
+
+@main.route("/import/backup", methods=["GET", "POST"])
 def importbackup():
-   if request.method == 'POST': # check if the method is post
-      f = request.files['file'] # get the file from the files object
-      if f.filename == '':
-        flash("Choose a file to import", "danger")
-        return redirect(url_for("main.import_backup"))
-      else:
-        f.save(f.filename) # this will secure the file
-        extract_backup(f.filename)
-      return redirect(url_for("main.home")) # Display thsi message after uploading
+    if request.method == "POST":  # check if the method is post
+        f = request.files["file"]  # get the file from the files object
+        if f.filename == "":
+            flash("Choose a file to import", "danger")
+            return redirect(url_for("main.import_backup"))
+        else:
+            f.save(f.filename)  # this will secure the file
+            extract_backup(f.filename)
+        return redirect(url_for("main.home"))  # Display thsi message after uploading
