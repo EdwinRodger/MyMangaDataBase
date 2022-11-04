@@ -10,6 +10,13 @@ def export_backup():
         zf.write("instance\\manga.db")
         
 def delete_export():
+    for backup in os.listdir("."):
+        if "MMDB-Export-" in backup:
+            os.remove(f"{backup}")
     for backup in os.listdir("src/"):
         if "MMDB-Export-" in backup:
             os.remove(f"src\\{backup}")
+
+def extract_backup(filename):
+    ZipFile(filename).extractall()
+    os.remove(filename)
