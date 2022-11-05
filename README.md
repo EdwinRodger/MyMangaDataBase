@@ -16,39 +16,51 @@ One database to keep a track of all your mangas
 
 ## How To Use
 
-### For those who never used python programming language
-
 - Install [python](https://www.python.org/downloads/release/python-3108/) for your respective OS
 - Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest)
 - To run MMDB on Windows, Simply run `MyMangaDataBase.bat` file.
 - To run MMBD on MacOS or Linux -
+  
+  - Option 1 -
+    1. Run `MyMangaDataBase.sh` file
+  
+  - Option 2 -
+    1. Open terminal in MyMangaDataBase folder
+    2. In terminal, write `python3 app_runner.py`
+    - If `app_runner.py` file fails, you can debug and correct it and if you want, you can make a pull request so that other people can run the application without any problem
 
-  1. Open terminal in MyMangaDataBase folder
-  2. In terminal, write `python3 app_runner.py`
+  - Option 3 -
+    1. Open terminal in MyMangaDataBase folder
+    2. Enter command `pip3 install pipenv` (Do this only when running the program for the first time)
+    3. Then enter command `pipenv run app.py` to run the program
 
-   If any error occurs, try below method -
+- This will install pipenv package and automatically install other required packages.
+- MyMangaDataBase will open on your default browser.
 
-  1. Open terminal in MyMangaDataBase folder
-  2. Enter command `pip3 install pipenv` (Do this only when running the program for the first time)
-  3. Then enter command `pipenv run app.py` to run the program
+## Want to Contribute?
 
-  - If `app_runner.py` file fails, you can debug and correct it and if you want, you can make a pull request so that other people can run the application without any problem
-- MyMangaDataBase will open on your default browser
+MyMangaDataBase is made in [python 3.10](https://www.python.org/downloads/release/python-3101/)
 
-### For those who uses python programming language
+You can download the repository by going into 'Code' and then clicking 'Download ZIP' or just click [here](https://github.com/EdwinRodger/MyMangaDataBase/archive/refs/heads/main.zip) to download the same zip file
 
-- Install latest release from releases page
-- Make a virtual environment using virtualenv or pipenv (This project uses pipenv)
-- Install external libraries from requirements.txt or pipfile
-- Run app.py
-- Or simply run `app_runner.py` file. It will install pipenv package, make virtual environment and run the program
+Don't want to download the code? No worries!
 
-## Want To Contribute?
+If you have [git](https://git-scm.com/) installed on your device, you can clone the github repository by running the command below into your terminal -
 
-Git clone this repository or download the source code from latest releases
+```git
+git clone https://github.com/EdwinRodger/MyMangaDataBase.git
+```
 
-Make sure you have python 3.7 or higher
+If not already installed, install [pipenv](https://pipenv.pypa.io/en/latest/) package for making virtual environment -
 
-Install packages from pipfile or requirements.txt
+```python
+pip install pipenv
+```
 
-Run app.py to run the program
+then download the required packages from Pipfile -
+
+```python
+pipenv install
+```
+
+and after that you are ready to make a software changing commit
