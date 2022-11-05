@@ -57,10 +57,18 @@ If not already installed, install [pipenv](https://pipenv.pypa.io/en/latest/) pa
 pip install pipenv
 ```
 
-then download the required packages from Pipfile -
+Then download the required packages from Pipfile -
 
 ```python
 pipenv install
 ```
 
-and after that you are ready to make a software changing commit
+To run the program, run below code into your terminal -
+
+```python
+pipenv run app_runner.py
+```
+
+Or start the program directly from `MyMangaDataBase.bat` file for Windows or `MyMangaDataBase.sh` file for MacOS or Linux
+
+And after that you are ready to make a software changing commit
