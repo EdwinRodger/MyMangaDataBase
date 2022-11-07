@@ -28,7 +28,7 @@ def check_for_update():
         else:
             choice = str(
                 input(
-                    "A new update is available! Do you want to update? [Yes/No/Later]"
+                    "A new update is available! Do you want to update? [Yes(Y)/No(N)/Later(L)]"
                 )
             )
             choice = choice.capitalize()
@@ -43,5 +43,8 @@ def check_for_update():
                 currentHash = hashlib.sha224(response).hexdigest()
                 with open("versionhash.txt", "w") as f:
                     f.write(str(currentHash))
-            else:
+            elif choice == "Later" or choice == "L":
                 pass
+            else:
+                print("Not valid response!")
+                input("Press any key to continue...")
