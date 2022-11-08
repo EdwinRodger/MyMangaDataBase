@@ -1,6 +1,6 @@
-from zipfile import ZipFile
-from datetime import datetime
 import os
+from datetime import datetime
+from zipfile import ZipFile
 
 today_date = datetime.date(datetime.today())
 

@@ -2,15 +2,16 @@ from datetime import datetime
 
 from flask import (
     Blueprint,
+    flash,
     redirect,
     render_template,
+    request,
     send_file,
     url_for,
-    request,
-    flash,
 )
-from src.models import Manga
+
 from src.main.utils import export_backup, extract_backup
+from src.models import Manga
 
 d = datetime.strptime("0001-01-01", "%Y-%m-%d")
 date = d.date()

@@ -5,9 +5,9 @@ from webbrowser import open_new_tab
 import waitress
 
 from src import create_app, db
+from src.main.utils import delete_export
 from src.models import Manga
 from src.utils import check_dotenv, check_for_update
-from src.main.utils import delete_export
 
 app = create_app()
 logger = logging.getLogger("waitress")

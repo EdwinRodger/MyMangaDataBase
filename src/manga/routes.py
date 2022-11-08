@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
+
 from src import db
 from src.manga.forms import MangaForm
 from src.models import Manga
