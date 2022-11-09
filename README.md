@@ -24,7 +24,9 @@ One database to keep a track of all your mangas
 
 ## Want to Contribute?
 
-MyMangaDataBase is made in [python 3.10](https://www.python.org/downloads/release/python-3101/)
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md)
+
+MyMangaDataBase is made in [python 3.10](https://www.python.org/downloads/release/python-3101/) and can be run on python>=3.8
 
 You can download the repository by going into 'Code' and then clicking 'Download ZIP' or just click [here](https://github.com/EdwinRodger/MyMangaDataBase/archive/refs/heads/main.zip) to download the same zip file
 
@@ -36,22 +38,8 @@ If you have [git](https://git-scm.com/) installed on your device, you can clone 
 git clone https://github.com/EdwinRodger/MyMangaDataBase.git
 ```
 
-If not already installed, install [pipenv](https://pipenv.pypa.io/en/latest/) package for making virtual environment -
-
-```python
-pip install pipenv
-```
-
-Then download the required packages from Pipfile -
-
-```python
-pipenv install
-```
-
-To run the program, run below code into your terminal -
-
-```python
-pipenv run app_runner.py
-```
-
-And after that you are ready to make a software changing commit
+Run `app_runner.py` to run the app. It will -
+1. Install [pipenv](https://pipenv.pypa.io/en/latest/) package if not already installed
+2. Make virtual environment using pipenv
+3. Install other packages in that virtual environment if not already installed
+4. Run the app on port 6070 in default browser
