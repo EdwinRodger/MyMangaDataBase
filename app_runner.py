@@ -19,4 +19,7 @@ try:
             os.system("pipenv run app.py")
 except Exception as e:
     print(e)
-    os.system("pause")
+    if platform.system() == "Windows":
+        os.system("pause")
+    else:
+        os.system("read -p 'Press enter key to resume ...'")
