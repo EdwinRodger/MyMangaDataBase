@@ -18,22 +18,7 @@ One database to keep a track of all your mangas
 
 - Install [python](https://www.python.org/downloads/release/python-3108/) for your respective OS
 - Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest)
-- To run MMDB on Windows, Simply run `MyMangaDataBase.bat` file.
-- To run MMBD on MacOS or Linux -
-  
-  - Option 1 -
-    1. Run `MyMangaDataBase.sh` file
-  
-  - Option 2 -
-    1. Open terminal in MyMangaDataBase folder
-    2. In terminal, write `python3 app_runner.py`
-    - If `app_runner.py` file fails, you can debug and correct it and if you want, you can make a pull request so that other people can run the application without any problem
-
-  - Option 3 -
-    1. Open terminal in MyMangaDataBase folder
-    2. Enter command `pip3 install pipenv` (Do this only when running the program for the first time)
-    3. Then enter command `pipenv run app.py` to run the program
-
+- To run MMDB, Simply run `app_runner.py` file
 - This will install pipenv package and automatically install other required packages.
 - MyMangaDataBase will open on your default browser.
 
@@ -68,7 +53,5 @@ To run the program, run below code into your terminal -
 ```python
 pipenv run app_runner.py
 ```
-
-Or start the program directly from `MyMangaDataBase.bat` file for Windows or `MyMangaDataBase.sh` file for MacOS or Linux
 
 And after that you are ready to make a software changing commit
