@@ -51,7 +51,6 @@
         <table class="table table-dark table-striped align-middle">
             <thead>
                 <tr>
-                    <th scope="col"></th>
                     <th scope="col">Title</th>
                     <th scope="col">Score</th>
                     <th scope="col">Volumes</th>
@@ -64,8 +63,6 @@
             <tbody>
                 {% for manga in mangas %}
                 <tr class="align-middle">
-                    <td><img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}" alt="Manga Cover">
-                    </td>
                     <td><a href="{{ url_for('mangas.update_manga', manga_id=manga.id) }}"
                             class="text-decoration-none text-reset"><u>{{ manga.title }}</u></a></td>
                     {% if manga.status == "Plan to read" %}
