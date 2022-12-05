@@ -28,11 +28,6 @@ def home():
     return render_template("home.html", title="Home", mangas=mangas, date=date)
 
 
-@main.route("/about")
-def about():
-    return render_template("about.html", title="About")
-
-
 @main.route("/export")
 def export():
     export_backup()
