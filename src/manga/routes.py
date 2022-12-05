@@ -31,16 +31,7 @@ def new_manga():
         flash(f"{form.title.data} is added!", "success")
         return redirect(url_for("main.home"))
     return render_template(
-        "create_edit_manga.html", title="New Manga", form=form, legend="New Manga"
-    )
-
-
-# See Manga Id
-@mangas.route("/manga/<int:manga_id>")
-def manga_id(manga_id):
-    manga = Manga.query.get_or_404(manga_id)
-    return render_template(
-        "manga_id.html", title=f"{manga.title}", manga=manga, date=date
+        "create_manga.html", title="New Manga", form=form, legend="New Manga"
     )
 
 
@@ -55,21 +46,21 @@ def update_manga(manga_id):
         manga.end_date = form.end_date.data
         manga.volume = form.volume.data
         manga.chapter = form.chapter.data
-        manga.score = form.score.data
         manga.status = form.status.data
+        manga.score = form.score.data
         db.session.commit()
         flash("Your manga has been updated!", "success")
-        return redirect(url_for("mangas.manga_id", manga_id=manga.id, date=date))
+        return redirect(url_for("main.home", manga_id=manga.id, date=date))
     elif request.method == "GET":
         form.title.data = manga.title
         form.start_date.data = manga.start_date
         form.end_date.data = manga.end_date
         form.volume.data = manga.volume
         form.chapter.data = manga.chapter
-        form.score.data = manga.score
         form.status.data = manga.status
+        form.score.data = manga.score
     return render_template(
-        "create_edit_manga.html", title="Edit Manga", form=form, legend="Update Manga"
+        "manga_id.html", title="Edit Manga", form=form, manga=manga, legend="Update Manga"
     )
 
 

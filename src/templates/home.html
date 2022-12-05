@@ -62,7 +62,7 @@
         <tbody>
             {% for manga in mangas %}
             <tr class="align-middle">
-                <td><a href="{{ url_for('mangas.manga_id', manga_id=manga.id) }}"
+                <td><a href="{{ url_for('mangas.update_manga', manga_id=manga.id) }}"
                         class="text-decoration-none text-reset"><u>{{ manga.title }}</u></a></td>
                 {% if manga.status == "Plan to read" %}
                 <td>-</td>

@@ -1,61 +1,117 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="ms-2">
-    <dl class="row">
-        {% if manga.status == "Plan to read" %}
-        <dt class="col-sm-3">Title</dt>
-        <dd class="col-sm-9">{{ manga.title }}</dd>
-        <dt class="col-sm-3">Score</dt>
-        <dd class="col-sm-9">-</dd>
-        <dt class="col-sm-3">Volumes</dt>
-        <dd class="col-sm-9">-</dd>
-        <dt class="col-sm-3">Chapters</dt>
-        <dd class="col-sm-9">-</dd>
-        <dt class="col-sm-3">Start date</dt>
-        <dd class="col-sm-9">-</dd>
-        <dt class="col-sm-3">End Date</dt>
-        <dd class="col-sm-9">-</dd>
-        <dt class="col-sm-3">Status</dt>
-        <dd class="col-sm-9">{{ manga.status }}</dd>
-        {% else %}
-        <dt class="col-sm-3">Title</dt>
-        <dd class="col-sm-9">{{ manga.title }}</dd>
-        <dt class="col-sm-3">Score</dt>
-        <dd class="col-sm-9">{{ manga.score }}</dd>
-        <dt class="col-sm-3">Volumes</dt>
-        {% if manga.volume == 0 %}
-        <dd class="col-sm-9">-</dd>
-        {% else %}
-        <dd class="col-sm-9">{{ manga.volume }}</dd>
-        {% endif %}
-        <dt class="col-sm-3">Chapters</dt>
-        {% if manga.chapter == 0 %}
-        <dd class="col-sm-9">-</dd>
-        {% else %}
-        <dd class="col-sm-9">{{ manga.chapter }}</dd>
-        {% endif %}
-        <dt class="col-sm-3">Start date</dt>
-        {% if manga.start_date == date %}
-        <dd class="col-sm-9">-</dd>
-        {% else %}
-        <dd class="col-sm-9">{{ manga.start_date }}</dd>
-        {% endif %}
-        <dt class="col-sm-3">End Date</dt>
-        {% if manga.end_date == date %}
-        <dd class="col-sm-9">-</dd>
-        {% else %}
-        <dd class="col-sm-9">{{ manga.end_date }}</dd>
-        {% endif %}
-        <dt class="col-sm-3">Status</dt>
-        <dd class="col-sm-9">{{ manga.status }}</dd>
-        {% endif %}
-    </dl>
-</div>
-<div class="ms-2">
-    <a href="{{ url_for('mangas.update_manga', manga_id=manga.id) }}" class="btn btn-secondary btn-sm">Update</a>
-    <button type="button" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal"
-        data-bs-target="#deleteModal">Delete</button>
-</div>
+<div>
+    <legend class="p-3">
+        {{ legend }}
+    </legend>
+    <div class="px-3">
+        <form action="" method="post" class="row g-3">
+            {{ form.hidden_tag() }}
+            <div class="col-md-12">
+                <label class="form-label">{{ form.title.label }}</label>
+                {% if form.title.errors %}
+                {{ form.title(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.title.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.title(class="form-control") }}
+                {% endif %}
+                <p class="text-muted">If the title is more than 100 characters, use first 100 characters</p>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">{{ form.start_date.label }}</label>
+                {% if form.start_date.errors %}
+                {{ form.start_date(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.start_date.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.start_date(class="form-control") }}
+                {% endif %}
+                <p class="text-muted">If you don't know Start Date, Enter 01-01-0001 in above field.</p>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">{{ form.end_date.label }}</label>
+                {% if form.end_date.errors %}
+                {{ form.end_date(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.end_date.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.end_date(class="form-control") }}
+                {% endif %}
+                <p class="text-muted">If you don't know End Date, Enter 01-01-0001 in above field</p>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{ form.volume.label }}</label>
+                {% if form.volume.errors %}
+                {{ form.volume(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.volume.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.volume(class="form-control") }}
+                {% endif %}
+                <p class="text-muted">If you haven't started the manga or the manga doesn't have any volumes, enter 0 (zero) in above field</p>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{ form.chapter.label }}</label>
+                {% if form.chapter.errors %}
+                {{ form.chapter(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.chapter.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.chapter(class="form-control") }}
+                {% endif %}
+                <p class="text-muted">If you haven't started the manga, enter 0 (zero) in above field</p>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{ form.score.label }}</label>
+                {% if form.score.errors %}
+                {{ form.score(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.score.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.score(class="form-control") }}
+                {% endif %}
+                <p class="text-muted">Currently, due to a bug, the scores get reset to 0. You have to set your score everytime you update your manga.</p>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">{{ form.status.label }}</label>
+                {% if form.status.errors %}
+                {{ form.status(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.status.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.status(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="btn-group form my-3" role="group" aria-label="Basic mixed styles example">
+                {{ form.update(class="btn btn-info px-auto") }}
+                <a href="{{ url_for('main.home') }}" class="btn btn-secondary">Go Back</a>
+                <button type="button" class="btn btn-danger px-auto" data-bs-toggle="modal"
+                    data-bs-target="#deleteModal">Delete</button>
+              </div>
+        </form>
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">

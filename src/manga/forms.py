@@ -24,3 +24,4 @@ class MangaForm(FlaskForm):
         ],
     )
     submit = SubmitField("Add")
+    update = SubmitField("Update")
