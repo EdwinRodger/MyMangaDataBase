@@ -61,7 +61,8 @@
                 {% else %}
                 {{ form.volume(class="form-control") }}
                 {% endif %}
-                <p class="text-muted">If you haven't started the manga or the manga doesn't have any volumes, enter 0 (zero) in above field</p>
+                <p class="text-muted">If you haven't started the manga or the manga doesn't have any volumes, enter 0
+                    (zero) in above field</p>
             </div>
             <div class="col-md-4">
                 <label class="form-label">{{ form.chapter.label }}</label>
@@ -89,7 +90,8 @@
                 {% else %}
                 {{ form.score(class="form-control") }}
                 {% endif %}
-                <p class="text-muted">Currently, due to a bug, the scores get reset to 0. You have to set your score everytime you update your manga.</p>
+                <p class="text-muted">Currently, due to a bug, the scores get reset to 0. You have to set your score
+                    everytime you update your manga.</p>
             </div>
             <div class="col-md-12">
                 <label class="form-label">{{ form.status.label }}</label>
@@ -109,7 +111,7 @@
                 <a href="{{ url_for('main.home') }}" class="btn btn-secondary">Go Back</a>
                 <button type="button" class="btn btn-danger px-auto" data-bs-toggle="modal"
                     data-bs-target="#deleteModal">Delete</button>
-              </div>
+            </div>
         </form>
     </div>
 </div>

@@ -60,7 +60,11 @@ def update_manga(manga_id):
         form.status.data = manga.status
         form.score.data = manga.score
     return render_template(
-        "manga_id.html", title="Edit Manga", form=form, manga=manga, legend="Update Manga"
+        "manga_id.html",
+        title="Edit Manga",
+        form=form,
+        manga=manga,
+        legend="Update Manga",
     )
 
 
