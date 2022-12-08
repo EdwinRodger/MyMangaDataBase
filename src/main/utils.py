@@ -3,6 +3,8 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 from zipfile import ZipFile
 
+from flask import flash, redirect, url_for
+
 from src import db
 from src.models import Manga
 
@@ -72,4 +74,8 @@ def extract_backup(filename):
         ZipFile(filename).extractall()
         os.remove(filename)
     elif filename.lower().endswith(".xml"):
-        extract_xml_backup(filename)
+        if filename.lower().startswith("animelist"):
+            flash("Select mangalist file to upload!", "danger")
+            return redirect(url_for("main.import_backup"))
+        else:
+            extract_xml_backup(filename)

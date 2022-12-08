@@ -45,9 +45,12 @@ def importbackup():
     if request.method == "POST":  # check if the method is post
         f = request.files["file"]  # get the file from the files object
         if f.filename == "":
-            flash("Choose a file to import", "danger")
+            flash("Choose a file to import!", "danger")
             return redirect(url_for("main.import_backup"))
-        else:
+        elif f.filename.lower().endswith((".zip", ".xml")):
             f.save(f.filename)  # this will secure the file
             extract_backup(f.filename)
+        else:
+            flash("Choose correct file to import!", "danger")
+            return redirect(url_for("main.import_backup"))
         return redirect(url_for("main.home"))  # Display thsi message after uploading
