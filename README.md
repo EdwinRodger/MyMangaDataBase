@@ -1,6 +1,15 @@
 # MyMangaDataBase
 
-One database to keep a track of all your mangas. MyMangaDataBase (or MMDB for short) is a free and open source program to track all your mangas. MMDB backend is made using Python and Flask with HTML, CSS and Jinja used as front-end.
+One database to keep a track of all your mangas.
+
+MyMangaDataBase (or MMDB for short) is
+
+- Free
+- Private
+- Open source and
+- Self Hosted application to track all your mangas.
+
+MMDB backend is made using Python(Flask) with HTML, CSS(Bootstrap) and Jinja used as front-end.
 
 ## Features
 
@@ -8,10 +17,10 @@ One database to keep a track of all your mangas. MyMangaDataBase (or MMDB for sh
 - [ ] Add Manga Cover
 - [ ] Better UI
 - [x] Dark Theme
-- [ ] Export [~~MMDB~~, MAL, AniList and Kitsu]
+- [ ] Export to MMDB, ~~MAL, AniList and Kitsu~~
 - [x] FOSS
-- [ ] Import [~~MMDB~~, MAL, AniList and Kitsu]
-- [ ] Cross Platform Support (Currently works only on Windows)
+- [ ] Import from MMDB, MAL, ~~AniList and Kitsu~~
+- [ ] Cross Platform (Currently works only on Windows)
 - [x] Responsive UI
 - [x] Sorting Mangas
 
