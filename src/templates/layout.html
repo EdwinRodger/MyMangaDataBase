@@ -24,11 +24,6 @@
         crossorigin="anonymous"></script>
 </head>
 
-<style>
-    :root {
-        color-scheme: dark;
-    }
-</style>
 
 <body class="bg-dark text-white" style="overflow: visible;">
     <div>
@@ -58,6 +53,11 @@
                                 target="_blank">Author</a>
                         </li>
                     </ul>
+                    <form method="POST" action="{{ url_for('mangas.search_manga')}}" class="d-flex .d-md-none">
+                        {{ navsearch.hidden_tag() }}
+                        {{ navsearch.search_field(class="form-control mx-1") }}
+                        {{ navsearch.search_button(class="btn btn-primary") }}
+                    </form>
                     <ul class="navbar-nav ms-auto pe-5">
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ url_for('mangas.new_manga') }}">New Manga</a>

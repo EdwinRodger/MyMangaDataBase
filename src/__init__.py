@@ -18,4 +18,12 @@ def create_app(config_class=Config):
     app.register_blueprint(mangas)
     app.register_blueprint(main)
 
+    from src.manga.forms import SearchBar
+
+    # Pass Stuff To Navbar
+    @app.context_processor
+    def base():
+        form = SearchBar()
+        return dict(navsearch=form)
+
     return app

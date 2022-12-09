@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from src import db
-from src.manga.forms import MangaForm
+from src.manga.forms import MangaForm, SearchBar
 from src.models import Manga
 
 mangas = Blueprint("mangas", __name__)
@@ -103,3 +103,20 @@ def add_one_volume(manga_id, number):
     manga.volume = number + 1
     db.session.commit()
     return redirect(url_for("main.home"))
+
+
+@mangas.route("/search", methods=["POST"])
+def search_manga():
+    form = SearchBar()
+    if form.validate_on_submit():
+        mangas = Manga.query.filter(
+            Manga.title.like(f"%{form.search_field.data}%")
+        ).all()
+        return render_template(
+            "home.html",
+            title=f"{form.search_field.data} Manga",
+            mangas=mangas,
+            date=date,
+        )
+    else:
+        return redirect(url_for("main.home"))
