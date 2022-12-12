@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.4.0
+
+### New
+
+- MyAnimeList import
+- Warning messages when uploading wrong kind of backups
+- Search Bar
+
+### Fixed/Updated
+
+- Updated edit manga page
+- Changed link for about page
+- External pages will now open in another tab
+- Updated import messages
+
+### Deleted
+
+- Removed untested code
+- About.html
+
 ## 1.3.0
 
 ### New
