@@ -24,7 +24,7 @@ today_date = datetime.date(datetime.today())
 @main.route("/")
 @main.route("/home")
 def home():
-    mangas = Manga.query.all()
+    mangas = Manga.query.order_by(Manga.title.name).all()
     return render_template("home.html", title="Home", mangas=mangas, date=date)
 
 
