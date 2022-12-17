@@ -30,7 +30,7 @@ def delete_export():
             os.remove(f"{backup}")
 
 
-def extract_xml_backup(filename):
+def extract_mal_backup(filename):
     tree = ET.parse(filename)
     root = tree.getroot()
     for manga in root.findall("manga"):
@@ -78,4 +78,4 @@ def extract_backup(filename):
             flash("Select mangalist file to upload!", "danger")
             return redirect(url_for("main.import_backup"))
         else:
-            extract_xml_backup(filename)
+            extract_mal_backup(filename)
