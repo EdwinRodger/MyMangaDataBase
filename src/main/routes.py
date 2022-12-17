@@ -10,7 +10,7 @@ from flask import (
     url_for,
 )
 
-from src.main.utils import export_backup, extract_backup
+from src.main.utils import export_mmdb_backup, extract_backup
 from src.models import Manga
 
 d = datetime.strptime("0001-01-01", "%Y-%m-%d")
@@ -30,7 +30,7 @@ def home():
 
 @main.route("/export")
 def export():
-    export_backup()
+    export_mmdb_backup()
     return send_file(f"MMDB-Export-{today_date}.zip")
 
 
