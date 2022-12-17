@@ -50,7 +50,7 @@ def extract_mmdb_backup(filename):
             score=value["score"],
         )
         db.session.add(manga)
-        db.session.commit()
+    db.session.commit()
     os.remove("manga.json")
     os.remove(filename)
 
@@ -91,7 +91,7 @@ def extract_mal_backup(filename):
             score=my_score,
         )
         db.session.add(manga)
-        db.session.commit()
+    db.session.commit()
 
 
 def extract_backup(filename):
@@ -111,8 +111,12 @@ def delete_export():
             os.remove(f"{backup}")
         if backup.endswith(".xml"):
             os.remove(f"{backup}")
+        if os.path.exists("manga.json"):
+            os.remove("manga.json")
     for backup in os.listdir("src/"):
         if "MMDB-Export-" in backup:
             os.remove(f"src\\{backup}")
         if backup.endswith(".xml"):
             os.remove(f"{backup}")
+        if os.path.exists("src\\manga.json"):
+            os.remove("src\\manga.json")
