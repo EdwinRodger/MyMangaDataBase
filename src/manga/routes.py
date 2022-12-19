@@ -104,7 +104,7 @@ def add_one_volume(manga_id, number):
     db.session.commit()
     return redirect(url_for("main.home"))
 
-
+# Searches manga in the database
 @mangas.route("/search", methods=["POST"])
 def search_manga():
     form = SearchBar()

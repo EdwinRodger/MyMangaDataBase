@@ -20,14 +20,14 @@ main = Blueprint("main", __name__)
 
 today_date = datetime.date(datetime.today())
 
-
+# Home Page
 @main.route("/")
 @main.route("/home")
 def home():
     mangas = Manga.query.order_by(Manga.title.name).all()
     return render_template("home.html", title="Home", mangas=mangas, date=date)
 
-
+# Downloads MMDB json export file
 @main.route("/export")
 def export():
     export_mmdb_backup()
@@ -39,7 +39,7 @@ def export():
 def import_backup():
     return render_template("import.html")
 
-
+# Imports backup based on file extension
 @main.route("/import/backup", methods=["GET", "POST"])
 def importbackup():
     if request.method == "POST":  # check if the method is post
