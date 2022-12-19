@@ -5,6 +5,7 @@ from webbrowser import open_new_tab
 
 
 def check_dotenv():
+    """Makes a .env file with secret_key and sqlalchemy_database_uri which is later used by flask to run"""
     if not os.path.exists(".env"):
         with open(".env", "w") as f:
             f.write(
@@ -13,6 +14,9 @@ def check_dotenv():
 
 
 def check_for_update():
+    """Checks for software update using github's api.
+    It reads api page contents and converts it into hash which is saved in `versionhash.txt` file. It repeats the process again when the program is opened and checks if the older session versionhash is eqaul to this session's versionhash, if it is equal then the program is up-to-date but if the hash changes that means a new version is published on github and this function prompts user to update to latest function by sending them to latest github release page.
+    """
     url = Request("https://api.github.com/repos/EdwinRodger/MyMangaDataBase/tags")
     response = urlopen(url).read()
     if not os.path.exists("versionhash.txt"):
