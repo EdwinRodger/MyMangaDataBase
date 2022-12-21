@@ -56,3 +56,5 @@ def importbackup():
             flash("Choose correct file to import!", "danger")
             return redirect(url_for("main.import_backup"))
         return redirect(url_for("main.home"))  # Display thsi message after uploading
+    else:
+        return redirect(url_for("main.import_backup"))  # Display thsi message after uploading 
