@@ -58,7 +58,7 @@ def update_manga(manga_id):
         form.volume.data = manga.volume
         form.chapter.data = manga.chapter
         form.status.data = manga.status
-        form.score.data = manga.score
+        form.score.data = str(manga.score)
     return render_template(
         "manga_id.html",
         title="Edit Manga",
@@ -103,6 +103,7 @@ def add_one_volume(manga_id, number):
     manga.volume = number + 1
     db.session.commit()
     return redirect(url_for("main.home"))
+
 
 # Searches manga in the database
 @mangas.route("/search", methods=["POST"])
