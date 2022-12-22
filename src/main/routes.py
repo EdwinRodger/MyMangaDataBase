@@ -9,7 +9,9 @@ from flask import (
     send_file,
     url_for,
 )
+from sqlalchemy import delete
 
+from src import db
 from src.main.utils import export_mmdb_backup, extract_backup
 from src.models import Manga
 
@@ -57,4 +59,15 @@ def importbackup():
             return redirect(url_for("main.import_backup"))
         return redirect(url_for("main.home"))  # Display thsi message after uploading
     else:
-        return redirect(url_for("main.import_backup"))  # Display thsi message after uploading 
+        return redirect(
+            url_for("main.import_backup")
+        )  # Display thsi message after uploading
+
+
+# Delete Database
+@main.route("/delete/database")
+def delete_database():
+    d = delete(Manga).where(Manga.id >= 0)
+    db.session.execute(d)
+    db.session.commit()
+    return redirect(url_for("main.home"))
