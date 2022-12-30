@@ -16,7 +16,7 @@ MMDB backend is made using Python(Flask) with HTML, CSS(Bootstrap) and Jinja use
 - [x] Add Manga
 - [ ] APIs to edit manga remotely
 - [ ] Better UI
-- [ ] Cross Platform (Currently works only on Windows)
+- [ ] Cross Platform (Currently works on Windows and Linux(tested using [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)))
 - [x] Dark Theme
 - [ ] Export to MMDB, ~~MAL, AniList and Kitsu~~
 - [x] FOSS
