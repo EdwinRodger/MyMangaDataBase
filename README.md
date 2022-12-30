@@ -28,8 +28,12 @@ MMDB backend is made using Python(Flask) with HTML, CSS(Bootstrap) and Jinja use
 
 ## How To Use
 
-- Install [python](https://www.python.org/downloads/release/python-3108/) for Windows OS (Currently unsupported for Mac and Linux systems)
-- Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest)
+- For Windows, install python from [Python website](https://www.python.org/downloads/release/python-3101/)
+- For Linux, the following command could be used to install Python directly:
+```linux
+$ sudo apt-get install python3.10
+```
+- Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest) (MyMangaDataBase-version.zip)
 - Extract the files from the zip folder
 - To run MMDB, Simply run `app_runner.py` file
 - This will automatically install pipenv and other required packages.
