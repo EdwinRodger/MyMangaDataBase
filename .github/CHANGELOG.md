@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.5.0
+
+### New
+
+- Basic comments and docstrings in code
+- Column for cover image (Though it only displays a default picture)
+- Delete database route
+- Linux support (Can be very buggy because it was tested using [WSL](https://learn.microsoft.com/en-us/windows/wsl/about))
+
+### Fixed/Updated
+- Better function names
+- Changed MMDB export to .json file from .db file
+- Drastically decrease the import time
+- Default sorting is now alphabetical
+- Updated packages
+- Updated information messages
+- Fixed a bug where score gets reset to zero every time you edit the manga
+- Updated pipenv run commands
+
+###### Released On: 01/01/2023
+
+---
+
 ## 1.4.0
 
 ### New
@@ -19,6 +42,8 @@
 
 - Removed untested code
 - About.html
+
+---
 
 ## 1.3.0
 
@@ -59,7 +84,7 @@
 
 - Made a working sh file for MacOS and Linux system
 
-#### Released On: 5-11-2022
+###### Released On: 5-11-2022
 
 ---
 
