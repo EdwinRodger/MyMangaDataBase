@@ -4,7 +4,7 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from src import db
 from src.manga.forms import MangaForm, SearchBar
-from src.manga.web_scraper import manga_metadata, manga_search
+from src.manga.web_scraper import manga_search
 from src.models import Manga
 
 mangas = Blueprint("mangas", __name__)
@@ -124,3 +124,14 @@ def search_manga():
         )
     else:
         return redirect(url_for("main.home"))
+
+
+# Syncs Manga Cover
+@mangas.route("/sync_cover")
+def sync_cover():
+    mangas = Manga.query.order_by(Manga.title.name).all()
+    for i in mangas:
+        metadata = manga_search(i.title)
+        i.cover = metadata[2]
+        db.session.commit()
+    return redirect(url_for("main.home"))
