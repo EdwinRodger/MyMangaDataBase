@@ -4,6 +4,7 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from src import db
 from src.manga.forms import MangaForm, SearchBar
+from src.manga.web_scraper import manga_metadata, manga_search
 from src.models import Manga
 
 mangas = Blueprint("mangas", __name__)
@@ -39,6 +40,7 @@ def new_manga():
 @mangas.route("/manga/<int:manga_id>/update", methods=["GET", "POST"])
 def update_manga(manga_id):
     manga = Manga.query.get_or_404(manga_id)
+    metadata = manga_search(manga.title)
     form = MangaForm()
     if form.validate_on_submit():
         manga.title = form.title.data
@@ -65,6 +67,7 @@ def update_manga(manga_id):
         form=form,
         manga=manga,
         legend="Update Manga",
+        metadata=metadata,
     )
 
 

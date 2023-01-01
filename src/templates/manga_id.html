@@ -1,5 +1,21 @@
 {% extends "layout.html" %}
 {% block body %}
+{% if metadata %}
+<div>
+    <div class="d-flex mx-3 py-3 bg-secondary">
+        <div class="ps-3">
+            <img src="{{metadata[2]}}" alt="Manga Cover">
+        </div>
+        <div class="ps-3">
+            <p>{{metadata[3]}}</p>
+            <p>Artist: {{metadata[0]}}</p>
+            <p>Author: {{metadata[1]}}</p>
+            <!-- Genre list comes in a list form and .join turns them into string with spaces between words -->
+            <p>Genre: {{" ".join(metadata[4][0:-2])}}</p>
+        </div>
+    </div>
+</div>
+{% endif %}
 <div>
     <legend class="p-3">
         {{ legend }}
