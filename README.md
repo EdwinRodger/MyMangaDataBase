@@ -23,7 +23,7 @@ MMDB backend is made using Python(Flask) with HTML, CSS(Bootstrap) and Jinja use
 - [ ] Import from MMDB, MAL, ~~AniList and Kitsu~~
 - [x] Responsive UI
 - [x] Self Hosted
-- [ ] Show Manga Cover
+- [x] Show Manga Cover
 - [x] Sorted Manga Categories
 
 ## How To Use
