@@ -42,9 +42,9 @@ def manga_search(title):
     soup = BeautifulSoup(response.content, "html.parser")
     # Getting div class of "Series Info" -> "Title" -> First Recommendation
     series = soup.find_all("div", class_="col-6 py-1 py-md-0 text")
-    # Getting 'a' tag from first recommendation div
+    # Getting <a> tag from first recommendation div
     atag = series[0].find_all("a")
-    # Getting URL from a tag's href
+    # Getting URL from <a> tag's href
     url = atag[0].get("href")
     # Calling manga_metadata function to return manga metadata
     return manga_metadata(url)
