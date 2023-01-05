@@ -66,3 +66,5 @@ Run `app_runner.py` to run the app. It will -
 To run the code perfectly, you can use any python version between 3.8 to 3.10 and this project is made in python version 3.10.1
 
 I tested MMDB on WSL which is basically linux environment in windows and the program is working fine on my end but I expect it to be buggy or worst, completly broken on actual linux system. If thats the case, open an issue on github and I will try to fix it.
+
+I used mangaupdates.com website to scrape a little bit of data like description, author name, genre etc. You can find the code [here](/src/manga/web_scraper.py)
