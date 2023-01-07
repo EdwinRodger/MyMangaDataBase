@@ -40,7 +40,10 @@ def new_manga():
 @mangas.route("/manga/<int:manga_id>/update", methods=["GET", "POST"])
 def update_manga(manga_id):
     manga = Manga.query.get_or_404(manga_id)
-    metadata = manga_search(manga.title)
+    try:
+        metadata = manga_search(manga.title)
+    except:
+        metadata = ["No Internet Connection", "No Internet Connection", "No Internet Connection", "No Internet Connection", "No Internet Connection"]
     form = MangaForm()
     if form.validate_on_submit():
         manga.title = form.title.data

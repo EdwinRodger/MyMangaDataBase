@@ -14,7 +14,10 @@ logger.setLevel(logging.INFO)
 
 if __name__ == "__main__":
     check_dotenv()
-    check_for_update()
+    try:
+        check_for_update()
+    except:
+        pass
     delete_export()
     with app.app_context():
         db.create_all()
