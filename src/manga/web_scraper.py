@@ -1,9 +1,24 @@
 import requests
 from bs4 import BeautifulSoup
+import shutil
+import os
+
+
+def image_downloader(img_url, title):
+    file_name = os.urandom(8).hex()
+    res = requests.get(img_url, stream=True)
+    if res.status_code == 200:
+        with open(f"src/static/manga_cover/{file_name}.jpg", "wb") as f:
+            shutil.copyfileobj(res.raw, f)
+        print("Image sucessfully Downloaded: ", title)
+        return f"{file_name}.jpg"
+    else:
+        print("Image Couldn't be retrieved", title)
+        return "default.png"
 
 
 # Collects metadata of manga from ManagUpdates which contains description, genres etc.
-def manga_metadata(url):
+def manga_metadata(url, title):
     # Making a GET request
     response = requests.get(url)
     # Parsing the HTML
@@ -22,7 +37,7 @@ def manga_metadata(url):
     # Getting Manga Description
     manga_description = manga_desc.text.strip()
     # After collecting all the images, Image on index 4 is the cover image of the manga
-    manga_cover_url = images[4].get("src").strip()
+    manga_cover = image_downloader(images[4].get("src").strip(), title)  # type: ignore
     # Index 1 on content consists of genre
     # .split is to remove last suggestion from the genre i.e. "Search for series of same genre(s)"
     manga_genre = content[1].text.split("\xa0")
@@ -31,7 +46,7 @@ def manga_metadata(url):
     # Index 6 on content consists of Artist
     manga_artist = content[6].text.strip()
 
-    return [manga_artist, manga_author, manga_cover_url, manga_description, manga_genre]
+    return [manga_artist, manga_author, manga_cover, manga_description, manga_genre]
 
 
 # Searches MangaUpdates for manga title and sends the first recommendation to manga_metadata function
@@ -47,4 +62,4 @@ def manga_search(title):
     # Getting URL from <a> tag's href
     url = atag[0].get("href")
     # Calling manga_metadata function to return manga metadata
-    return manga_metadata(url)
+    return manga_metadata(url, title)
