@@ -86,7 +86,7 @@ def delete_manga(manga_id):
 def sort_manga(sort_func):
     mangas = Manga.query.filter_by(status=sort_func).all()
     return render_template(
-        "sorted_manga.html", title=f"{sort_func} Manga", mangas=mangas, date=date
+        "home.html", title=f"{sort_func} Manga", mangas=mangas, date=date
     )
 
 
