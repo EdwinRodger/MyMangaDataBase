@@ -1,6 +1,6 @@
-from datetime import datetime
 import random
 import time
+from datetime import datetime
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 

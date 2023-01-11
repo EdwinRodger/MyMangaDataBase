@@ -1,7 +1,8 @@
+import os
+import shutil
+
 import requests
 from bs4 import BeautifulSoup
-import shutil
-import os
 
 
 def image_downloader(img_url, title):
