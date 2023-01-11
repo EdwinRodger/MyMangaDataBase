@@ -1,4 +1,6 @@
 from datetime import datetime
+import random
+import time
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
@@ -136,4 +138,6 @@ def sync_cover():
         i.description = metadata[3]
         i.tags = ", ".join(metadata[4][0:-2])
         db.session.commit()
+        # Using time.sleep to decrease the overloading on mangaupdates server
+        time.sleep(random.randrange(0, 4))
     return redirect(url_for("main.home"))
