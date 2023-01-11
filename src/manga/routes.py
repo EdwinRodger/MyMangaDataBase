@@ -130,11 +130,15 @@ def search_manga():
 
 
 # Syncs Manga Cover
-@mangas.route("/sync_cover")
+@mangas.route("/sync_manga")
 def sync_cover():
     mangas = Manga.query.order_by(Manga.title.name).all()
     for i in mangas:
         metadata = manga_search(i.title)
+        i.artist = metadata[0]
+        i.author = metadata[1]
         i.cover = metadata[2]
+        i.description = metadata[3]
+        i.tags = ", ".join(metadata[4][0:-2])
         db.session.commit()
     return redirect(url_for("main.home"))
