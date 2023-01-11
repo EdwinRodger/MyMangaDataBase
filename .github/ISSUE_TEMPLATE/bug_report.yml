@@ -42,7 +42,7 @@ body:
     id: MyMangaDataBase-version
     attributes:
       label: MyMangaDataBase version
-      description: You can find your MyMangaDataBase version in **More → About**.
+      description: You can find your MyMangaDataBase version written in folder name.
       placeholder: |
         Example: "1.5.0"
     validations:
