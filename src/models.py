@@ -11,8 +11,10 @@ class Manga(db.Model):  # type: ignore
     chapter = db.Column(db.Integer)
     score = db.Column(db.Integer)
     status = db.Column(db.String(20), nullable=False, default="Plan to read")
-    description = db.Column(db.String, default="lorem ipsum")
-    tags = db.Column(db.String, default="#lorem #ipsum")
+    description = db.Column(db.String)
+    tags = db.Column(db.String)
+    author = db.Column(db.String)
+    artist = db.Column(db.String)
 
     def __repr__(self):
         return f"Manga('{self.title}', '{self.start_date}', '{self.end_date}')"
