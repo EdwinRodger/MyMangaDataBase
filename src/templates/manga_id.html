@@ -11,7 +11,7 @@
             <p>Artist: {{metadata[0]}}</p>
             <p>Author: {{metadata[1]}}</p>
             <!-- Genre list comes in a list form and .join turns them into string with spaces between words -->
-            <p>Genre: {{" ".join(metadata[4][0:-2])}}</p>
+            <p>Genre: {{", ".join(metadata[4][0:-2])}}</p>
         </div>
     </div>
 </div>
