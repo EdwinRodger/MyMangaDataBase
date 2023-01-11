@@ -26,6 +26,11 @@ def export_mmdb_backup():
                 "chapter": f"{manga.chapter}",
                 "score": f"{manga.score}",
                 "status": f"{manga.status}",
+                "cover": f"{manga.cover}",
+                "description": f"{manga.description}",
+                "tags": f"{manga.tags}",
+                "author": f"{manga.author}",
+                "artist": f"{manga.artist}",
             }
             i += 1
         json.dump(dict, f, indent=4)
@@ -48,6 +53,11 @@ def extract_mmdb_backup(filename):
             chapter=value["chapter"],
             status=value["status"],
             score=value["score"],
+            cover=value["cover"],
+            description=value["description"],
+            tags=value["tags"],
+            author=value["author"],
+            artist=value["artist"],
         )
         db.session.add(manga)
     db.session.commit()
