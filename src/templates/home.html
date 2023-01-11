@@ -72,11 +72,8 @@
         <tbody>
             {% for manga in mangas %}
             <tr class="align-middle">
-                {% if manga.cover == "default.png" %}
-                    <td><img src="{{ url_for('static', filename='manga_cover/'+manga.cover) }}" alt="Manga Cover"></td>
-                {% else %}
-                    <td><img src="{{ manga.cover }}" alt="Manga Cover", style="height: 13vh; max-width: 65px;"></td>
-                {% endif %}
+                <td><img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}" alt="Manga Cover"
+                        style="height: 13vh; max-width: 65px;"></td>
                 <td><a href="{{ url_for('mangas.update_manga', manga_id=manga.id) }}"
                         class="text-decoration-none text-reset"><u>{{ manga.title }}</u></a></td>
                 {% if manga.status == "Plan to read" %}
