@@ -15,7 +15,7 @@ def image_downloader(img_url, title):
         return f"{file_name}.jpg"
     else:
         print("Image Couldn't be retrieved", title)
-        return "default.png"
+        return "default.svg"
 
 
 # Collects metadata of manga from ManagUpdates which contains description, genres etc.
