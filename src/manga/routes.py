@@ -41,7 +41,10 @@ def new_manga():
 # Update a Manga
 @mangas.route("/manga/<int:manga_id>/update", methods=["GET", "POST"])
 def update_manga(manga_id):
+    metadata = False
     manga = Manga.query.get_or_404(manga_id)
+    if manga.description != "None":
+        metadata = True
     form = MangaForm()
     if form.validate_on_submit():
         manga.title = form.title.data
@@ -68,6 +71,7 @@ def update_manga(manga_id):
         form=form,
         manga=manga,
         legend="Update Manga",
+        metadata=metadata,
     )
 
 
