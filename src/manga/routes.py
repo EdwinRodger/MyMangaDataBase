@@ -143,5 +143,5 @@ def sync_cover():
         i.tags = ", ".join(metadata[4][0:-2])
         db.session.commit()
         # Using time.sleep to decrease the overloading on mangaupdates server
-        time.sleep(random.randrange(0, 4))
+        time.sleep(random.randrange(0, 6))
     return redirect(url_for("main.home"))
