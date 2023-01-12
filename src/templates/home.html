@@ -70,10 +70,17 @@
             </tr>
         </thead>
         <tbody>
-            {% for manga in mangas %}
+
             <tr class="align-middle">
+                {% for manga in mangas %}
+                <!-- Hard coded cover to be a svg file instead of png file because of backwards compatibility -->
+                {% if manga.cover == "default.png" %}
+                <td><img src="{{ url_for('static', filename='manga_cover/default.svg') }}" alt="Manga Cover"
+                        style="height: 13vh; max-width: 65px;"></td>
+                {% else %}
                 <td><img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}" alt="Manga Cover"
                         style="height: 13vh; max-width: 65px;"></td>
+                {% endif %}
                 <td><a href="{{ url_for('mangas.update_manga', manga_id=manga.id) }}"
                         class="text-decoration-none text-reset"><u>{{ manga.title }}</u></a></td>
                 {% if manga.status == "Plan to read" %}
