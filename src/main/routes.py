@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 from flask import (
@@ -70,4 +71,11 @@ def delete_database():
     d = delete(Manga).where(Manga.id >= 0)
     db.session.execute(d)
     db.session.commit()
+    for root, _, files in os.walk("src\\static\\manga_cover\\"):
+        for file in files:
+            # Doing if file != "default.png/svg": is also delete those files but in if else block it is not deleting default files
+            if file == "default.png" or file == "default.svg":
+                pass
+            else:
+                os.remove(os.path.join(root, file))
     return redirect(url_for("main.home"))
