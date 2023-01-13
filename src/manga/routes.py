@@ -44,7 +44,7 @@ def new_manga():
 def update_manga(manga_id):
     metadata = False
     manga = Manga.query.get_or_404(manga_id)
-    if manga.description != "None":
+    if manga.description != None:
         metadata = True
     form = MangaForm()
     if form.validate_on_submit():
