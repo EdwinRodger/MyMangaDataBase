@@ -33,12 +33,12 @@ def manga_metadata(url, title):
     # Check for right side content which contais data of image, genre, author and artist
     content = side[1].find_all(class_="sContent")
     # Checks all image url on the webpage. It is used for cover of manga.
-    images = soup.select("img")
+    images = side[1].find_all(class_="img-fluid")
 
     # Getting Manga Description
     manga_description = manga_desc.text.strip()
-    # After collecting all the images, Image on index 4 is the cover image of the manga
-    manga_cover = image_downloader(images[4].get("src").strip(), title)  # type: ignore
+    # After collecting the image on right side (cover image), we send it to get downloaded.
+    manga_cover = image_downloader(images[0].get("src").strip(), title)
     # Index 1 on content consists of genre
     # .split is to remove last suggestion from the genre i.e. "Search for series of same genre(s)"
     manga_genre = content[1].text.split("\xa0")
