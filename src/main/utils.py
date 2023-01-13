@@ -35,6 +35,9 @@ def export_mmdb_backup():
             i += 1
         json.dump(dict, f, indent=4)
     with ZipFile(f"src\\MMDB-Export-{today_date}.zip", "w") as zf:
+        for root, _, files in os.walk("src\\static\\manga_cover\\"):
+            for file in files:
+                zf.write(os.path.join(root, file))
         zf.write(f"manga.json")
 
 
