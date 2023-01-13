@@ -130,9 +130,9 @@ def search_manga():
         return redirect(url_for("main.home"))
 
 
-# Syncs Manga Cover
-@mangas.route("/sync_manga")
-def sync_cover():
+# Updates metadata related to the manga
+@mangas.route("/update/metadata")
+def update_metadata():
     mangas = Manga.query.order_by(Manga.title.name).all()
     for i in mangas:
         metadata = manga_search(i.title)
