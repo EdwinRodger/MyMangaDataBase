@@ -1,3 +1,4 @@
+import os
 import random
 import time
 from datetime import datetime
@@ -135,6 +136,10 @@ def search_manga():
 def update_metadata():
     mangas = Manga.query.order_by(Manga.title.name).all()
     for i in mangas:
+        if i.cover == "default.png" or i.cover == "default.svg":
+            pass
+        else:
+            os.remove(f"src\\static\\manga_cover\\{i.cover}")
         metadata = manga_search(i.title)
         i.artist = metadata[0]
         i.author = metadata[1]
