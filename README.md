@@ -17,7 +17,7 @@ MMDB backend is made using Python(Flask) with HTML, CSS(Bootstrap) and Jinja use
 - [ ] APIs to edit manga remotely
 - [ ] Better UI
 - [ ] Cross Platform (Currently works on Windows and Linux(tested using [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)))
-- [ ] customizable
+- [ ] Customizable
 - [x] Dark Theme
 - [ ] Export to MMDB, ~~MAL, AniList and Kitsu~~
 - [x] FOSS
@@ -69,3 +69,5 @@ To run the code perfectly, you can use any python version between 3.8 to 3.10 an
 I tested MMDB on WSL which is basically linux environment in windows and the program is working fine on my end but I expect it to be buggy or worst, completly broken on actual linux system. If thats the case, open an issue on github and I will try to fix it.
 
 I used mangaupdates.com website to scrape a little bit of data like description, author name, genre etc. You can find the code [here](/src/manga/web_scraper.py)
+
+I didn't learned javascript yet and that is why this project doesn't have js in it and every function is done in python
