@@ -1,4 +1,5 @@
 import logging
+import sys
 from webbrowser import open_new_tab
 
 import waitress
@@ -21,6 +22,9 @@ if __name__ == "__main__":
     delete_export()
     with app.app_context():
         db.create_all()
-    print("\nopening http://127.0.0.1:6070\n")
-    open_new_tab("http://127.0.0.1:6070")
-    waitress.serve(app=app, host="127.0.0.1", port=6070)
+    if "--development" in sys.argv:
+        app.run(port=6070, debug=True)
+    if len(sys.argv) == 1:
+        print("\nopening http://127.0.0.1:6070\n")
+        open_new_tab("http://127.0.0.1:6070")
+        waitress.serve(app=app, host="127.0.0.1", port=6070)

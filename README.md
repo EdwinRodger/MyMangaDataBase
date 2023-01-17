@@ -62,6 +62,12 @@ Run `app_runner.py` to run the app. It will -
 3. Install other packages in that virtual environment if not already installed
 4. Automatically run the app on port 6070 in default browser
 
+Alternatively -
+1. Install [pipenv](https://pipenv.pypa.io/en/latest/) package if not already installed
+2. Run command `pipenv install`
+3. Run command `app.py --development`
+4. Open `http://127.0.0.1:6070/` in browser
+
 ## TLDR
 
 To run the code perfectly, you can use any python version between 3.8 to 3.10 and this project is made in python version 3.10.1
