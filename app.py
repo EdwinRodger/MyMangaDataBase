@@ -28,6 +28,9 @@ def checks():
 
 
 def run_app():
+    if "--development" in sys.argv:
+        app.run(port=6070, debug=True)
+        quit(0)
     print("\nopening http://127.0.0.1:6070\n")
     open_new_tab("http://127.0.0.1:6070")
     if "--logging" in sys.argv:

@@ -1,10 +1,14 @@
 import errno
 import os
 
-import typer
+try:
+    import typer
+except ModuleNotFoundError:
+    print("typer module not found!")
+    print("Installing typer")
+    os.system("pip install typer")
+    import typer
 
-from app import checks
-from src import create_app
 
 VERSION = "1.5.0"
 
@@ -14,9 +18,7 @@ def run_mmdb(development: bool = False, version: bool = False, logging: bool = F
         print(VERSION)
         quit(0)
     if development:
-        checks()
-        create_app().run(port=6070, debug=True)
-        quit(0)
+        os.system("pipenv run app.py --development")
     if os.path.exists("Pipfile"):
         if os.path.exists("Pipfile.lock"):
             print(f"Starting MyMangaDataBase {VERSION}! Please wait...")
