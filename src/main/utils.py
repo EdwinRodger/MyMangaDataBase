@@ -72,14 +72,13 @@ def extract_mal_backup(filename):
     tree = ET.parse(filename)
     root = tree.getroot()
     for manga in root.findall("manga"):
-        # There is "# type: ignore" for .text but it all works in practical
-        manga_title = manga.find("manga_title").text  # type: ignore
-        my_read_volumes = manga.find("my_read_volumes").text  # type: ignore
-        my_read_chapters = manga.find("my_read_chapters").text  # type: ignore
-        my_start_date = manga.find("my_start_date").text  # type: ignore
-        my_finish_date = manga.find("my_finish_date").text  # type: ignore
-        my_score = manga.find("my_score").text  # type: ignore
-        my_status = manga.find("my_status").text  # type: ignore
+        manga_title = manga.find("manga_title").text
+        my_read_volumes = manga.find("my_read_volumes").text
+        my_read_chapters = manga.find("my_read_chapters").text
+        my_start_date = manga.find("my_start_date").text
+        my_finish_date = manga.find("my_finish_date").text
+        my_score = manga.find("my_score").text
+        my_status = manga.find("my_status").text
         if my_start_date == "0000-00-00":
             my_start_date = "0001-01-01"
             my_start_date = datetime.strptime(my_start_date, "%Y-%m-%d")

@@ -1,7 +1,7 @@
 from src import db
 
 
-class Manga(db.Model):  # type: ignore
+class Manga(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cover = db.Column(db.String, nullable=False, default="default.svg")
     title = db.Column(db.String(100), nullable=False)
