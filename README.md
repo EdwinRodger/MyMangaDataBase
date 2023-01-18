@@ -29,12 +29,8 @@ MMDB backend is made using Python(Flask) with HTML, CSS(Bootstrap) and Jinja use
 
 ## How To Use
 
-- For Windows, install python from [Python website](https://www.python.org/downloads/release/python-3101/)
-- For Linux, the following command could be used to install Python directly:
-```linux
-$ sudo apt-get install python3.10
-```
-- Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest) (MyMangaDataBase-version.zip)
+- Install python 3.10 for [Windows](https://www.python.org/downloads/release/python-3101/) or [Linux](https://tecadmin.net/how-to-install-python-3-10-on-ubuntu-debian-linuxmint/) based on your OS
+- Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest) (MyMangaDataBase-{version}.zip)
 - Extract the files from the zip folder
 - To run MMDB, Simply run `app_runner.py` file
 - This will automatically install pipenv and other required packages.
@@ -47,8 +43,6 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md)
 MyMangaDataBase is made in [python 3.10](https://www.python.org/downloads/release/python-3101/) and can be run on python>=3.8
 
 You can download the repository by going into 'Code' and then clicking 'Download ZIP' or just click [here](https://github.com/EdwinRodger/MyMangaDataBase/archive/refs/heads/main.zip) to download the same zip file
-
-Don't want to download the code? No worries!
 
 If you have [git](https://git-scm.com/) installed on your device, you can clone the github repository by running the command below into your terminal -
 
@@ -63,10 +57,8 @@ Run `app_runner.py` to run the app. It will -
 4. Automatically run the app on port 6070 in default browser
 
 Alternatively -
-1. Install [pipenv](https://pipenv.pypa.io/en/latest/) package if not already installed
-2. Run command `pipenv install`
-3. Run command `app.py --development`
-4. Open `http://127.0.0.1:6070/` in browser
+1. Run command `app_runner.py --development`
+2. Open `http://127.0.0.1:6070/` in browser
 
 ## TLDR
 
