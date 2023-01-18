@@ -20,24 +20,18 @@ def run_mmdb(development: bool = False, version: bool = False, logging: bool = F
     if development:
         os.system("pipenv run app.py --development")
     if os.path.exists("Pipfile"):
-        if os.path.exists("Pipfile.lock"):
-            print(f"Starting MyMangaDataBase {VERSION}! Please wait...")
-            if logging:
-                os.system("pipenv run python app.py --logging")
-            else:
-                os.system("pipenv run python app.py")
-        else:
+        if not os.path.exists("Pipfile.lock"):
             print("\nInstalling 'pipenv' to make virtual environment\n")
             os.system("pip install pipenv")
             print(
                 "\nCreating virtual environment and installing required packages from pipfile via pipenv\n"
             )
             os.system("pipenv install")
-            print(f"\nStarting MyMangaDataBase {VERSION}! Please wait...\n")
-            if logging:
-                os.system("pipenv run python app.py --logging")
-            else:
-                os.system("pipenv run python app.py")
+        print(f"Starting MyMangaDataBase {VERSION}! Please wait...\n")
+        if logging:
+            os.system("pipenv run python app.py --logging")
+        else:
+            os.system("pipenv run python app.py")
     else:
         raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), "Pipfile")
 
