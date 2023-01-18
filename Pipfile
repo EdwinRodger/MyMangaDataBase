@@ -12,6 +12,7 @@ python-dotenv = "*"
 waitress = "*"
 beautifulsoup4 = "*"
 paste = "*"
+typer = "*"
 
 [dev-packages]
 black = "*"
