@@ -11,7 +11,8 @@ from src.utils import check_dotenv, check_for_update
 
 app = create_app()
 
-if __name__ == "__main__":
+
+def checks():
     check_dotenv()
     try:
         check_for_update()
@@ -20,6 +21,9 @@ if __name__ == "__main__":
     delete_export()
     with app.app_context():
         db.create_all()
+
+
+def run_app():
     if "--development" in sys.argv:
         app.run(port=6070, debug=True)
     if len(sys.argv) == 1:
@@ -28,3 +32,8 @@ if __name__ == "__main__":
         waitress.serve(
             TransLogger(app, setup_console_handler=False), host="127.0.0.1", port=6070
         )
+
+
+if __name__ == "__main__":
+    checks()
+    run_app()
