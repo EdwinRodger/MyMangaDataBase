@@ -13,6 +13,7 @@ waitress = "*"
 beautifulsoup4 = "*"
 paste = "*"
 typer = "*"
+requests = "*"
 
 [dev-packages]
 black = "*"
