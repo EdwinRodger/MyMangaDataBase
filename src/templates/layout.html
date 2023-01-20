@@ -19,6 +19,7 @@
     <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
@@ -38,36 +39,77 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ url_for('main.home') }}">Home</a>
+                            <a class="nav-link text-white" href="{{ url_for('mangas.new_manga') }}">
+                                <i class="bi bi-database-add"></i>
+                                New Manga
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="https://edwinrodger.github.io/MyMangaDataBase/"
-                                target="_blank">About</a>
+                            <a class="nav-link text-white" href="{{ url_for('main.import_backup') }}">
+                                <i class="bi bi-database-down"></i>
+                                Import
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="https://github.com/EdwinRodger/MyMangaDataBase"
-                                target="_blank">Code</a>
+                            <a class="nav-link text-white" href="{{ url_for('main.export') }}">
+                                <i class="bi bi-database-up"></i>
+                                Export
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="https://edwinrodger.github.io"
-                                target="_blank">Author</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-info-square"></i>
+                                Info
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark mb-3">
+                                <li>
+                                    <a class="dropdown-item" href="https://edwinrodger.github.io/MyMangaDataBase/"
+                                        target="_blank">
+                                        <i class="bi bi-question-circle"></i>
+                                        About MMDB
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="https://edwinrodger.github.io" target="_blank">
+                                        <i class="bi bi-file-person"></i>
+                                        Author
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="https://github.com/EdwinRodger/MyMangaDataBase"
+                                        target="_blank">
+                                        <i class="bi bi-code-square"></i>
+                                        Source Code
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item"
+                                        href="https://github.com/EdwinRodger/MyMangaDataBase/blob/main/.github/CHANGELOG.md"
+                                        target="_blank">
+                                        <i class="bi bi-card-list"></i>
+                                        Changelog
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item"
+                                        href="https://github.com/EdwinRodger/MyMangaDataBase/issues" target="_blank">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        Issues
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
-                    <form method="POST" action="{{ url_for('mangas.search_manga')}}" class="d-flex .d-md-none">
-                        {{ navsearch.hidden_tag() }}
-                        {{ navsearch.search_field(class="form-control mx-1") }}
-                        {{ navsearch.search_button(class="btn btn-primary") }}
-                    </form>
                     <ul class="navbar-nav ms-auto pe-5">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ url_for('mangas.new_manga') }}">New Manga</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ url_for('main.import_backup') }}">Import</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ url_for('main.export') }}">Export</a>
-                        </li>
+                        <form method="POST" action="{{ url_for('mangas.search_manga')}}" class="d-flex">
+                            {{ navsearch.hidden_tag() }}
+                            {{ navsearch.search_field(class="form-control mx-1", placeholder="Search") }}
+                            {{ navsearch.search_button(class="btn btn-primary") }}
+                        </form>
                     </ul>
                 </div>
             </div>
