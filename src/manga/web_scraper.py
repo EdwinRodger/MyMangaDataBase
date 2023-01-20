@@ -11,10 +11,10 @@ def image_downloader(img_url, title):
     if res.status_code == 200:
         with open(f"src/static/manga_cover/{file_name}.jpg", "wb") as f:
             shutil.copyfileobj(res.raw, f)
-        print("Image sucessfully Downloaded: ", title)
+        print("Image sucessfully downloaded: ", title)
         return f"{file_name}.jpg"
     else:
-        print("Image Couldn't be retrieved", title)
+        print("Image couldn't be retrieved", title)
         return "default.svg"
 
 
@@ -38,7 +38,11 @@ def manga_metadata(url, title):
     # Getting Manga Description
     manga_description = manga_desc.text.strip()
     # After collecting the image on right side (cover image), we send it to get downloaded.
-    manga_cover = image_downloader(images[0].get("src").strip(), title)
+    try:
+        manga_cover = image_downloader(images[0].get("src").strip(), title)
+    except IndexError:
+        print("Image couldn't be retrieved: ", title)
+        manga_cover = "default.svg"
     # Index 1 on content consists of genre
     # .split is to remove last suggestion from the genre i.e. "Search for series of same genre(s)"
     manga_genre = content[1].text.split("\xa0")
