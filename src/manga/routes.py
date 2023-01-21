@@ -10,6 +10,9 @@ from src.manga.forms import MangaForm, SearchBar
 from src.manga.web_scraper import manga_search
 from src.models import Manga
 
+from configparser import ConfigParser
+
+
 mangas = Blueprint("mangas", __name__)
 
 d = datetime.strptime("0001-01-01", "%Y-%m-%d")
@@ -90,8 +93,12 @@ def delete_manga(manga_id):
 @mangas.route("/sort/<string:sort_func>")
 def sort_manga(sort_func):
     mangas = Manga.query.filter_by(status=sort_func).all()
+    file = "config.ini"
+    config = ConfigParser()
+    config.read(file)
+    show = config["UserInterface"]
     return render_template(
-        "home.html", title=f"{sort_func} Manga", mangas=mangas, date=date
+        "home.html", title=f"{sort_func} Manga", mangas=mangas, date=date, show=show
     )
 
 

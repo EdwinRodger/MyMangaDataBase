@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="content-section">
+    <form action="" method="post" class="m-sm-5 p-sm-5 border border-opacity-25 rounded-4 p-2 mt-3">
+        {{ form.hidden_tag() }}
+        <fieldset>
+            <legend class="border-bottom mb-4">
+                {{ legend }}
+            </legend>
+            <div class="form mb-3">
+                {{ form.default_status_to_show.label(class="form-label") }}
+                {{ form.default_status_to_show(class="form-control form-control-lg") }}
+            </div>
+            <div class="d-flex form mb-3">
+                {{ form.show_cover.label(class="form-label")}}&emsp;
+                {{ form.show_cover(class="form-select-sm ") }}
+            </div>
+            <div class="d-flex form mb-3">
+                {{ form.show_score.label(class="form-label")}}&emsp;
+                {{ form.show_score(class="form-select-sm ") }}
+            </div>
+            <div class="d-flex form mb-3">
+                {{ form.show_volume.label(class="form-label")}}&emsp;
+                {{ form.show_volume(class="form-select-sm ") }}
+            </div>
+            <div class="d-flex form mb-3">
+                {{ form.show_chapter.label(class="form-label")}}&emsp;
+                {{ form.show_chapter(class="form-select-sm ") }}
+            </div>
+            <div class="d-flex form mb-3">
+                {{ form.show_start_date.label(class="form-label")}}&emsp;
+                {{ form.show_start_date(class="form-select-sm ") }}
+            </div>
+            <div class="d-flex form mb-3">
+                {{ form.show_end_date.label(class="form-label")}}&emsp;
+                {{ form.show_end_date(class="form-select-sm ") }}
+            </div>
+            <div class="d-flex form mb-3">
+                {{ form.show_status.label(class="form-label")}}&emsp;
+                {{ form.show_status(class="form-select-sm ") }}
+            </div>
+        </fieldset>
+        <div class="form mb-3 mt-3">
+            {{ form.update(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+{% endblock body %}

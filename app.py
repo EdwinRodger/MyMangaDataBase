@@ -9,6 +9,7 @@ from src import create_app, db
 from src.main.utils import delete_export
 from src.models import Manga
 from src.utils import check_for_update
+from src.config import check_config
 
 app = create_app()
 
@@ -17,6 +18,7 @@ logger.setLevel(logging.CRITICAL)
 
 
 def checks():
+    check_config()
     try:
         check_for_update()
     except:

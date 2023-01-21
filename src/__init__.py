@@ -14,9 +14,11 @@ def create_app(config_class=Config):
 
     from src.main.routes import main
     from src.manga.routes import mangas
+    from src.settings.routes import setting
 
     app.register_blueprint(mangas)
     app.register_blueprint(main)
+    app.register_blueprint(setting)
 
     from src.manga.forms import SearchBar
 

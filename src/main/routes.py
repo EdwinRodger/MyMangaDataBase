@@ -1,6 +1,8 @@
 import os
 from datetime import datetime
 
+from configparser import ConfigParser
+
 from flask import (
     Blueprint,
     flash,
@@ -23,12 +25,34 @@ main = Blueprint("main", __name__)
 
 today_date = datetime.date(datetime.today())
 
-# Home Page
+# Redirects to page based on user's default_status_to_show setting
 @main.route("/")
+def page_selector():
+    file = "config.ini"
+    config = ConfigParser()
+    config.read(file)
+    if config["UserInterface"]["default_status_to_show"] == "All":
+        return redirect(url_for("main.home"))
+    else:
+        return redirect(
+            url_for(
+                "mangas.sort_manga",
+                sort_func=config["UserInterface"]["default_status_to_show"],
+            )
+        )
+
+
+# Home Page
 @main.route("/home")
 def home():
     mangas = Manga.query.order_by(Manga.title.name).all()
-    return render_template("home.html", title="Home", mangas=mangas, date=date)
+    file = "config.ini"
+    config = ConfigParser()
+    config.read(file)
+    show = config["UserInterface"]
+    return render_template(
+        "home.html", title="Home", mangas=mangas, date=date, show=show
+    )
 
 
 # Downloads MMDB json export file
