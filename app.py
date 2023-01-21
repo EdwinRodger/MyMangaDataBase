@@ -8,7 +8,7 @@ from paste.translogger import TransLogger
 from src import create_app, db
 from src.main.utils import delete_export
 from src.models import Manga
-from src.utils import check_dotenv, check_for_update
+from src.utils import check_for_update
 
 app = create_app()
 
@@ -17,7 +17,6 @@ logger.setLevel(logging.CRITICAL)
 
 
 def checks():
-    check_dotenv()
     try:
         check_for_update()
     except:
