@@ -39,6 +39,7 @@ def export_mmdb_backup():
             for file in files:
                 zf.write(os.path.join(root, file))
         zf.write(f"manga.json")
+        zf.write(f"config.ini")
 
 
 def extract_mmdb_backup(filename):
