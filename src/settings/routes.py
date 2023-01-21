@@ -4,15 +4,14 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from src.settings.forms import SettingsForm
 
-file = "config.ini"
-config = ConfigParser()
-config.read(file)
-
 setting = Blueprint("setting", __name__)
 
 # Home Page
 @setting.route("/settings", methods=["GET", "POST"])
 def settings():
+    file = "config.ini"
+    config = ConfigParser()
+    config.read(file)
     form = SettingsForm()
     if form.validate_on_submit():
         config["UserInterface"]["default_status_to_show"] = str(
