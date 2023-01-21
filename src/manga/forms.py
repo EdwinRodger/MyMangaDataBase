@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, Length
 
 
 class MangaForm(FlaskForm):
-    title = StringField("Title", validators=[DataRequired(), Length(min=2, max=100)])
+    title = StringField("Title", validators=[DataRequired(), Length(min=2)])
     cover = FileField("Cover Image", validators=[FileAllowed(["jpg", "png"])])
     start_date = DateField("Start Date")
     end_date = DateField("End Date")

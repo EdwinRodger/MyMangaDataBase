@@ -4,7 +4,7 @@ from src import db
 class Manga(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cover = db.Column(db.String, nullable=False, default="default.svg")
-    title = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String, nullable=False)
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
     volume = db.Column(db.Integer)
