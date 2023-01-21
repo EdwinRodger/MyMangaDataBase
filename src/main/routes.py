@@ -1,7 +1,6 @@
 import os
-from datetime import datetime
-
 from configparser import ConfigParser
+from datetime import datetime
 
 from flask import (
     Blueprint,

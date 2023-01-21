@@ -1,7 +1,6 @@
 import os
 from configparser import ConfigParser
 
-
 file = "config.ini"
 config = ConfigParser()
 

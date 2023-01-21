@@ -1,6 +1,7 @@
 import os
 import random
 import time
+from configparser import ConfigParser
 from datetime import datetime
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
@@ -9,9 +10,6 @@ from src import db
 from src.manga.forms import MangaForm, SearchBar
 from src.manga.web_scraper import manga_search
 from src.models import Manga
-
-from configparser import ConfigParser
-
 
 mangas = Blueprint("mangas", __name__)
 

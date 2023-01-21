@@ -6,10 +6,10 @@ import waitress
 from paste.translogger import TransLogger
 
 from src import create_app, db
+from src.config import check_config
 from src.main.utils import delete_export
 from src.models import Manga
 from src.utils import check_for_update
-from src.config import check_config
 
 app = create_app()
 

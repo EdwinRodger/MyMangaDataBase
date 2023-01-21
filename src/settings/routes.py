@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, request
 from configparser import ConfigParser
+
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+
 from src.settings.forms import SettingsForm
 
 file = "config.ini"
