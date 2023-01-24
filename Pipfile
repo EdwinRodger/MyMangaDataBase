@@ -12,7 +12,6 @@ python-dotenv = "*"
 waitress = "*"
 beautifulsoup4 = "*"
 paste = "*"
-typer = "*"
 requests = "*"
 
 [dev-packages]
