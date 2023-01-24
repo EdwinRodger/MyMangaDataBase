@@ -1,5 +1,6 @@
 import errno
 import os
+from typing import Optional
 
 try:
     import typer
@@ -16,14 +17,15 @@ VERSION = "1.5.0"
 
 
 def MMDB_CLI(
-    version: bool = typer.Option(
-        False, help="Show current version of program and exit."
+    version: Optional[bool] = typer.Option(
+        None, help="Show current version of program and exit."
     ),
-    development: bool = typer.Option(
-        False, help="Turns on Flask development environment."
+    development: Optional[bool] = typer.Option(
+        None, help="Turns on Flask development environment and debugger."
     ),
-    logging: bool = typer.Option(
-        False, help="Enables logs in the Apache Combined Log Format for that session."
+    logging: Optional[bool] = typer.Option(
+        None,
+        help="Show logs in terminal in the Apache Combined Log Format for that session.",
     ),
 ):
     if version:
@@ -50,5 +52,4 @@ def MMDB_CLI(
         raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), "Pipfile")
 
 
-if __name__ == "__main__":
-    typer.run(MMDB_CLI)
+typer.run(MMDB_CLI)
