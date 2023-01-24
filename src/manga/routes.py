@@ -121,6 +121,10 @@ def add_one_volume(manga_id, number):
 # Searches manga in the database
 @mangas.route("/search", methods=["POST"])
 def search_manga():
+    file = "config.ini"
+    config = ConfigParser()
+    config.read(file)
+    show = config["UserInterface"]
     form = SearchBar()
     if form.validate_on_submit():
         mangas = Manga.query.filter(
@@ -131,6 +135,7 @@ def search_manga():
             title=f"{form.search_field.data} Manga",
             mangas=mangas,
             date=date,
+            show=show,
         )
     else:
         return redirect(url_for("main.page_selector"))
