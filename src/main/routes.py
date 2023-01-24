@@ -81,7 +81,9 @@ def importbackup():
         else:
             flash("Choose correct file to import!", "danger")
             return redirect(url_for("main.import_backup"))
-        return redirect(url_for("main.home"))  # Display thsi message after uploading
+        return redirect(
+            url_for("main.page_selector")
+        )  # Display thsi message after uploading
     else:
         return redirect(
             url_for("main.import_backup")
@@ -101,4 +103,4 @@ def delete_database():
                 pass
             else:
                 os.remove(os.path.join(root, file))
-    return redirect(url_for("main.home"))
+    return redirect(url_for("main.page_selector"))

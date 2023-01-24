@@ -12,7 +12,6 @@ except ModuleNotFoundError:
 
 from rich import print
 
-
 VERSION = "1.5.0"
 
 

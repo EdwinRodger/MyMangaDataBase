@@ -34,7 +34,7 @@ def new_manga():
         db.session.add(manga)
         db.session.commit()
         flash(f"{form.title.data} is added!", "success")
-        return redirect(url_for("main.home"))
+        return redirect(url_for("main.page_selector"))
     return render_template(
         "create_manga.html", title="New Manga", form=form, legend="New Manga"
     )
@@ -58,7 +58,7 @@ def update_manga(manga_id):
         manga.score = form.score.data
         db.session.commit()
         flash("Your manga has been updated!", "success")
-        return redirect(url_for("main.home"))
+        return redirect(url_for("main.page_selector"))
     elif request.method == "GET":
         form.title.data = manga.title
         form.start_date.data = manga.start_date
@@ -84,7 +84,7 @@ def delete_manga(manga_id):
     db.session.delete(manga)
     db.session.commit()
     flash("Your manga has been Obliterated!", "success")
-    return redirect(url_for("main.home"))
+    return redirect(url_for("main.page_selector"))
 
 
 # Sort The Manga
@@ -106,7 +106,7 @@ def add_one_chapter(manga_id, number):
     manga = Manga.query.get_or_404(manga_id)
     manga.chapter = number + 1
     db.session.commit()
-    return redirect(url_for("main.home"))
+    return redirect(url_for("main.page_selector"))
 
 
 # Add One Volume To The Manga
@@ -115,7 +115,7 @@ def add_one_volume(manga_id, number):
     manga = Manga.query.get_or_404(manga_id)
     manga.volume = number + 1
     db.session.commit()
-    return redirect(url_for("main.home"))
+    return redirect(url_for("main.page_selector"))
 
 
 # Searches manga in the database
@@ -133,7 +133,7 @@ def search_manga():
             date=date,
         )
     else:
-        return redirect(url_for("main.home"))
+        return redirect(url_for("main.page_selector"))
 
 
 # Updates metadata related to the manga
@@ -154,4 +154,4 @@ def update_metadata():
         db.session.commit()
         # Using time.sleep to decrease the overloading on mangaupdates server
         time.sleep(random.randrange(0, 6))
-    return redirect(url_for("main.home"))
+    return redirect(url_for("main.page_selector"))
