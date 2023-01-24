@@ -18,13 +18,18 @@ VERSION = "1.5.0"
 
 def MMDB_CLI(
     version: Optional[bool] = typer.Option(
-        None, help="Show current version of program and exit."
+        None,
+        "--version/ ",
+        help="Show current version of the program and exit.",
     ),
     development: Optional[bool] = typer.Option(
-        None, help="Turns on Flask development environment and debugger."
+        None,
+        "--development/ ",
+        help="Turns on Flask development environment and debugger.",
     ),
     logging: Optional[bool] = typer.Option(
         None,
+        "--logging/ ",
         help="Show logs in terminal in the Apache Combined Log Format for that session.",
     ),
 ):
