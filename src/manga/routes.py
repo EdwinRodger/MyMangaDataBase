@@ -58,7 +58,7 @@ def update_manga(manga_id):
         manga.score = form.score.data
         db.session.commit()
         flash("Your manga has been updated!", "success")
-        return redirect(url_for("main.home", manga_id=manga.id, date=date))
+        return redirect(url_for("main.home"))
     elif request.method == "GET":
         form.title.data = manga.title
         form.start_date.data = manga.start_date
