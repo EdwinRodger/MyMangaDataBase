@@ -3,6 +3,7 @@ import shutil
 
 import requests
 from bs4 import BeautifulSoup
+from rich import print
 
 
 def image_downloader(img_url, title):
@@ -11,10 +12,10 @@ def image_downloader(img_url, title):
     if res.status_code == 200:
         with open(f"src/static/manga_cover/{file_name}.jpg", "wb") as f:
             shutil.copyfileobj(res.raw, f)
-        print("Image sucessfully downloaded: ", title)
+        print("[green]Image sucessfully downloaded: [/green]", title)
         return f"{file_name}.jpg"
     else:
-        print("Image couldn't be retrieved", title)
+        print("[red]Image couldn't be retrieved[/red]", title)
         return "default.svg"
 
 
@@ -41,7 +42,7 @@ def manga_metadata(url, title):
     try:
         manga_cover = image_downloader(images[0].get("src").strip(), title)
     except IndexError:
-        print("Image couldn't be retrieved: ", title)
+        print("[red]Image couldn't be retrieved: [/red]", title)
         manga_cover = "default.svg"
     # Index 1 on content consists of genre
     # .split is to remove last suggestion from the genre i.e. "Search for series of same genre(s)"

@@ -3,6 +3,8 @@ import os
 from urllib.request import Request, urlopen
 from webbrowser import open_new_tab
 
+from rich import print
+
 
 def check_for_update():
     """Checks for software update using github's api.
@@ -41,5 +43,5 @@ def check_for_update():
             elif choice == "Later" or choice == "L":
                 pass
             else:
-                print("Not valid response!")
+                print("[red]Not valid response![/red]")
                 input("Press any key to continue...")
