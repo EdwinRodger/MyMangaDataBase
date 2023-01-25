@@ -3,15 +3,14 @@ from configparser import ConfigParser
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from src.settings.forms import SettingsForm
+from src.utils import read_config
 
 setting = Blueprint("setting", __name__)
 
 # Home Page
 @setting.route("/settings", methods=["GET", "POST"])
 def settings():
-    file = "config.ini"
-    config = ConfigParser()
-    config.read(file)
+    config, _ = read_config()
     form = SettingsForm()
     if form.validate_on_submit():
         config["UserInterface"]["default_status_to_show"] = str(
@@ -24,7 +23,7 @@ def settings():
         config["UserInterface"]["show_start_date"] = str(form.show_start_date.data)
         config["UserInterface"]["show_end_date"] = str(form.show_end_date.data)
         config["UserInterface"]["show_status"] = str(form.show_status.data)
-        with open(file, "w") as cf:
+        with open("config.ini", "w") as cf:
             config.write(cf)
         flash("Your settings has been updated!", "success")
         if config["UserInterface"]["default_status_to_show"] == "All":

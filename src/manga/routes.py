@@ -10,6 +10,7 @@ from src import db
 from src.manga.forms import MangaForm, SearchBar
 from src.manga.web_scraper import manga_search
 from src.models import Manga
+from src.utils import read_config
 
 mangas = Blueprint("mangas", __name__)
 
@@ -121,10 +122,7 @@ def add_one_volume(manga_id, number):
 # Searches manga in the database
 @mangas.route("/search", methods=["POST"])
 def search_manga():
-    file = "config.ini"
-    config = ConfigParser()
-    config.read(file)
-    show = config["UserInterface"]
+    _, show = read_config()
     form = SearchBar()
     if form.validate_on_submit():
         mangas = Manga.query.filter(

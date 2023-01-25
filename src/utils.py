@@ -1,5 +1,6 @@
 import hashlib
 import os
+from configparser import ConfigParser
 from urllib.request import Request, urlopen
 from webbrowser import open_new_tab
 
@@ -45,3 +46,11 @@ def check_for_update():
             else:
                 print("[red]Not valid response![/red]")
                 input("Press any key to continue...")
+
+
+def read_config():
+    file = "config.ini"
+    config = ConfigParser()
+    config.read(file)
+    show = config["UserInterface"]
+    return config, show
