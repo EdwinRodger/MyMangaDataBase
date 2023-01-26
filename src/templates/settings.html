@@ -40,8 +40,9 @@
                 {{ form.show_status(class="form-select-sm ") }}
             </div>
         </fieldset>
-        <div class="form mb-3 mt-3">
-            {{ form.update(class="btn btn-outline-info") }}
+        <div class="d-flex btn-group form my-3 px-auto" role="group" aria-label="Basic mixed styles example">
+            {{ form.update(class="btn btn-info") }}
+            <a href="{{ url_for('main.page_selector') }}" class="btn btn-secondary">Cancel</a>
         </div>
     </form>
 </div>
