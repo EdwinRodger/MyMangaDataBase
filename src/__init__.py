@@ -32,7 +32,10 @@ def create_app(config_class=Config):
         # Below logic finds all the manga from database, take random manga, get its title and then send it to search bar as a place holder
         manga = Manga.query.order_by(Manga.title.name).all()
         max = len(manga)
-        index = random.randint(0, (max - 1))
+        try:
+            index = random.randint(0, (max - 1))
+        except:
+            index = 0
         if index != 0:
             manga = manga[index]
             manga_title = manga.title
