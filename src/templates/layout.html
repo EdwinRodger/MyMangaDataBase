@@ -114,7 +114,7 @@
                     <ul class="navbar-nav ms-auto pe-5">
                         <form method="POST" action="{{ url_for('mangas.search_manga')}}" class="d-flex">
                             {{ navsearch.hidden_tag() }}
-                            {{ navsearch.search_field(class="form-control mx-1", placeholder="Search") }}
+                            {{ navsearch.search_field(class="form-control mx-1", placeholder=manga_title) }}
                             {{ navsearch.search_button(class="btn btn-primary") }}
                         </form>
                     </ul>
