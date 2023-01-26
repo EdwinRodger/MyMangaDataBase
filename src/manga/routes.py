@@ -91,7 +91,7 @@ def delete_manga(manga_id):
 # Sort The Manga
 @mangas.route("/sort/<string:sort_func>")
 def sort_manga(sort_func):
-    mangas = Manga.query.filter_by(status=sort_func).all()
+    mangas = Manga.query.filter_by(status=sort_func).order_by(Manga.title.name).all()
     file = "config.ini"
     config = ConfigParser()
     config.read(file)
