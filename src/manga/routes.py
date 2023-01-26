@@ -5,6 +5,7 @@ from configparser import ConfigParser
 from datetime import datetime
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
+from rich.progress import track
 
 from src import db
 from src.manga.forms import MangaForm, SearchBar
@@ -143,11 +144,13 @@ def search_manga():
 @mangas.route("/update/metadata")
 def update_metadata():
     mangas = Manga.query.order_by(Manga.title.name).all()
-    for i in mangas:
+    for j, i in zip(track(range(len(mangas))), mangas):
         if i.cover == "default.png" or i.cover == "default.svg":
             pass
         else:
             os.remove(f"src\\static\\manga_cover\\{i.cover}")
+        # Using time.sleep to decrease the overloading on mangaupdates server
+        time.sleep(random.randint(2, 5))
         metadata = manga_search(i.title)
         i.artist = metadata[0]
         i.author = metadata[1]
@@ -155,6 +158,4 @@ def update_metadata():
         i.description = metadata[3]
         i.tags = ", ".join(metadata[4][0:-2])
         db.session.commit()
-        # Using time.sleep to decrease the overloading on mangaupdates server
-        time.sleep(random.randrange(0, 6))
     return redirect(url_for("main.page_selector"))
