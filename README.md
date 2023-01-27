@@ -9,6 +9,8 @@ MyMangaDataBase (or MMDB for short) is
 - Open source and
 - Self Hosted application to track all your mangas.
 
+Use MMDB to make your own mangalist without the fear of a certain manga not present in your tracking site's database. MMDB is a self-hosted option which means all the data remains on your device.
+
 MMDB backend is made using Python(Flask) with HTML, CSS(Bootstrap) and Jinja used as front-end.
 
 ## Features
@@ -33,8 +35,8 @@ MMDB backend is made using Python(Flask) with HTML, CSS(Bootstrap) and Jinja use
 - Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest) (MyMangaDataBase-{version}.zip)
 - Extract the files from the zip folder
 - To run MMDB, Simply run `app_runner.py` file
-- This will automatically install pipenv and other required packages.
-- MyMangaDataBase will open on your default browser.
+    - This will automatically install pipenv and other required packages.
+    - MyMangaDataBase will open on your default browser.
 
 ## Want to Contribute?
 
@@ -66,6 +68,6 @@ To run the code perfectly, you can use any python version between 3.8 to 3.10 an
 
 I tested MMDB on WSL which is basically linux environment in windows and the program is working fine on my end but I expect it to be buggy or worst, completly broken on actual linux system. If thats the case, open an issue on github and I will try to fix it.
 
-I used mangaupdates.com website to scrape a little bit of data like description, author name, genre etc. You can find the code [here](/src/manga/web_scraper.py)
+I used mangaupdates.com website to scrape a little bit of data like description, author name, genre etc. You can find the code [here](/src/manga/web_scraper.py). To lower the load on server, there is a [2-5 seconds sleep](https://github.com/EdwinRodger/MyMangaDataBase/blob/fa60e6e694b9740a529b9d0be53e0d60e2f7e051/src/manga/routes.py#L153) between requests.
 
-I didn't learned javascript yet and that is why this project doesn't have js in it and every function is done in python
+I didn't learned javascript yet and that is why this project doesn't have any JS in it and every function is done in python using routes.
