@@ -38,20 +38,20 @@
     </div>
 </div>
 <div class="d-none d-sm-block">
-    <div class="d-flex mb-5 mt-3">
-        <a class="btn btn-info rounded-0 flex-grow-1" href="{{ url_for('main.home') }}"><b>All</b></a>
-        <a class="btn btn-info rounded-0 flex-grow-1"
+    <div class="btn-group d-flex px-1 my-3" role="group">
+        <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
+            href="{{ url_for('main.home') }}"><b>All</b></a>
+        <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
             href="{{ url_for('mangas.sort_manga', sort_func='Reading') }}"><b>Reading</b></a>
-        <a class="btn btn-info rounded-0 flex-grow-1"
+        <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
             href="{{ url_for('mangas.sort_manga', sort_func='Completed') }}"><b>Completed</b></a>
-        <a class="btn btn-info rounded-0 flex-grow-1"
-            href="{{ url_for('mangas.sort_manga', sort_func='On hold') }}"><b>On
-                Hold</b></a>
-        <a class="btn btn-info rounded-0 flex-grow-1"
+        <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
+            href="{{ url_for('mangas.sort_manga', sort_func='On hold') }}"><b>On Hold</b></a>
+        <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
             href="{{ url_for('mangas.sort_manga', sort_func='Dropped') }}"><b>Dropped</b></a>
-        <a class="btn btn-info rounded-0 flex-grow-1"
+        <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
             href="{{ url_for('mangas.sort_manga', sort_func='Plan to read') }}"><b>Plan To Read</b></a>
-        <a class="btn btn-info rounded-0 flex-grow-1"
+        <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
             href="{{ url_for('mangas.sort_manga', sort_func='Rereading') }}"><b>Rereading</b></a>
     </div>
 </div>
