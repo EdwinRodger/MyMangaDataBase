@@ -46,7 +46,7 @@ def home():
     mangas = Manga.query.order_by(Manga.title.name).all()
     _, show = read_config()
     return render_template(
-        "home.html", title="Home", mangas=mangas, date=date, show=show
+        "table.html", title="Home", mangas=mangas, date=date, show=show
     )
 
 

@@ -98,7 +98,7 @@ def sort_manga(sort_func):
     config.read(file)
     show = config["UserInterface"]
     return render_template(
-        "home.html", title=f"{sort_func} Manga", mangas=mangas, date=date, show=show
+        "table.html", title=f"{sort_func} Manga", mangas=mangas, date=date, show=show
     )
 
 
@@ -130,7 +130,7 @@ def search_manga():
             Manga.title.like(f"%{form.search_field.data}%")
         ).all()
         return render_template(
-            "home.html",
+            "table.html",
             title=f"{form.search_field.data} Manga",
             mangas=mangas,
             date=date,
