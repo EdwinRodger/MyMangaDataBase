@@ -70,8 +70,8 @@ def update_manga(manga_id):
         form.status.data = manga.status
         form.score.data = str(manga.score)
     return render_template(
-        "manga_id.html",
-        title="Edit Manga",
+        "edit.html",
+        title=f"Edit {manga.title}",
         form=form,
         manga=manga,
         legend="Update Manga",
