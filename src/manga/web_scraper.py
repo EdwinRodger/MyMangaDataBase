@@ -12,10 +12,10 @@ def image_downloader(img_url, title):
     if res.status_code == 200:
         with open(f"src/static/manga_cover/{file_name}.jpg", "wb") as f:
             shutil.copyfileobj(res.raw, f)
-        print("[green]Image sucessfully downloaded: [/green]", title)
+        print("[green]Image sucessfully downloaded: ", title)
         return f"{file_name}.jpg"
     else:
-        print("[red]Image couldn't be retrieved[/red]", title)
+        print("[red]Image couldn't be retrieved: ", title)
         return "default.svg"
 
 
@@ -42,7 +42,7 @@ def manga_metadata(url, title):
     try:
         manga_cover = image_downloader(images[0].get("src").strip(), title)
     except IndexError:
-        print("[red]Image couldn't be retrieved: [/red]", title)
+        print("[red]Image couldn't be retrieved: ", title)
         manga_cover = "default.svg"
     # Index 1 on content consists of genre
     # .split is to remove last suggestion from the genre i.e. "Search for series of same genre(s)"
@@ -64,7 +64,17 @@ def manga_search(title):
     # Getting div class of "Series Info" -> "Title" -> First Recommendation
     series = soup.find_all("div", class_="col-6 py-1 py-md-0 text")
     # Getting <a> tag from first recommendation div
-    atag = series[0].find_all("a")
+    try:
+        atag = series[0].find_all("a")
+    except IndexError:
+        print("[red]Manga not found: ", title)
+        return [
+            "None",
+            "None",
+            "default.svg",
+            "Manga not found on MangaUpdates",
+            "None",
+        ]
     # Getting URL from <a> tag's href
     url = atag[0].get("href")
     # Calling manga_metadata function to return manga metadata
