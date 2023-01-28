@@ -98,7 +98,12 @@ def sort_manga(sort_func):
     config.read(file)
     show = config["UserInterface"]
     return render_template(
-        "table.html", title=f"{sort_func} Manga", mangas=mangas, date=date, show=show
+        "table.html",
+        title=f"{sort_func} Manga",
+        mangas=mangas,
+        date=date,
+        show=show,
+        sort_func=sort_func,
     )
 
 

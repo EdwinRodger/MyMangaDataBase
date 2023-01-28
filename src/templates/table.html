@@ -11,31 +11,46 @@
 
 <div class="d-sm-none">
     <div>
-        <div class=" dropdown">
-            <button class="btn btn-secondary dropdown-toggle px-5" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Filter
-            </button>
-            <ul class="dropdown-menu dropdown-menu-dark">
-                <li><a class="dropdown-item" href="{{ url_for('main.home') }}">All</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="{{ url_for('mangas.sort_manga', sort_func='Reading') }}">Reading</a>
-                </li>
-                <li><a class="dropdown-item"
-                        href="{{ url_for('mangas.sort_manga', sort_func='Completed') }}">Completed</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('mangas.sort_manga', sort_func='On hold') }}">On Hold</a>
-                </li>
-                <li><a class="dropdown-item" href="{{ url_for('mangas.sort_manga', sort_func='Dropped') }}">Dropped</a>
-                </li>
-                <li><a class="dropdown-item" href="{{ url_for('mangas.sort_manga', sort_func='Plan to read') }}">Plan To
-                        Read</a></li>
-                <li><a class="dropdown-item"
-                        href="{{ url_for('mangas.sort_manga', sort_func='Rereading') }}">Rereading</a></li>
-            </ul>
+        <div class="dropdown d-flex">
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-secondary dropdown-toggle ms-1 px-5" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Status
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="{{ url_for('main.home') }}">All</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{{ url_for('mangas.sort_manga', sort_func='Reading') }}">Reading</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{{ url_for('mangas.sort_manga', sort_func='Completed') }}">Completed</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('mangas.sort_manga', sort_func='On hold') }}">On
+                                Hold</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{{ url_for('mangas.sort_manga', sort_func='Dropped') }}">Dropped</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{{ url_for('mangas.sort_manga', sort_func='Plan to read') }}">Plan To
+                                Read</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ url_for('mangas.sort_manga', sort_func='Rereading') }}">Rereading</a>
+                        </li>
+                    </ul>
+                </div>
+                {% if sort_func %}
+                <button type="button" class="btn btn-secondary" disabled>{{ sort_func }}</button>
+                {% else %}
+                <button type="button" class="btn btn-secondary" disabled>All</button>
+                {% endif %}
+            </div>
         </div>
     </div>
+</div>
 </div>
 <div class="d-none d-sm-block">
     <div class="btn-group d-flex px-1 my-3" role="group">
