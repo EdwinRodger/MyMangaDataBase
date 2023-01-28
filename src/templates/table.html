@@ -76,7 +76,13 @@
             <!-- Searches the config file to see what columns to show -->
             {% for i in show %}
             {% if show[i] == "Yes" %}
-            <th scope="col">{{ i.replace("show_", "").replace("_", " ").title() }}</th>
+            <th scope="col">
+                {% if i.replace("show_", "").replace("_", " ").title() == "Title" %}
+                <p class="ps-2">{{ i.replace("show_", "").replace("_", " ").title() }}</p>
+                {% else %}
+                <p class="text-center">{{ i.replace("show_", "").replace("_", " ").title() }}</p>
+                {% endif %}
+            </th>
             {% endif %}
             {% endfor %}
         </thead>
@@ -87,11 +93,11 @@
                     {% if show["show_cover"] == "Yes" %}
                     <!-- Hard coded cover to be a svg file instead of png file because of backwards compatibility -->
                     {% if manga.cover == "default.png" %}
-                    <td><img src="{{ url_for('static', filename='manga_cover/default.svg') }}" alt="Manga Cover"
-                            style="height: 13vh; max-width: 65px;"></td>
+                    <td class="text-center"><img src="{{ url_for('static', filename='manga_cover/default.svg') }}"
+                            alt="Manga Cover" style="height: 13vh; max-width: 65px;"></td>
                     {% else %}
-                    <td><img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}" alt="Manga Cover"
-                            style="height: 13vh; max-width: 65px;"></td>
+                    <td class="text-center"><img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}"
+                            alt="Manga Cover" style="height: 13vh; max-width: 65px;"></td>
                     {% endif %}
                     {% endif %}
                 </show_cover>
@@ -103,32 +109,32 @@
                     {% if manga.status == "Plan to read" %}
                     <show_score>
                         {% if show["show_score"] == "Yes" %}
-                        <td>-</td>
+                        <td class="text-center">-</td>
                         {% endif %}
                     </show_score>
                     <show_volume>
                         {% if show["show_volume"] == "Yes" %}
-                        <td>-</td>
+                        <td class="text-center">-</td>
                         {% endif %}
                     </show_volume>
                     <show_chapter>
                         {% if show["show_chapter"] == "Yes" %}
-                        <td>-</td>
+                        <td class="text-center">-</td>
                         {% endif %}
                     </show_chapter>
                     <show_start_date>
                         {% if show["show_start_date"] == "Yes" %}
-                        <td>-</td>
+                        <td class="text-center">-</td>
                         {% endif %}
                     </show_start_date>
                     <show_end_date>
                         {% if show["show_end_date"] == "Yes" %}
-                        <td>-</td>
+                        <td class="text-center">-</td>
                         {% endif %}
                     </show_end_date>
                     <show_status>
                         {% if show["show_status"] == "Yes" %}
-                        <td>{{ manga.status }}</td>
+                        <td class="text-center">{{ manga.status }}</td>
                         {% endif %}
                     </show_status>
                 </if_status_plan_to_read>
@@ -136,42 +142,44 @@
                 <else_status_NOT_plan_to_read>
                     <show_score>
                         {% if show["show_score"] == "Yes" %}
-                        <td>{{ manga.score }}</td>
+                        <td class="text-center">{{ manga.score }}</td>
                         {% endif %}
                     </show_score>
                     <show_volume>
                         {% if show["show_volume"] == "Yes" %}
-                        <td><a href="{{ url_for('mangas.add_one_volume', manga_id=manga.id, number=manga.volume) }}"
+                        <td class="text-center"><a
+                                href="{{ url_for('mangas.add_one_volume', manga_id=manga.id, number=manga.volume) }}"
                                 class="text-decoration-none text-reset"><u>{{ manga.volume }}</u></a></td>
                         {% endif %}
                     </show_volume>
                     <show_chapter>
                         {% if show["show_chapter"] == "Yes" %}
-                        <td><a href="{{ url_for('mangas.add_one_chapter', manga_id=manga.id, number=manga.chapter) }}"
+                        <td class="text-center"><a
+                                href="{{ url_for('mangas.add_one_chapter', manga_id=manga.id, number=manga.chapter) }}"
                                 class="text-decoration-none text-reset"><u>{{ manga.chapter }}</u></a></td>
                         {% endif %}
                     </show_chapter>
                     <show_start_date>
                         {% if show["show_start_date"] == "Yes" %}
                         {% if manga.start_date == date %}
-                        <td>-</td>
+                        <td class="text-center">-</td>
                         {% else %}
-                        <td>{{ manga.start_date }}</td>
+                        <td class="text-center">{{ manga.start_date }}</td>
                         {% endif %}
                         {% endif %}
                     </show_start_date>
                     <show_end_date>
                         {% if show["show_end_date"] == "Yes" %}
                         {% if manga.end_date == date %}
-                        <td>-</td>
+                        <td class="text-center">-</td>
                         {% else %}
-                        <td>{{ manga.end_date }}</td>
+                        <td class="text-center">{{ manga.end_date }}</td>
                         {% endif %}
                         {% endif %}
                     </show_end_date>
                     <show_status>
                         {% if show["show_status"] == "Yes" %}
-                        <td>{{ manga.status }}</td>
+                        <td class="text-center">{{ manga.status }}</td>
                         {% endif %}
                     </show_status>
                     {% endif %}
