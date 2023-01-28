@@ -12,7 +12,6 @@ def image_downloader(img_url, title):
     if res.status_code == 200:
         with open(f"src/static/manga_cover/{file_name}.jpg", "wb") as f:
             shutil.copyfileobj(res.raw, f)
-        print("[green]Image sucessfully downloaded: ", title)
         return f"{file_name}.jpg"
     else:
         print("[red]Image couldn't be retrieved: ", title)
@@ -51,7 +50,7 @@ def manga_metadata(url, title):
     manga_author = content[5].text.strip()
     # Index 6 on content consists of Artist
     manga_artist = content[6].text.strip()
-
+    print("[green]Metadata successfully updated: ", title)
     return [manga_artist, manga_author, manga_cover, manga_description, manga_genre]
 
 
