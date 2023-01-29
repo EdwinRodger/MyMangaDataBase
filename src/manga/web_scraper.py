@@ -35,8 +35,11 @@ def manga_metadata(url, title):
     # Checks all image url on the webpage. It is used for cover of manga.
     images = side[1].find_all(class_="img-fluid")
 
-    # Getting Manga Description
+    # Getting Manga Description and removing duplicate and extra stuff
     manga_description = manga_desc.text.strip()
+    if "More..." in manga_description:
+        manga_description = manga_description.split("More...\n\n\n")
+        manga_description = " ".join(manga_description[1:]).replace("Less...", "")
     # After collecting the image on right side (cover image), we send it to get downloaded.
     try:
         manga_cover = image_downloader(images[0].get("src").strip(), title)
@@ -47,9 +50,9 @@ def manga_metadata(url, title):
     # .split is to remove last suggestion from the genre i.e. "Search for series of same genre(s)"
     manga_genre = content[1].text.split("\xa0")
     # Index 5 on content consists of author
-    manga_author = content[5].text.strip()
+    manga_author = content[5].text.replace("[Add]", "")
     # Index 6 on content consists of Artist
-    manga_artist = content[6].text.strip()
+    manga_artist = content[6].text.replace("[Add]", "")
     print("[green]Metadata successfully updated: ", title)
     return [manga_artist, manga_author, manga_cover, manga_description, manga_genre]
 
