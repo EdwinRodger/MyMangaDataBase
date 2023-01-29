@@ -153,7 +153,8 @@ def update_metadata():
         if i.cover == "default.png" or i.cover == "default.svg":
             pass
         else:
-            os.remove(f"src\\static\\manga_cover\\{i.cover}")
+            if os.path.exists(f"src\\static\\manga_cover\\{i.cover}"):
+                os.remove(f"src\\static\\manga_cover\\{i.cover}")
         # Using time.sleep to decrease the overloading on mangaupdates server
         time.sleep(random.randint(2, 5))
         metadata = manga_search(i.title)
