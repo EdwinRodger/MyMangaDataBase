@@ -43,7 +43,7 @@ def new_manga():
 
 
 # Update a Manga
-@mangas.route("/manga/<int:manga_id>/update", methods=["GET", "POST"])
+@mangas.route("/manga/update/<int:manga_id>", methods=["GET", "POST"])
 def update_manga(manga_id):
     metadata = False
     manga = Manga.query.get_or_404(manga_id)
@@ -80,7 +80,7 @@ def update_manga(manga_id):
 
 
 # Delete A Manga
-@mangas.route("/manga/<int:manga_id>/delete", methods=["POST"])
+@mangas.route("/manga/delete/<int:manga_id>", methods=["POST"])
 def delete_manga(manga_id):
     manga = Manga.query.get_or_404(manga_id)
     db.session.delete(manga)
@@ -108,7 +108,7 @@ def sort_manga(sort_func):
 
 
 # Add One Chapter To The Manga
-@mangas.route("/add_one_chapter/<int:manga_id>/<int:number>")
+@mangas.route("/function/add-one-chapter/<int:manga_id>/<int:number>")
 def add_one_chapter(manga_id, number):
     manga = Manga.query.get_or_404(manga_id)
     manga.chapter = number + 1
@@ -117,7 +117,7 @@ def add_one_chapter(manga_id, number):
 
 
 # Add One Volume To The Manga
-@mangas.route("/add_one_volume/<int:manga_id>/<int:number>")
+@mangas.route("/function/add-one-volume/<int:manga_id>/<int:number>")
 def add_one_volume(manga_id, number):
     manga = Manga.query.get_or_404(manga_id)
     manga.volume = number + 1
@@ -146,8 +146,8 @@ def search_manga():
 
 
 # Updates metadata related to the manga
-@mangas.route("/update/metadata2")
-def update_metadata2():
+@mangas.route("/function/update-metadata")
+def update_metadata():
     mangas = Manga.query.order_by(Manga.title.name).all()
     for j, i in zip(track(range(len(mangas))), mangas):
         if i.cover == "default.png" or i.cover == "default.svg":
@@ -166,6 +166,7 @@ def update_metadata2():
     return redirect(url_for("main.page_selector"))
 
 
+# Shows warning about updating metadata
 @mangas.route("/update/metadata")
-def update_metadata():
+def show_metadata_warning():
     return render_template("update-metadata.html", title="Important!")
