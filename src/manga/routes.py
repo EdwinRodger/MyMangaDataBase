@@ -38,7 +38,7 @@ def new_manga():
         flash(f"{form.title.data} is added!", "success")
         return redirect(url_for("main.page_selector"))
     return render_template(
-        "create_manga.html", title="New Manga", form=form, legend="New Manga"
+        "create-manga.html", title="New Manga", form=form, legend="New Manga"
     )
 
 
