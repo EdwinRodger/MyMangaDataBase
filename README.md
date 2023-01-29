@@ -1,5 +1,7 @@
 # MyMangaDataBase
 
+![Home Page](docs/images/hero.png "Home Page")
+
 One database to keep a track of all your mangas.
 
 MyMangaDataBase (or MMDB for short) is
