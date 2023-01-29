@@ -146,8 +146,8 @@ def search_manga():
 
 
 # Updates metadata related to the manga
-@mangas.route("/update/metadata")
-def update_metadata():
+@mangas.route("/update/metadata2")
+def update_metadata2():
     mangas = Manga.query.order_by(Manga.title.name).all()
     for j, i in zip(track(range(len(mangas))), mangas):
         if i.cover == "default.png" or i.cover == "default.svg":
@@ -164,3 +164,8 @@ def update_metadata():
         i.tags = ", ".join(metadata[4][0:-2])
         db.session.commit()
     return redirect(url_for("main.page_selector"))
+
+
+@mangas.route("/update/metadata")
+def update_metadata():
+    return render_template("update-metadata.html", title="Important!")
