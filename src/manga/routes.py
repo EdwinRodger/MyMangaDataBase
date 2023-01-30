@@ -146,24 +146,40 @@ def search_manga():
 
 
 # Updates metadata related to the manga
-@mangas.route("/function/update-metadata")
-def update_metadata():
-    mangas = Manga.query.order_by(Manga.title.name).all()
-    for j, i in zip(track(range(len(mangas))), mangas):
-        if i.cover == "default.png" or i.cover == "default.svg":
+# manga_id = 0 means whole database will get updated
+@mangas.route("/function/update-metadata/<int:manga_id>")
+def update_metadata(manga_id):
+    if manga_id != 0:
+        mangas = Manga.query.get_or_404(manga_id)
+        if mangas.cover == "default.png" or mangas.cover == "default.svg":
             pass
         else:
-            if os.path.exists(f"src\\static\\manga_cover\\{i.cover}"):
-                os.remove(f"src\\static\\manga_cover\\{i.cover}")
-        # Using time.sleep to decrease the overloading on mangaupdates server
-        time.sleep(random.randint(2, 5))
-        metadata = manga_search(i.title)
-        i.artist = metadata[0]
-        i.author = metadata[1]
-        i.cover = metadata[2]
-        i.description = metadata[3]
-        i.tags = ", ".join(metadata[4][0:-2])
+            if os.path.exists(f"src\\static\\manga_cover\\{mangas.cover}"):
+                os.remove(f"src\\static\\manga_cover\\{mangas.cover}")
+        metadata = manga_search(mangas.title)
+        mangas.artist = metadata[0]
+        mangas.author = metadata[1]
+        mangas.cover = metadata[2]
+        mangas.description = metadata[3]
+        mangas.tags = ", ".join(metadata[4][0:-2])
         db.session.commit()
+    else:
+        mangas = Manga.query.order_by(Manga.title.name).all()
+        for j, i in zip(track(range(len(mangas))), mangas):
+            if i.cover == "default.png" or i.cover == "default.svg":
+                pass
+            else:
+                if os.path.exists(f"src\\static\\manga_cover\\{i.cover}"):
+                    os.remove(f"src\\static\\manga_cover\\{i.cover}")
+            # Using time.sleep to decrease the overloading on mangaupdates server
+            time.sleep(random.randint(2, 5))
+            metadata = manga_search(i.title)
+            i.artist = metadata[0]
+            i.author = metadata[1]
+            i.cover = metadata[2]
+            i.description = metadata[3]
+            i.tags = ", ".join(metadata[4][0:-2])
+            db.session.commit()
     return redirect(url_for("main.page_selector"))
 
 

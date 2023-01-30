@@ -120,7 +120,9 @@
                 {% endif %}
             </div>
             <div class="btn-group form my-3" role="group">
-                {{ form.update(class="btn btn-info px-auto") }}
+                {{ form.update(class="btn btn-primary px-auto") }}
+                <a href="{{ url_for('mangas.update_metadata', manga_id=manga.id) }}" class="btn btn-info">Update
+                    Metadata</a>
                 <a href="{{ url_for('main.page_selector') }}" class="btn btn-secondary">Go Home</a>
                 <button type="button" class="btn btn-danger px-auto" data-bs-toggle="modal"
                     data-bs-target="#deleteModal">Delete</button>
