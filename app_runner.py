@@ -12,7 +12,7 @@ except ModuleNotFoundError:
 
 from rich import print
 
-VERSION = "1.5.0"
+VERSION = "1.6.0"
 
 
 def MMDB_CLI(
