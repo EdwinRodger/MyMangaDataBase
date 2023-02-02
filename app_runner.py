@@ -34,7 +34,12 @@ def MMDB_CLI(
     run_with_ngrok: Optional[bool] = typer.Option(
         None,
         "--run-with-ngrok/ ",
-        help="Runs your host using ngrok which helps you to access your database from other devices.",
+        help="Runs your host on ngrok which helps you to access your database from other devices.",
+    ),
+    run_with_localhost: Optional[bool] = typer.Option(
+        None,
+        "--run-with-localhost/ ",
+        help="Runs your host on localhost.run which helps you to access your database from other devices.",
     ),
 ):
     if version:
@@ -50,6 +55,14 @@ def MMDB_CLI(
         var = str(input("Do you want to continue?[(Y)es/(N)o] "))
         if var.lower().startswith("y"):
             os.system("pipenv run app.py --run_with_ngrok")
+        quit(0)
+    if run_with_localhost:
+        print(
+            "[red]Only con of running with localhost.run is that it will higher your website loading time!"
+        )
+        var = str(input("Do you want to continue?[(Y)es/(N)o] "))
+        if var.lower().startswith("y"):
+            os.system("pipenv run app.py --run_with_localhost")
         quit(0)
     if os.path.exists("Pipfile"):
         if not os.path.exists("Pipfile.lock"):

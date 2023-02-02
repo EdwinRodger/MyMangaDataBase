@@ -1,5 +1,7 @@
 import logging
+import os
 import sys
+import threading
 from webbrowser import open_new_tab
 
 import waitress
@@ -36,6 +38,21 @@ def run_app():
     if "--run_with_ngrok" in sys.argv:
         run_with_ngrok(app=app)
         app.run()
+        quit(0)
+    if "--run_with_localhost" in sys.argv:
+
+        def host():
+            waitress.serve(app=app, host="127.0.0.1", port=6070)
+
+        def localhost():
+            os.system("ssh -R 80:127.0.0.1:6070 nokey@localhost.run")
+
+        thread1 = threading.Thread(target=host)
+        thread2 = threading.Thread(target=localhost)
+        thread1.start()
+        thread2.start()
+        thread1.join()
+        thread2.join()
         quit(0)
     print("\nopening http://127.0.0.1:6070\n")
     open_new_tab("http://127.0.0.1:6070")
