@@ -18,6 +18,7 @@ mangas = Blueprint("mangas", __name__)
 d = datetime.strptime("0001-01-01", "%Y-%m-%d")
 date = d.date()
 
+
 # Add New Manga
 @mangas.route("/manga/new", methods=["GET", "POST"])
 def new_manga():
@@ -60,7 +61,6 @@ def update_manga(manga_id):
         manga.score = form.score.data
         db.session.commit()
         flash("Your manga has been updated!", "success")
-        return redirect(url_for("main.page_selector"))
     elif request.method == "GET":
         form.title.data = manga.title
         form.start_date.data = manga.start_date
@@ -180,7 +180,7 @@ def update_metadata(manga_id):
             i.description = metadata[3]
             i.tags = ", ".join(metadata[4][0:-2])
             db.session.commit()
-    return redirect(url_for("main.page_selector"))
+    return redirect(url_for("mangas.update_manga", manga_id=manga_id))
 
 
 # Shows warning about updating metadata
