@@ -31,12 +31,20 @@ def MMDB_CLI(
         "--logging/ ",
         help="Show logs in terminal in the Apache Combined Log Format for that session.",
     ),
+    run_with_ngrok: Optional[bool] = typer.Option(
+        None,
+        "--run-with-ngrok/ ",
+        help="Runs your host using ngrok which helps you to access your database from other devices.",
+    ),
 ):
     if version:
         print(VERSION)
         quit(0)
     if development:
         os.system("pipenv run app.py --development")
+        quit(0)
+    if run_with_ngrok:
+        os.system("pipenv run app.py --run_with_ngrok")
         quit(0)
     if os.path.exists("Pipfile"):
         if not os.path.exists("Pipfile.lock"):

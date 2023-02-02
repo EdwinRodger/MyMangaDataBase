@@ -3,6 +3,7 @@ import sys
 from webbrowser import open_new_tab
 
 import waitress
+from flask_ngrok2 import run_with_ngrok
 from paste.translogger import TransLogger
 
 from src import create_app, db
@@ -31,6 +32,10 @@ def checks():
 def run_app():
     if "--development" in sys.argv:
         app.run(port=6070, debug=True)
+        quit(0)
+    if "--run_with_ngrok" in sys.argv:
+        run_with_ngrok(app=app)
+        app.run()
         quit(0)
     print("\nopening http://127.0.0.1:6070\n")
     open_new_tab("http://127.0.0.1:6070")
