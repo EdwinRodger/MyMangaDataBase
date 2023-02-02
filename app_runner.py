@@ -44,7 +44,12 @@ def MMDB_CLI(
         os.system("pipenv run app.py --development")
         quit(0)
     if run_with_ngrok:
-        os.system("pipenv run app.py --run_with_ngrok")
+        print(
+            "[red]Running with ngrok requires you to have ngrok installed, configured with authtoken and set to path otherwise your server won't run!"
+        )
+        var = str(input("Do you want to continue?[(Y)es/(N)o] "))
+        if var.lower().startswith("y"):
+            os.system("pipenv run app.py --run_with_ngrok")
         quit(0)
     if os.path.exists("Pipfile"):
         if not os.path.exists("Pipfile.lock"):
