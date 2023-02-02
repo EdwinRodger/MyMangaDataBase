@@ -25,21 +25,25 @@ def MMDB_CLI(
         None,
         "--development/ ",
         help="Turns on Flask development environment and debugger.",
+        rich_help_panel="For Devs",
     ),
     logging: Optional[bool] = typer.Option(
         None,
         "--logging/ ",
         help="Show logs in terminal in the Apache Combined Log Format for that session.",
+        rich_help_panel="For Devs",
     ),
     run_with_ngrok: Optional[bool] = typer.Option(
         None,
         "--run-with-ngrok/ ",
         help="Runs your host on ngrok which helps you to access your database from other devices.",
+        rich_help_panel="Hosting",
     ),
     run_with_localhost: Optional[bool] = typer.Option(
         None,
         "--run-with-localhost/ ",
         help="Runs your host on localhost.run which helps you to access your database from other devices.",
+        rich_help_panel="Hosting",
     ),
 ):
     if version:
