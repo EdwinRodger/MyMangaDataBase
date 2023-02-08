@@ -13,23 +13,26 @@ MyMangaDataBase (or MMDB for short) is
 
 Use MMDB to make your own mangalist without the fear of a certain manga not present in your tracking site's database. MMDB is a self-hosted option which means all the data remains on your device.
 
-MMDB backend is made using Python(Flask) with HTML, CSS(Bootstrap) and Jinja used as front-end.
+MMDB backend is made using Python(Flask) with HTML, CSS(Bootstrap5) and Jinja used as front-end.
 
 ## Features
 
-- [x] Add Manga
-- [ ] APIs to edit manga remotely
-- [ ] Better UI
-- [ ] Cross Platform (Currently works on Windows and Linux(tested using [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)))
-- [x] Customizable
-- [x] Dark Theme
-- [ ] Export to MMDB, ~~MAL, AniList and Kitsu~~
-- [x] FOSS
-- [ ] Import from MMDB, MAL, ~~AniList and Kitsu~~
-- [x] Responsive UI
-- [x] Self Hosted
-- [x] Show Manga Cover
-- [x] Sorted Manga Categories
+- Customizable
+- Dark Theme
+- Export to MMDB
+- Import from MAL, MMDB
+- Responsive UI
+- Self Hosted
+- Sorted Manga Categories
+
+## Road Map
+
+- Better UI
+- Cross Platform (Currently works on Windows and Linux(tested using [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)))
+- Editable metadata (genre, description, cover etc.)
+- Export to MAL, Anilist, Kitsu and other services
+- Import from Anilist, Kitsu and other services
+- Simple routes to edit manga remotely
 
 ## How To Use
 
