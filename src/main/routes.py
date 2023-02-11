@@ -25,6 +25,7 @@ main = Blueprint("main", __name__)
 
 today_date = datetime.date(datetime.today())
 
+
 # Redirects to page based on user's default_status_to_show setting
 @main.route("/")
 def page_selector():

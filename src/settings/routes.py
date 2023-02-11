@@ -7,6 +7,7 @@ from src.utils import read_config
 
 setting = Blueprint("setting", __name__)
 
+
 # Home Page
 @setting.route("/settings", methods=["GET", "POST"])
 def settings():

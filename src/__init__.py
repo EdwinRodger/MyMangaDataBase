@@ -14,10 +14,10 @@ def create_app(config_class=Config):
 
     db.init_app(app)
 
+    from src.functions.routes import function
     from src.main.routes import main
     from src.manga.routes import mangas
     from src.settings.routes import setting
-    from src.functions.routes import function
 
     app.register_blueprint(mangas)
     app.register_blueprint(main)
