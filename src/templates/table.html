@@ -148,14 +148,14 @@
                     <show-volume>
                         {% if show["show_volume"] == "Yes" %}
                         <td class="text-center"><a
-                                href="{{ url_for('mangas.add_one_volume', manga_id=manga.id, number=manga.volume) }}"
+                                href="{{ url_for('function.add_one_volume', manga_id=manga.id, number=manga.volume) }}"
                                 class="text-decoration-none text-reset"><u>{{ manga.volume }}</u></a></td>
                         {% endif %}
                     </show-volume>
                     <show-chapter>
                         {% if show["show_chapter"] == "Yes" %}
                         <td class="text-center"><a
-                                href="{{ url_for('mangas.add_one_chapter', manga_id=manga.id, number=manga.chapter) }}"
+                                href="{{ url_for('function.add_one_chapter', manga_id=manga.id, number=manga.chapter) }}"
                                 class="text-decoration-none text-reset"><u>{{ manga.chapter }}</u></a></td>
                         {% endif %}
                     </show-chapter>
