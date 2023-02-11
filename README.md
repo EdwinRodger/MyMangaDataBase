@@ -15,6 +15,8 @@ Use MMDB to make your own mangalist without the fear of a certain manga not pres
 
 MMDB backend is made using Python(Flask) with HTML, CSS(Bootstrap5) and Jinja used as front-end.
 
+Try demo at https://mymangadatabase.pythonanywhere.com/
+
 ## Features
 
 - Customizable
