@@ -14,11 +14,11 @@ today_date = datetime.date(datetime.today())
 
 def export_mmdb_backup():
     mangas = Manga.query.all()
-    dict = {}
+    obj = {}
     i = 0
-    with open(f"manga.json", "w", encoding="UTF-8") as f:
+    with open("manga.json", "w", encoding="UTF-8") as backup_json_file:
         for manga in mangas:
-            dict[i] = {
+            obj[i] = {
                 "title": f"{manga.title}",
                 "start_date": f"{manga.start_date}",
                 "end_date": f"{manga.end_date}",
@@ -33,19 +33,19 @@ def export_mmdb_backup():
                 "artist": f"{manga.artist}",
             }
             i += 1
-        json.dump(dict, f, indent=4)
-    with ZipFile(f"src\\MMDB-Export-{today_date}.zip", "w") as zf:
+        json.dump(obj, backup_json_file, indent=4)
+    with ZipFile(f"src\\MMDB-Export-{today_date}.zip", "w") as zipfile:
         for root, _, files in os.walk("src\\static\\manga_cover\\"):
             for file in files:
-                zf.write(os.path.join(root, file))
-        zf.write(f"manga.json")
-        zf.write(f"config.ini")
+                zipfile.write(os.path.join(root, file))
+        zipfile.write("manga.json")
+        zipfile.write("config.ini")
 
 
 def extract_mmdb_backup(filename):
     ZipFile(filename).extractall()
-    with open(f"manga.json", "r") as f:
-        data = json.load(f)
+    with open("manga.json", "r", encoding="UTF-8") as file:
+        data = json.load(file)
     for _, value in data.items():
         my_start_date = datetime.strptime(value["start_date"], "%Y-%m-%d")
         my_end_date = datetime.strptime(value["end_date"], "%Y-%m-%d")
@@ -114,8 +114,7 @@ def extract_backup(filename):
         if filename.lower().startswith("animelist"):
             flash("Select mangalist file to upload!", "danger")
             return redirect(url_for("main.import_backup"))
-        else:
-            extract_mal_backup(filename)
+        extract_mal_backup(filename)
 
 
 def delete_export():

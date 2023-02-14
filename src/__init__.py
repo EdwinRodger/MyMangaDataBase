@@ -10,7 +10,7 @@ db = SQLAlchemy()
 
 def create_app(config_class=Config):
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config.from_object(config_class)
 
     db.init_app(app)
 
@@ -31,12 +31,13 @@ def create_app(config_class=Config):
     def base():
         from src.models import Manga
 
-        # Below logic finds all the manga from database, take random manga, get its title and then send it to search bar as a place holder
+        # Below logic finds all the manga from database, take random manga,
+        # get its title and then send it to search bar as a place holder
         manga = Manga.query.order_by(Manga.title.name).all()
-        max = len(manga)
+        mangacount = len(manga)
         try:
-            index = random.randint(0, (max - 1))
-        except:
+            index = random.randint(0, (mangacount - 1))
+        except ValueError:
             index = 0
         if index != 0:
             manga = manga[index]
@@ -44,6 +45,6 @@ def create_app(config_class=Config):
         else:
             manga_title = "Search"
         form = SearchBar()
-        return dict(navsearch=form, manga_title=manga_title)
+        return {"navsearch": form, "manga_title": manga_title}
 
     return app

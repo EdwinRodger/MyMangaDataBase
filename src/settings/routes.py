@@ -1,5 +1,3 @@
-from configparser import ConfigParser
-
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from src.settings.forms import SettingsForm
@@ -24,20 +22,18 @@ def settings():
         config["UserInterface"]["show_start_date"] = str(form.show_start_date.data)
         config["UserInterface"]["show_end_date"] = str(form.show_end_date.data)
         config["UserInterface"]["show_status"] = str(form.show_status.data)
-        with open("config.ini", "w") as cf:
-            config.write(cf)
+        with open("config.ini", "w", encoding="UTF-8") as config_file:
+            config.write(config_file)
         flash("Your settings has been updated!", "success")
         if config["UserInterface"]["default_status_to_show"] == "All":
             return redirect(url_for("main.home"))
-        else:
-            return redirect(
-                url_for(
-                    "mangas.sort_manga",
-                    sort_func=config["UserInterface"]["default_status_to_show"],
-                )
+        return redirect(
+            url_for(
+                "mangas.sort_manga",
+                sort_func=config["UserInterface"]["default_status_to_show"],
             )
-
-    elif request.method == "GET":
+        )
+    if request.method == "GET":
         form.default_status_to_show.data = config["UserInterface"][
             "default_status_to_show"
         ]

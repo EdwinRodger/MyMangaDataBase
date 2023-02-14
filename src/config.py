@@ -1,7 +1,7 @@
 import os
 from configparser import ConfigParser
 
-file = "config.ini"
+FILE = "config.ini"
 config = ConfigParser()
 
 
@@ -21,10 +21,10 @@ def create_config():
     config.set("UserInterface", "show_start_date", "Yes")
     config.set("UserInterface", "show_end_date", "Yes")
     config.set("UserInterface", "show_status", "Yes")
-    with open(file, "w") as cf:
-        config.write(cf)
+    with open(FILE, "w", encoding="UTF-8") as config_file:
+        config.write(config_file)
 
 
 def check_config():
-    if not os.path.exists(file):
+    if not os.path.exists(FILE):
         create_config()

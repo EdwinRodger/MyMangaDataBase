@@ -1,5 +1,4 @@
 import os
-from configparser import ConfigParser
 from datetime import datetime
 
 from flask import (
@@ -32,13 +31,12 @@ def page_selector():
     config, _ = read_config()
     if config["UserInterface"]["default_status_to_show"] == "All":
         return redirect(url_for("main.home"))
-    else:
-        return redirect(
-            url_for(
-                "mangas.sort_manga",
-                sort_func=config["UserInterface"]["default_status_to_show"],
-            )
+    return redirect(
+        url_for(
+            "mangas.sort_manga",
+            sort_func=config["UserInterface"]["default_status_to_show"],
         )
+    )
 
 
 # Home Page
@@ -68,35 +66,35 @@ def import_backup():
 @main.route("/import/backup", methods=["GET", "POST"])
 def importbackup():
     if request.method == "POST":  # check if the method is post
-        f = request.files["file"]  # get the file from the files object
-        if f.filename == "":
+        backup_file = request.files["file"]  # get the file from the files object
+        if backup_file.filename == "":
             flash("Choose a file to import!", "danger")
             return redirect(url_for("main.import_backup"))
-        elif f.filename.lower().endswith((".zip", ".xml")):
-            f.save(f.filename)  # this will secure the file
-            extract_backup(f.filename)
+        if backup_file.filename.lower().endswith((".zip", ".xml")):
+            backup_file.save(backup_file.filename)  # this will secure the file
+            extract_backup(backup_file.filename)
         else:
             flash("Choose correct file to import!", "danger")
             return redirect(url_for("main.import_backup"))
         return redirect(
             url_for("main.page_selector")
         )  # Display thsi message after uploading
-    else:
-        return redirect(
-            url_for("main.import_backup")
-        )  # Display thsi message after uploading
+    return redirect(
+        url_for("main.import_backup")
+    )  # Display thsi message after uploading
 
 
 # Delete Database
 @main.route("/delete/database")
 def delete_database():
-    d = delete(Manga).where(Manga.id >= 0)
-    db.session.execute(d)
+    delete_db = delete(Manga).where(Manga.id >= 0)
+    db.session.execute(delete_db)
     db.session.commit()
     for root, _, files in os.walk("src\\static\\manga_cover\\"):
         for file in files:
-            # Doing if file != "default.png/svg": is also delete those files but in if else block it is not deleting default files
-            if file == "default.png" or file == "default.svg":
+            # Doing if file != "default.png/svg": is also delete those files
+            # but in if else block it is not deleting default files
+            if file in ("default.png", "default.svg"):
                 pass
             else:
                 os.remove(os.path.join(root, file))

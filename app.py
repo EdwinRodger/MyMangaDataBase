@@ -11,7 +11,6 @@ from paste.translogger import TransLogger
 from src import create_app, db
 from src.config import check_config
 from src.main.utils import delete_export
-from src.models import Manga
 from src.utils import check_for_update
 
 app = create_app()
@@ -22,6 +21,7 @@ logger.setLevel(logging.CRITICAL)
 
 def checks():
     check_config()
+    # check_for_update()
     try:
         check_for_update()
     except:
@@ -34,11 +34,11 @@ def checks():
 def run_app():
     if "--development" in sys.argv:
         app.run(port=6070, debug=True)
-        quit(0)
+        sys.exit(0)
     if "--run_with_ngrok" in sys.argv:
         run_with_ngrok(app=app)
         app.run()
-        quit(0)
+        sys.exit(0)
     if "--run_with_localhost" in sys.argv:
 
         def host():
@@ -53,7 +53,7 @@ def run_app():
         thread2.start()
         thread1.join()
         thread2.join()
-        quit(0)
+        sys.exit(0)
     print("\nopening http://127.0.0.1:6070\n")
     open_new_tab("http://127.0.0.1:6070")
     if "--logging" in sys.argv:

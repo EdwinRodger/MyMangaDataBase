@@ -48,7 +48,7 @@ def new_manga():
 def update_manga(manga_id):
     metadata = False
     manga = Manga.query.get_or_404(manga_id)
-    if manga.description != None and manga.description != "None":
+    if manga.description not in (None, "None"):
         metadata = True
     form = MangaForm()
     if form.validate_on_submit():
@@ -92,7 +92,7 @@ def delete_manga(manga_id):
 # Sort The Manga
 @mangas.route("/sort/<string:sort_func>")
 def sort_manga(sort_func):
-    mangas = Manga.query.filter_by(status=sort_func).order_by(Manga.title.name).all()
+    manga = Manga.query.filter_by(status=sort_func).order_by(Manga.title.name).all()
     file = "config.ini"
     config = ConfigParser()
     config.read(file)
@@ -100,7 +100,7 @@ def sort_manga(sort_func):
     return render_template(
         "table.html",
         title=f"{sort_func} Manga",
-        mangas=mangas,
+        mangas=manga,
         date=date,
         show=show,
         sort_func=sort_func,
@@ -113,18 +113,17 @@ def search_manga():
     _, show = read_config()
     form = SearchBar()
     if form.validate_on_submit():
-        mangas = Manga.query.filter(
+        manga = Manga.query.filter(
             Manga.title.like(f"%{form.search_field.data}%")
         ).all()
         return render_template(
             "table.html",
             title=f"{form.search_field.data} Manga",
-            mangas=mangas,
+            mangas=manga,
             date=date,
             show=show,
         )
-    else:
-        return redirect(url_for("main.page_selector"))
+    return redirect(url_for("main.page_selector"))
 
 
 # Updates metadata related to the manga
@@ -132,23 +131,23 @@ def search_manga():
 @mangas.route("/function/update-metadata/<int:manga_id>")
 def update_metadata(manga_id):
     if manga_id != 0:
-        mangas = Manga.query.get_or_404(manga_id)
-        if mangas.cover == "default.png" or mangas.cover == "default.svg":
+        manga = Manga.query.get_or_404(manga_id)
+        if manga.cover in ("default.png", "default.svg"):
             pass
         else:
-            if os.path.exists(f"src\\static\\manga_cover\\{mangas.cover}"):
-                os.remove(f"src\\static\\manga_cover\\{mangas.cover}")
-        metadata = manga_search(mangas.title)
-        mangas.artist = metadata[0]
-        mangas.author = metadata[1]
-        mangas.cover = metadata[2]
-        mangas.description = metadata[3]
-        mangas.tags = ", ".join(metadata[4][0:-2])
+            if os.path.exists(f"src\\static\\manga_cover\\{manga.cover}"):
+                os.remove(f"src\\static\\manga_cover\\{manga.cover}")
+        metadata = manga_search(manga.title)
+        manga.artist = metadata[0]
+        manga.author = metadata[1]
+        manga.cover = metadata[2]
+        manga.description = metadata[3]
+        manga.tags = ", ".join(metadata[4][0:-2])
         db.session.commit()
     else:
-        mangas = Manga.query.order_by(Manga.title.name).all()
-        for j, i in zip(track(range(len(mangas))), mangas):
-            if i.cover == "default.png" or i.cover == "default.svg":
+        manga = Manga.query.order_by(Manga.title.name).all()
+        for _, i in zip(track(range(len(manga))), manga):
+            if i.cover in ("default.png", "default.svg"):
                 pass
             else:
                 if os.path.exists(f"src\\static\\manga_cover\\{i.cover}"):
