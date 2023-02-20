@@ -65,16 +65,27 @@ def read_config():
 
 # A occaisional prompt asking user to star MMDB on github
 def show_star_on_github():
-    first = random.randint(1, 50)
-    second = random.randint(1, 50)
-    if first == second:
-        flash(
-            Markup(
-                """To support us for free, you can star
-                <a href="https://github.com/Edwinrodger/MyMangaDataBase">
-                MyMangaDataBase on github!
-                </a>
-            """
-            ),
-            "info",
-        )
+    # Only show flash message if the option is set to "Yes"
+    config, _ = read_config()
+    try:
+        show = config["FlashMessages"]["show_star_on_github"]
+    except KeyError:
+        config.add_section("FlashMessages")
+        config.set("FlashMessages", "show_star_on_github", "Yes")
+        with open("config.ini", "w", encoding="UTF-8") as config_file:
+            config.write(config_file)
+        show = "Yes"
+    if show == "Yes":
+        first = random.randint(1, 50)
+        second = random.randint(1, 50)
+        if first == second:
+            flash(
+                Markup(
+                    """To support us for FREE, you can star
+                    <a href="https://github.com/Edwinrodger/MyMangaDataBase">
+                    MyMangaDataBase on github!
+                    </a>
+                """
+                ),
+                "info",
+            )

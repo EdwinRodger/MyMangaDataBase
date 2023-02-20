@@ -22,6 +22,9 @@ def settings():
         config["UserInterface"]["show_start_date"] = str(form.show_start_date.data)
         config["UserInterface"]["show_end_date"] = str(form.show_end_date.data)
         config["UserInterface"]["show_status"] = str(form.show_status.data)
+        config["FlashMessages"]["show_star_on_github"] = str(
+            form.show_star_on_github.data
+        )
         with open("config.ini", "w", encoding="UTF-8") as config_file:
             config.write(config_file)
         flash("Your settings has been updated!", "success")
@@ -44,6 +47,7 @@ def settings():
         form.show_start_date.data = config["UserInterface"]["show_start_date"]
         form.show_end_date.data = config["UserInterface"]["show_end_date"]
         form.show_status.data = config["UserInterface"]["show_status"]
+        form.show_star_on_github.data = config["FlashMessages"]["show_star_on_github"]
     return render_template(
         "settings.html", title="Settings", legend="Settings", form=form
     )

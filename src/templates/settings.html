@@ -4,13 +4,15 @@
     <form action="" method="post" class="m-sm-5 p-sm-5 border border-opacity-25 rounded-4 p-2 mt-3">
         {{ form.hidden_tag() }}
         <fieldset>
-            <legend class="border-bottom mb-4">
+            <h1 class="border-bottom mb-4">
                 {{ legend }}
-            </legend>
+            </h1>
+            <h2 class="mt-5">Defaults</h2>
             <div class="form mb-3">
                 {{ form.default_status_to_show.label(class="form-label") }}
                 {{ form.default_status_to_show(class="form-control form-control-lg") }}
             </div>
+            <h2 class="mt-5">Column Interface</h2>
             <div class="d-flex form mb-3" style="max-width: 200px;">
                 {{ form.show_cover.label(class="form-label")}}
                 {{ form.show_cover(class="form-select-sm ms-auto") }}
@@ -38,6 +40,11 @@
             <div class="d-flex form mb-3" style="max-width: 200px;">
                 {{ form.show_status.label(class="form-label")}}
                 {{ form.show_status(class="form-select-sm ms-auto") }}
+            </div>
+            <h2 class="mt-5">Flash Messages</h2>
+            <div class="d-flex form mb-3" style="max-width: 550px;">
+                {{ form.show_star_on_github.label(class="form-label")}}
+                {{ form.show_star_on_github(class="form-select-sm ms-auto") }}
             </div>
         </fieldset>
         <div class="d-flex btn-group form my-3 px-auto" role="group">

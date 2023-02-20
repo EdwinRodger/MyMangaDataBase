@@ -4,7 +4,7 @@ from wtforms import SelectField, SubmitField
 
 class SettingsForm(FlaskForm):
     default_status_to_show = SelectField(
-        "Default Status To Show",
+        "Default Status",
         choices=[
             "All",
             "Reading",
@@ -22,4 +22,9 @@ class SettingsForm(FlaskForm):
     show_start_date = SelectField("Show Start Date", choices=["Yes", "No"])
     show_end_date = SelectField("Show End Date", choices=["Yes", "No"])
     show_status = SelectField("Show Status", choices=["Yes", "No"])
+
+    show_star_on_github = SelectField(
+        "Show occaisional message asking user to star MMDB on github",
+        choices=["Yes", "No"],
+    )
     update = SubmitField("Update")

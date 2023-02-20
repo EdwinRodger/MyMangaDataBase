@@ -21,6 +21,8 @@ def create_config():
     config.set("UserInterface", "show_start_date", "Yes")
     config.set("UserInterface", "show_end_date", "Yes")
     config.set("UserInterface", "show_status", "Yes")
+    config.add_section("FlashMessages")
+    config.set("FlashMessages", "show_star_on_github", "Yes")
     with open(FILE, "w", encoding="UTF-8") as config_file:
         config.write(config_file)
 
