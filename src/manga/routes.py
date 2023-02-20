@@ -11,7 +11,7 @@ from src import db
 from src.manga.forms import MangaForm, SearchBar
 from src.manga.web_scraper import manga_search
 from src.models import Manga
-from src.utils import read_config
+from src.utils import read_config, show_star_on_github
 
 mangas = Blueprint("mangas", __name__)
 
@@ -97,6 +97,7 @@ def sort_manga(sort_func):
     config = ConfigParser()
     config.read(file)
     show = config["UserInterface"]
+    show_star_on_github()
     return render_template(
         "table.html",
         title=f"{sort_func} Manga",
@@ -116,6 +117,7 @@ def search_manga():
         manga = Manga.query.filter(
             Manga.title.like(f"%{form.search_field.data}%")
         ).all()
+        show_star_on_github()
         return render_template(
             "table.html",
             title=f"{form.search_field.data} Manga",

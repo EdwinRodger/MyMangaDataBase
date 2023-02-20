@@ -15,7 +15,7 @@ from sqlalchemy import delete
 from src import db
 from src.main.utils import export_mmdb_backup, extract_backup
 from src.models import Manga
-from src.utils import read_config
+from src.utils import read_config, show_star_on_github
 
 d = datetime.strptime("0001-01-01", "%Y-%m-%d")
 date = d.date()
@@ -44,6 +44,7 @@ def page_selector():
 def home():
     mangas = Manga.query.order_by(Manga.title.name).all()
     _, show = read_config()
+    show_star_on_github()
     return render_template(
         "table.html", title="Home", mangas=mangas, date=date, show=show
     )

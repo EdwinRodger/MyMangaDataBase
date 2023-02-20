@@ -1,9 +1,12 @@
 import hashlib
 import os
+import random
 from configparser import ConfigParser
 from urllib.request import Request, urlopen
 from webbrowser import open_new_tab
 
+from flask import flash
+from markupsafe import Markup
 from rich import print as richprint
 
 
@@ -58,3 +61,20 @@ def read_config():
     config.read(file)
     show = config["UserInterface"]
     return config, show
+
+
+# A occaisional prompt asking user to star MMDB on github
+def show_star_on_github():
+    first = random.randint(1, 50)
+    second = random.randint(1, 50)
+    if first == second:
+        flash(
+            Markup(
+                """To support us for free, you can star
+                <a href="https://github.com/Edwinrodger/MyMangaDataBase">
+                MyMangaDataBase on github!
+                </a>
+            """
+            ),
+            "info",
+        )
