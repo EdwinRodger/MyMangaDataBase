@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="d-flex justify-content-center mt-5 mb-5">
+    <img src="{{ url_for('static', filename='error_assests/500 server down.jpg') }}" alt="500 Server Down JPG"
+        class="img-fluid">
+</div>
+<div>
+    <figure class="text-center">
+        <blockquote class="blockquote">
+            <p class="fs-1">Internal Server Error (500)</p>
+            <p>This is a server error which means there is something wrong in MMDB Code.<br>Please issue a bug request
+                on <a
+                    href="https://github.com/EdwinRodger/MyMangaDataBase/issues/new?assignees=&labels=Bug&template=bug_report.yml"
+                    target="_blank" rel="noopener noreferrer">Github</a> describing how this error happened.</p>
+        </blockquote>
+    </figure>
+</div>
+{% endblock body %}
