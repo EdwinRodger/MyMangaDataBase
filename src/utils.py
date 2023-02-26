@@ -14,7 +14,7 @@ def check_for_update():
     """Checks for software update using github's api.
     It reads api page contents and converts it into hash which is saved in `versionhash.txt` file.
     It repeats the process again when the program is opened and checks if the older session
-    versionhash is eqaul to this session's versionhash, if it is equal then the program is
+    versionhash is equal to this session's versionhash, if it is equal then the program is
     up-to-date but if the hash changes that means a new version is published on github and this
     function prompts user to update to latest function by sending them to latest github release page
     """
@@ -63,12 +63,14 @@ def read_config():
     return config, show
 
 
-# A occaisional prompt asking user to star MMDB on github
+# A occasional prompt asking user to star MMDB on github
 def show_star_on_github():
     # Only show flash message if the option is set to "Yes"
     config, _ = read_config()
     try:
         show = config["FlashMessages"]["show_star_on_github"]
+    # This adds new section FlashMessages in config.ini
+    # Helps in backward compatibility
     except KeyError:
         config.add_section("FlashMessages")
         config.set("FlashMessages", "show_star_on_github", "Yes")
