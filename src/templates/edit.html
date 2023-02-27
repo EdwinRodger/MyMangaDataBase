@@ -10,7 +10,13 @@
             <p>{{manga.description}}</p>
             <p>Artist: {{manga.artist}}</p>
             <p>Author: {{manga.author}}</p>
-            <p>Genre: {{manga.tags}}</p>
+            <!-- Here we first split tags than removes any spaces before sending it to search_genre
+            function because whitespace changes the search algorithm 
+            Also the for loop is inline because we have to separate tags and not repeat genre line
+            again and again for different tag/genre-->
+            <p>Genre: {% for i in manga.tags.split(", ") %}
+                <a class="text-white" href="{{ url_for('mangas.search_genre', tag=i.strip())}}"> {{i}}</a> {%endfor%}
+            </p>
             <p>Source: mangaupdates.com</p>
         </div>
     </div>

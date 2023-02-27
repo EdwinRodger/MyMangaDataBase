@@ -25,7 +25,8 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 - Import from MAL, MMDB
 - Responsive UI
 - Self Hosted
-- Sorted Manga Categories
+- Sort by status
+- Search by genre/name
 
 ## Road Map
 

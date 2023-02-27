@@ -128,6 +128,21 @@ def search_manga():
     return redirect(url_for("main.page_selector"))
 
 
+# Searches manga related to given genre/tag in the database
+@mangas.route("/genre/<string:tag>", methods=["GET"])
+def search_genre(tag):
+    _, show = read_config()
+    manga = Manga.query.filter(Manga.tags.like(f"%{tag}%")).all()
+    show_star_on_github()
+    return render_template(
+        "table.html",
+        title=f"{tag} Genre",
+        mangas=manga,
+        date=date,
+        show=show,
+    )
+
+
 # Updates metadata related to the manga
 # manga_id = 0 means whole database will get updated
 @mangas.route("/function/update-metadata/<int:manga_id>")
