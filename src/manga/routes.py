@@ -89,10 +89,10 @@ def delete_manga(manga_id):
     return redirect(url_for("main.page_selector"))
 
 
-# Sort The Manga
-@mangas.route("/sort/<string:sort_func>")
-def sort_manga(sort_func):
-    manga = Manga.query.filter_by(status=sort_func).order_by(Manga.title.name).all()
+# Sort manga according to status
+@mangas.route("/status/<string:status_value>")
+def sort_manga(status_value):
+    manga = Manga.query.filter_by(status=status_value).order_by(Manga.title.name).all()
     file = "config.ini"
     config = ConfigParser()
     config.read(file)
@@ -100,11 +100,11 @@ def sort_manga(sort_func):
     show_star_on_github()
     return render_template(
         "table.html",
-        title=f"{sort_func} Manga",
+        title=f"{status_value} Manga",
         mangas=manga,
         date=date,
         show=show,
-        sort_func=sort_func,
+        status_value=status_value,
     )
 
 

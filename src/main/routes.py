@@ -34,7 +34,7 @@ def page_selector():
     return redirect(
         url_for(
             "mangas.sort_manga",
-            sort_func=config["UserInterface"]["default_status_to_show"],
+            status_value=config["UserInterface"]["default_status_to_show"],
         )
     )
 

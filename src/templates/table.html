@@ -24,26 +24,27 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item"
-                                href="{{ url_for('mangas.sort_manga', sort_func='Reading') }}">Reading</a>
+                                href="{{ url_for('mangas.sort_manga', status_value='Reading') }}">Reading</a>
                         </li>
                         <li><a class="dropdown-item"
-                                href="{{ url_for('mangas.sort_manga', sort_func='Completed') }}">Completed</a></li>
-                        <li><a class="dropdown-item" href="{{ url_for('mangas.sort_manga', sort_func='On hold') }}">On
+                                href="{{ url_for('mangas.sort_manga', status_value='Completed') }}">Completed</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ url_for('mangas.sort_manga', status_value='On hold') }}">On
                                 Hold</a>
                         </li>
                         <li><a class="dropdown-item"
-                                href="{{ url_for('mangas.sort_manga', sort_func='Dropped') }}">Dropped</a>
+                                href="{{ url_for('mangas.sort_manga', status_value='Dropped') }}">Dropped</a>
                         </li>
                         <li><a class="dropdown-item"
-                                href="{{ url_for('mangas.sort_manga', sort_func='Plan to read') }}">Plan To
+                                href="{{ url_for('mangas.sort_manga', status_value='Plan to read') }}">Plan To
                                 Read</a></li>
                         <li><a class="dropdown-item"
-                                href="{{ url_for('mangas.sort_manga', sort_func='Rereading') }}">Rereading</a>
+                                href="{{ url_for('mangas.sort_manga', status_value='Rereading') }}">Rereading</a>
                         </li>
                     </ul>
                 </div>
-                {% if sort_func %}
-                <button type="button" class="btn btn-secondary" disabled>{{ sort_func }}</button>
+                {% if status_value %}
+                <button type="button" class="btn btn-secondary" disabled>{{ status_value }}</button>
                 {% else %}
                 <button type="button" class="btn btn-secondary" disabled>All</button>
                 {% endif %}
@@ -57,17 +58,17 @@
         <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
             href="{{ url_for('main.home') }}"><b>All</b></a>
         <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
-            href="{{ url_for('mangas.sort_manga', sort_func='Reading') }}"><b>Reading</b></a>
+            href="{{ url_for('mangas.sort_manga', status_value='Reading') }}"><b>Reading</b></a>
         <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
-            href="{{ url_for('mangas.sort_manga', sort_func='Completed') }}"><b>Completed</b></a>
+            href="{{ url_for('mangas.sort_manga', status_value='Completed') }}"><b>Completed</b></a>
         <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
-            href="{{ url_for('mangas.sort_manga', sort_func='On hold') }}"><b>On Hold</b></a>
+            href="{{ url_for('mangas.sort_manga', status_value='On hold') }}"><b>On Hold</b></a>
         <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
-            href="{{ url_for('mangas.sort_manga', sort_func='Dropped') }}"><b>Dropped</b></a>
+            href="{{ url_for('mangas.sort_manga', status_value='Dropped') }}"><b>Dropped</b></a>
         <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
-            href="{{ url_for('mangas.sort_manga', sort_func='Plan to read') }}"><b>Plan To Read</b></a>
+            href="{{ url_for('mangas.sort_manga', status_value='Plan to read') }}"><b>Plan To Read</b></a>
         <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
-            href="{{ url_for('mangas.sort_manga', sort_func='Rereading') }}"><b>Rereading</b></a>
+            href="{{ url_for('mangas.sort_manga', status_value='Rereading') }}"><b>Rereading</b></a>
     </div>
 </div>
 <div class="table-responsive">
