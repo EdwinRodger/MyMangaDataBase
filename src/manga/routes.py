@@ -24,20 +24,21 @@ date = d.date()
 def new_manga():
     form = MangaForm()
     if form.validate_on_submit():
-        manga = Manga(
-            title=form.title.data,
-            cover=form.cover.data,
-            start_date=form.start_date.data,
-            end_date=form.end_date.data,
-            volume=form.volume.data,
-            chapter=form.chapter.data,
-            status=form.status.data,
-            score=form.score.data,
-        )
-        db.session.add(manga)
-        db.session.commit()
-        flash(f"{form.title.data} is added!", "success")
-        return redirect(url_for("main.page_selector"))
+        pass
+        # manga = Manga(
+        #     title=form.title.data,
+        #     cover=form.cover.data,
+        #     start_date=form.start_date.data,
+        #     end_date=form.end_date.data,
+        #     volume=form.volume.data,
+        #     chapter=form.chapter.data,
+        #     status=form.status.data,
+        #     score=form.score.data,
+        # )
+        # db.session.add(manga)
+        # db.session.commit()
+        # flash(f"{form.title.data} is added!", "success")
+        # return redirect(url_for("main.page_selector"))
     return render_template(
         "create-manga.html", title="New Manga", form=form, legend="New Manga"
     )
@@ -52,15 +53,16 @@ def update_manga(manga_id):
         metadata = True
     form = MangaForm()
     if form.validate_on_submit():
-        manga.title = form.title.data
-        manga.start_date = form.start_date.data
-        manga.end_date = form.end_date.data
-        manga.volume = form.volume.data
-        manga.chapter = form.chapter.data
-        manga.status = form.status.data
-        manga.score = form.score.data
-        db.session.commit()
-        flash("Your manga has been updated!", "success")
+        pass
+        # manga.title = form.title.data
+        # manga.start_date = form.start_date.data
+        # manga.end_date = form.end_date.data
+        # manga.volume = form.volume.data
+        # manga.chapter = form.chapter.data
+        # manga.status = form.status.data
+        # manga.score = form.score.data
+        # db.session.commit()
+        # flash("Your manga has been updated!", "success")
     elif request.method == "GET":
         form.title.data = manga.title
         form.start_date.data = manga.start_date
@@ -82,10 +84,10 @@ def update_manga(manga_id):
 # Delete A Manga
 @mangas.route("/manga/delete/<int:manga_id>", methods=["POST"])
 def delete_manga(manga_id):
-    manga = Manga.query.get_or_404(manga_id)
-    db.session.delete(manga)
-    db.session.commit()
-    flash("Your manga has been Obliterated!", "success")
+    # manga = Manga.query.get_or_404(manga_id)
+    # db.session.delete(manga)
+    # db.session.commit()
+    # flash("Your manga has been Obliterated!", "success")
     return redirect(url_for("main.page_selector"))
 
 
@@ -147,37 +149,37 @@ def search_genre(tag):
 # manga_id = 0 means whole database will get updated
 @mangas.route("/function/update-metadata/<int:manga_id>")
 def update_metadata(manga_id):
-    if manga_id != 0:
-        manga = Manga.query.get_or_404(manga_id)
-        if manga.cover in ("default.png", "default.svg"):
-            pass
-        else:
-            if os.path.exists(f"src\\static\\manga_cover\\{manga.cover}"):
-                os.remove(f"src\\static\\manga_cover\\{manga.cover}")
-        metadata = manga_search(manga.title)
-        manga.artist = metadata[0]
-        manga.author = metadata[1]
-        manga.cover = metadata[2]
-        manga.description = metadata[3]
-        manga.tags = ", ".join(metadata[4][0:-2])
-        db.session.commit()
-    else:
-        manga = Manga.query.order_by(Manga.title.name).all()
-        for _, i in zip(track(range(len(manga))), manga):
-            if i.cover in ("default.png", "default.svg"):
-                pass
-            else:
-                if os.path.exists(f"src\\static\\manga_cover\\{i.cover}"):
-                    os.remove(f"src\\static\\manga_cover\\{i.cover}")
-            # Using time.sleep to decrease the overloading on mangaupdates server
-            time.sleep(random.randint(2, 5))
-            metadata = manga_search(i.title)
-            i.artist = metadata[0]
-            i.author = metadata[1]
-            i.cover = metadata[2]
-            i.description = metadata[3]
-            i.tags = ", ".join(metadata[4][0:-2])
-            db.session.commit()
+    # if manga_id != 0:
+    #     manga = Manga.query.get_or_404(manga_id)
+    #     if manga.cover in ("default.png", "default.svg"):
+    #         pass
+    #     else:
+    #         if os.path.exists(f"src\\static\\manga_cover\\{manga.cover}"):
+    #             os.remove(f"src\\static\\manga_cover\\{manga.cover}")
+    #     metadata = manga_search(manga.title)
+    #     manga.artist = metadata[0]
+    #     manga.author = metadata[1]
+    #     manga.cover = metadata[2]
+    #     manga.description = metadata[3]
+    #     manga.tags = ", ".join(metadata[4][0:-2])
+    #     db.session.commit()
+    # else:
+    #     manga = Manga.query.order_by(Manga.title.name).all()
+    #     for _, i in zip(track(range(len(manga))), manga):
+    #         if i.cover in ("default.png", "default.svg"):
+    #             pass
+    #         else:
+    #             if os.path.exists(f"src\\static\\manga_cover\\{i.cover}"):
+    #                 os.remove(f"src\\static\\manga_cover\\{i.cover}")
+    #         # Using time.sleep to decrease the overloading on mangaupdates server
+    #         time.sleep(random.randint(2, 5))
+    #         metadata = manga_search(i.title)
+    #         i.artist = metadata[0]
+    #         i.author = metadata[1]
+    #         i.cover = metadata[2]
+    #         i.description = metadata[3]
+    #         i.tags = ", ".join(metadata[4][0:-2])
+    #         db.session.commit()
     return redirect(url_for("mangas.update_manga", manga_id=manga_id))
 
 

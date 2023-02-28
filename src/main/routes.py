@@ -53,8 +53,9 @@ def home():
 # Downloads MMDB json export file
 @main.route("/export")
 def export():
-    export_mmdb_backup()
-    return send_file(f"MMDB-Export-{today_date}.zip")
+    # export_mmdb_backup()
+    # return send_file(f"MMDB-Export-{today_date}.zip")
+    return redirect(url_for('main.home'))
 
 
 # The path for uploading the file
@@ -66,20 +67,20 @@ def import_backup():
 # Imports backup based on file extension
 @main.route("/import/backup", methods=["GET", "POST"])
 def importbackup():
-    if request.method == "POST":  # check if the method is post
-        backup_file = request.files["file"]  # get the file from the files object
-        if backup_file.filename == "":
-            flash("Choose a file to import!", "danger")
-            return redirect(url_for("main.import_backup"))
-        if backup_file.filename.lower().endswith((".zip", ".xml")):
-            backup_file.save(backup_file.filename)  # this will secure the file
-            extract_backup(backup_file.filename)
-        else:
-            flash("Choose correct file to import!", "danger")
-            return redirect(url_for("main.import_backup"))
-        return redirect(
-            url_for("main.page_selector")
-        )  # Display thsi message after uploading
+    # if request.method == "POST":  # check if the method is post
+    #     backup_file = request.files["file"]  # get the file from the files object
+    #     if backup_file.filename == "":
+    #         flash("Choose a file to import!", "danger")
+    #         return redirect(url_for("main.import_backup"))
+    #     if backup_file.filename.lower().endswith((".zip", ".xml")):
+    #         backup_file.save(backup_file.filename)  # this will secure the file
+    #         extract_backup(backup_file.filename)
+    #     else:
+    #         flash("Choose correct file to import!", "danger")
+    #         return redirect(url_for("main.import_backup"))
+    #     return redirect(
+    #         url_for("main.page_selector")
+    #     )  # Display thsi message after uploading
     return redirect(
         url_for("main.import_backup")
     )  # Display thsi message after uploading
@@ -88,15 +89,15 @@ def importbackup():
 # Delete Database
 @main.route("/delete/database")
 def delete_database():
-    delete_db = delete(Manga).where(Manga.id >= 0)
-    db.session.execute(delete_db)
-    db.session.commit()
-    for root, _, files in os.walk("src\\static\\manga_cover\\"):
-        for file in files:
-            # Doing if file != "default.png/svg": is also delete those files
-            # but in if else block it is not deleting default files
-            if file in ("default.png", "default.svg"):
-                pass
-            else:
-                os.remove(os.path.join(root, file))
+    # delete_db = delete(Manga).where(Manga.id >= 0)
+    # db.session.execute(delete_db)
+    # db.session.commit()
+    # for root, _, files in os.walk("src\\static\\manga_cover\\"):
+    #     for file in files:
+    #         # Doing if file != "default.png/svg": is also delete those files
+    #         # but in if else block it is not deleting default files
+    #         if file in ("default.png", "default.svg"):
+    #             pass
+    #         else:
+    #             os.remove(os.path.join(root, file))
     return redirect(url_for("main.page_selector"))

@@ -66,7 +66,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ url_for('main.export') }}">
+                            <a class="nav-link text-white" href="#">
                                 <i class="bi bi-database-up"></i>
                                 Export
                             </a>
@@ -155,6 +155,7 @@
                 </div>
             </div>
         </nav>
+        <p class="lead ms-3">This is a demo site and some functionality is disabled</p>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, messages in messages %}
