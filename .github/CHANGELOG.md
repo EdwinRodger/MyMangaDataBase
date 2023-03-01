@@ -1,5 +1,59 @@
 # Changelog
 
+## 1.7.0
+
+### New
+
+- **NEW DEMO SITE!!!** at https://mymangadatabase.pythonanywhere.com/
+- An occasional flash message to star MMDB on github and setting to toggle it On or Off
+- Arguments -
+  - `--run-with-ngrok`, Hosts the server on [ngrok](https://ngrok.com/)
+    - Requires ngrok to be installed on the system
+    - Requires ngrok account
+    - Requires authtoken to be configured by ngrok
+  - `--run-with-localhost`, Hosts the server on [localhost.run](https://localhost.run)
+    - Load site slowly
+- Blueprint: errors, new error pages
+- Blueprint: functions, to make simple database operations easier
+- `help.md` to help non-technical users with basic things
+- Links to github under info section -
+  - Bug report
+  - Feature request
+  - Star MyMangaDataBase
+- Packages -
+  - [sqlite-web](https://github.com/coleifer/sqlite-web) (dev)
+  - [flask-ngrok2](https://github.com/MohamedAliRashad/flask-ngrok2)
+  - [pylint](https://pylint.readthedocs.io/en/latest/)
+- Rich help panel
+- Search by genre
+- Three setting sections - 
+  - Defaults
+  - Column Interface
+  - Flash Messages
+
+### Fixed
+
+- Overflowing of metadata content from main div on smaller devices
+- Typos
+
+### Updated
+
+- Change `Info` to `Help` in navbar
+- Changed `sort_func` variable to `status_value`
+- Python Packages
+- Rerouting to same manga page after updating manga/metadata
+- Whole code standards according to PyLint
+
+### Deleted
+
+- Packages
+  - pillow
+  - python-dotenv
+
+###### Released On: 01 March 2023
+
+---
+
 ## 1.6.0
 
 ### New
@@ -64,7 +118,7 @@
 - Removed all "# type: ignore" (used to hide error less code warning messages)
 - Removed .env file
 
-###### Released On: 01 Feb 2021
+###### Released On: 01 Feb 2023
 
 ---
 
