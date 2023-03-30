@@ -56,8 +56,7 @@ def mmdb_cli(
         sys.exit(0)
     if run_with_ngrok:
         richprint(
-            "[red]Running with ngrok requires you to have ngrok installed, configured with \
-authtoken and set to path otherwise your server won't run!"
+            "[red]Running with ngrok requires you to have ngrok installed, configured with authtoken and set to path otherwise your server won't run!"
         )
         var = str(input("Do you want to continue?[(Y)es/(N)o] "))
         if var.lower().startswith("y"):
@@ -65,8 +64,7 @@ authtoken and set to path otherwise your server won't run!"
         sys.exit(0)
     if run_with_localhost:
         richprint(
-            "[red]Only con of running with localhost.run is that it will higher your website \
-loading time!"
+            "[red]Running with localhost.run will have slower loading and server url will last only one hour"
         )
         var = str(input("Do you want to continue?[(Y)es/(N)o] "))
         if var.lower().startswith("y"):
