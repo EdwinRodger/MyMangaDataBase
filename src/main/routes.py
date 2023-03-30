@@ -15,7 +15,7 @@ from sqlalchemy import delete
 from src import db
 from src.main.utils import export_mmdb_backup, extract_backup
 from src.models import Manga
-from src.utils import read_config, show_star_on_github
+from src.utils import read_settings, show_star_on_github
 
 d = datetime.strptime("0001-01-01", "%Y-%m-%d")
 date = d.date()
@@ -28,13 +28,13 @@ today_date = datetime.date(datetime.today())
 # Redirects to page based on user's default_status_to_show setting
 @main.route("/")
 def page_selector():
-    config, _ = read_config()
-    if config["UserInterface"]["default_status_to_show"] == "All":
+    status = read_settings()
+    if status["UserInterface"]["default_status_to_show"] == "All":
         return redirect(url_for("main.home"))
     return redirect(
         url_for(
             "mangas.sort_manga",
-            status_value=config["UserInterface"]["default_status_to_show"],
+            status_value=status["UserInterface"]["default_status_to_show"],
         )
     )
 
@@ -43,10 +43,10 @@ def page_selector():
 @main.route("/home")
 def home():
     mangas = Manga.query.order_by(Manga.title.name).all()
-    _, show = read_config()
+    show = read_settings()
     show_star_on_github()
     return render_template(
-        "table.html", title="Home", mangas=mangas, date=date, show=show
+        "table.html", title="Home", mangas=mangas, date=date, show=show["UserInterface"]
     )
 
 

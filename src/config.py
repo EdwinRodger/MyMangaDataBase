@@ -1,8 +1,7 @@
 import os
-from configparser import ConfigParser
+import json
 
-FILE = "config.ini"
-config = ConfigParser()
+FILE = "settings.json"
 
 
 class Config:
@@ -10,23 +9,27 @@ class Config:
     SECRET_KEY = os.urandom(16).hex()
 
 
-def create_config():
-    config.add_section("UserInterface")
-    config.set("UserInterface", "default_status_to_show", "All")
-    config.set("UserInterface", "show_cover", "Yes")
-    config.set("UserInterface", "show_title", "Yes")
-    config.set("UserInterface", "show_score", "Yes")
-    config.set("UserInterface", "show_volume", "Yes")
-    config.set("UserInterface", "show_chapter", "Yes")
-    config.set("UserInterface", "show_start_date", "Yes")
-    config.set("UserInterface", "show_end_date", "Yes")
-    config.set("UserInterface", "show_status", "Yes")
-    config.add_section("FlashMessages")
-    config.set("FlashMessages", "show_star_on_github", "Yes")
-    with open(FILE, "w", encoding="UTF-8") as config_file:
-        config.write(config_file)
+def create_settings_json():
+    settings = {
+        "UserInterface": {
+            "default_status_to_show": "All",
+            "show_cover": "Yes",
+            "show_title": "Yes",
+            "show_score": "Yes",
+            "show_volume": "Yes",
+            "show_chapter": "Yes",
+            "show_start_date": "Yes",
+            "show_end_date": "Yes",
+            "show_status": "Yes",
+        },
+        "FlashMessages": {
+            "show_star_on_github": "Yes",
+        },
+    }
+    with open(FILE, "w", encoding="UTF-8") as settings_file:
+        json.dump(settings, settings_file, indent=4)
 
 
-def check_config():
+def check_settings_json():
     if not os.path.exists(FILE):
-        create_config()
+        create_settings_json()

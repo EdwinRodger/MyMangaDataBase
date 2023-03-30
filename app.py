@@ -9,7 +9,7 @@ from flask_ngrok2 import run_with_ngrok
 from paste.translogger import TransLogger
 
 from src import create_app, db
-from src.config import check_config
+from src.config import check_settings_json
 from src.main.utils import delete_export
 from src.utils import check_for_update
 
@@ -20,8 +20,7 @@ logger.setLevel(logging.CRITICAL)
 
 
 def checks():
-    check_config()
-    # check_for_update()
+    check_settings_json()
     try:
         check_for_update()
     except:

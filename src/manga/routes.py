@@ -11,7 +11,7 @@ from src import db
 from src.manga.forms import MangaForm, SearchBar
 from src.manga.web_scraper import manga_search
 from src.models import Manga
-from src.utils import read_config, show_star_on_github
+from src.utils import read_settings, show_star_on_github
 
 mangas = Blueprint("mangas", __name__)
 
@@ -93,10 +93,7 @@ def delete_manga(manga_id):
 @mangas.route("/status/<string:status_value>")
 def sort_manga(status_value):
     manga = Manga.query.filter_by(status=status_value).order_by(Manga.title.name).all()
-    file = "config.ini"
-    config = ConfigParser()
-    config.read(file)
-    show = config["UserInterface"]
+    show = read_settings()["UserInterface"]
     show_star_on_github()
     return render_template(
         "table.html",
@@ -111,7 +108,7 @@ def sort_manga(status_value):
 # Searches manga in the database
 @mangas.route("/search", methods=["POST"])
 def search_manga():
-    _, show = read_config()
+    show = read_settings()["UserInterface"]
     form = SearchBar()
     if form.validate_on_submit():
         manga = Manga.query.filter(
@@ -131,7 +128,7 @@ def search_manga():
 # Searches manga related to given genre/tag in the database
 @mangas.route("/genre/<string:tag>", methods=["GET"])
 def search_genre(tag):
-    _, show = read_config()
+    show = read_settings()["UserInterface"]
     manga = Manga.query.filter(Manga.tags.like(f"%{tag}%")).all()
     show_star_on_github()
     return render_template(

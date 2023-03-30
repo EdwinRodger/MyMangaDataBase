@@ -1,7 +1,7 @@
 import hashlib
 import os
 import random
-from configparser import ConfigParser
+import json
 from urllib.request import Request, urlopen
 from webbrowser import open_new_tab
 
@@ -55,32 +55,22 @@ def check_for_update():
                 input("Press any key to continue...")
 
 
-def read_config():
-    file = "config.ini"
-    config = ConfigParser()
-    config.read(file)
-    show = config["UserInterface"]
-    return config, show
+def read_settings():
+    with open("settings.json", "r") as setting_file:
+        settings = json.load(setting_file)
+    return settings
 
 
 # A occasional prompt asking user to star MMDB on github
 def show_star_on_github():
+    settings = read_settings()
+    show_star = settings["FlashMessages"]["show_star_on_github"]
     # Only show flash message if the option is set to "Yes"
-    config, _ = read_config()
-    try:
-        show = config["FlashMessages"]["show_star_on_github"]
-    # This adds new section FlashMessages in config.ini
-    # Helps in backward compatibility
-    except KeyError:
-        config.add_section("FlashMessages")
-        config.set("FlashMessages", "show_star_on_github", "Yes")
-        with open("config.ini", "w", encoding="UTF-8") as config_file:
-            config.write(config_file)
-        show = "Yes"
-    if show == "Yes":
+    if show_star == "Yes":
         first = random.randint(1, 50)
         second = random.randint(1, 50)
         if first == second:
+            # Markup is used to send links safely to html page
             flash(
                 Markup(
                     """To support us for FREE, you can star
