@@ -1,5 +1,6 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for
 import json
+
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from src.settings.forms import SettingsForm
 from src.utils import read_settings

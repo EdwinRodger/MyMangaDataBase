@@ -1,7 +1,7 @@
 import hashlib
+import json
 import os
 import random
-import json
 from urllib.request import Request, urlopen
 from webbrowser import open_new_tab
 
