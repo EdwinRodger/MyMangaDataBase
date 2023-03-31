@@ -13,7 +13,7 @@ from flask import (
 from sqlalchemy import delete
 
 from src import db
-from src.main.utils import export_mmdb_backup, extract_backup
+from src.main.backup import export_mmdb_backup, extract_backup
 from src.models import Manga
 from src.utils import read_settings, show_star_on_github
 

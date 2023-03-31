@@ -10,7 +10,7 @@ from paste.translogger import TransLogger
 
 from src import create_app, db
 from src.config import check_settings_json
-from src.main.utils import delete_export
+from src.main.backup import delete_export
 from src.utils import check_for_update
 
 app = create_app()
