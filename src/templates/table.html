@@ -52,7 +52,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <div class="d-none d-sm-block">
     <div class="btn-group d-flex px-1 my-3" role="group">
         <a type="button" class="btn btn-outline-primary border-white flex-grow-1 text-white text-decoration-none"
@@ -71,21 +71,52 @@
             href="{{ url_for('mangas.sort_manga', status_value='Rereading') }}"><b>Rereading</b></a>
     </div>
 </div>
+
 <div class="table-responsive">
     <table class="table table-dark table-striped align-middle">
         <thead>
-            <!-- Searches the config file to see what columns to show -->
-            {% for i in show %}
-            {% if show[i] == "Yes" %}
+            <!-- Manual search the settings file to check what columns to show -->
+            <!-- show = show["UserInterface"] -->
+            {% if show["show_cover"] == "Yes" %}
             <th scope="col">
-                {% if i.replace("show_", "").replace("_", " ").title() == "Title" %}
-                <p class="ps-2">{{ i.replace("show_", "").replace("_", " ").title() }}</p>
-                {% else %}
-                <p class="text-center">{{ i.replace("show_", "").replace("_", " ").title() }}</p>
-                {% endif %}
+                <p class="ps-2 text-center">Cover</p>
             </th>
             {% endif %}
-            {% endfor %}
+            {% if show["show_title"] == "Yes" %}
+            <th scope="col">
+                <p class="ps-2">Title</p>
+            </th>
+            {% endif %}
+            {% if show["show_score"] == "Yes" %}
+            <th scope="col">
+                <p class="ps-2 text-center">Score</p>
+            </th>
+            {% endif %}
+            {% if show["show_volume"] == "Yes" %}
+            <th scope="col">
+                <p class="ps-2 text-center">Volume</p>
+            </th>
+            {% endif %}
+            {% if show["show_chapter"] == "Yes" %}
+            <th scope="col">
+                <p class="ps-2 text-center">Chapter</p>
+            </th>
+            {% endif %}
+            {% if show["show_start_date"] == "Yes" %}
+            <th scope="col">
+                <p class="ps-2 text-center">Start Date</p>
+            </th>
+            {% endif %}
+            {% if show["show_end_date"] == "Yes" %}
+            <th scope="col">
+                <p class="ps-2 text-center">End Date</p>
+            </th>
+            {% endif %}
+            {% if show["show_status"] == "Yes" %}
+            <th scope="col">
+                <p class="ps-2 text-center">Status</p>
+            </th>
+            {% endif %}
         </thead>
         <tbody>
             <tr class="align-middle">
