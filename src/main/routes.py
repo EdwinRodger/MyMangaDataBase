@@ -10,7 +10,7 @@ from flask import (
     send_file,
     url_for,
 )
-from sqlalchemy import delete
+from sqlalchemy import delete, desc
 
 from src import db
 from src.main.backup import export_mmdb_backup, extract_backup
@@ -100,3 +100,51 @@ def delete_database():
             else:
                 os.remove(os.path.join(root, file))
     return redirect(url_for("main.page_selector"))
+
+
+# Sort manga according to order
+@main.route("/sort/<string:head>/<string:order>")
+def sort_head_order(head, order):
+    show = read_settings()
+    show_star_on_github()
+    manga_list = Manga.query.order_by(Manga.title.name).all()
+    if head == "title":
+        if order == "descending":
+            manga_list = Manga.query.order_by(desc(Manga.title.name)).all()
+    elif head == "score":
+        if order == "descending":
+            manga_list = Manga.query.order_by(desc(Manga.score.name)).all()
+        else:
+            manga_list = Manga.query.order_by(Manga.score.name).all()
+    elif head == "volume":
+        if order == "descending":
+            manga_list = Manga.query.order_by(desc(Manga.volume.name)).all()
+        else:
+            manga_list = Manga.query.order_by(Manga.volume.name).all()
+    elif head == "chapter":
+        if order == "descending":
+            manga_list = Manga.query.order_by(desc(Manga.chapter.name)).all()
+        else:
+            manga_list = Manga.query.order_by(Manga.chapter.name).all()
+    elif head == "start_date":
+        if order == "descending":
+            manga_list = Manga.query.order_by(desc(Manga.start_date.name)).all()
+        else:
+            manga_list = Manga.query.order_by(Manga.start_date.name).all()
+    elif head == "end_date":
+        if order == "descending":
+            manga_list = Manga.query.order_by(desc(Manga.end_date.name)).all()
+        else:
+            manga_list = Manga.query.order_by(Manga.end_date.name).all()
+    elif head == "status":
+        if order == "descending":
+            manga_list = Manga.query.order_by(desc(Manga.status.name)).all()
+        else:
+            manga_list = Manga.query.order_by(Manga.status.name).all()
+    return render_template(
+        "table.html",
+        title="Home",
+        mangas=manga_list,
+        date=date,
+        show=show["UserInterface"],
+    )

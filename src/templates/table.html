@@ -84,37 +84,56 @@
             {% endif %}
             {% if show["show_title"] == "Yes" %}
             <th scope="col">
-                <p class="ps-2">Title</p>
+                <p class="ps-2 text-center">Title<br>(<a
+                        href="{{ url_for('main.sort_head_order', head = 'title', order = 'ascending') }}">Asc</a>/<a
+                        href="{{ url_for('main.sort_head_order', head = 'title', order = 'descending') }}">Desc</a>)</p>
             </th>
             {% endif %}
             {% if show["show_score"] == "Yes" %}
             <th scope="col">
-                <p class="ps-2 text-center">Score</p>
+                <p class="ps-2 text-center">Score<br>(<a
+                        href="{{ url_for('main.sort_head_order', head = 'score', order = 'ascending') }}">Asc</a>/<a
+                        href="{{ url_for('main.sort_head_order', head = 'score', order = 'descending') }}">Desc</a>)</p>
             </th>
             {% endif %}
             {% if show["show_volume"] == "Yes" %}
             <th scope="col">
-                <p class="ps-2 text-center">Volume</p>
+                <p class="ps-2 text-center">Volume<br>(<a
+                        href="{{ url_for('main.sort_head_order', head = 'volume', order = 'ascending') }}">Asc</a>/<a
+                        href="{{ url_for('main.sort_head_order', head = 'volume', order = 'descending') }}">Desc</a>)
+                </p>
             </th>
             {% endif %}
             {% if show["show_chapter"] == "Yes" %}
             <th scope="col">
-                <p class="ps-2 text-center">Chapter</p>
+                <p class="ps-2 text-center">Chapter<br>(<a
+                        href="{{ url_for('main.sort_head_order', head = 'chapter', order = 'ascending') }}">Asc</a>/<a
+                        href="{{ url_for('main.sort_head_order', head = 'chapter', order = 'descending') }}">Desc</a>)
+                </p>
             </th>
             {% endif %}
             {% if show["show_start_date"] == "Yes" %}
             <th scope="col">
-                <p class="ps-2 text-center">Start Date</p>
+                <p class="ps-2 text-center">Start Date<br>(<a
+                        href="{{ url_for('main.sort_head_order', head = 'start_date', order = 'ascending') }}">Asc</a>/<a
+                        href="{{ url_for('main.sort_head_order', head = 'start_date', order = 'descending') }}">Desc</a>)
+                </p>
             </th>
             {% endif %}
             {% if show["show_end_date"] == "Yes" %}
             <th scope="col">
-                <p class="ps-2 text-center">End Date</p>
+                <p class="ps-2 text-center">End Date<br>(<a
+                        href="{{ url_for('main.sort_head_order', head = 'end_date', order = 'ascending') }}">Asc</a>/<a
+                        href="{{ url_for('main.sort_head_order', head = 'end_date', order = 'descending') }}">Desc</a>)
+                </p>
             </th>
             {% endif %}
             {% if show["show_status"] == "Yes" %}
             <th scope="col">
-                <p class="ps-2 text-center">Status</p>
+                <p class="ps-2 text-center">Status<br>(<a
+                        href="{{ url_for('main.sort_head_order', head = 'status', order = 'ascending') }}">Asc</a>/<a
+                        href="{{ url_for('main.sort_head_order', head = 'status', order = 'descending') }}">Desc</a>)
+                </p>
             </th>
             {% endif %}
         </thead>
