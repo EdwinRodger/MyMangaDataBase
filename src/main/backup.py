@@ -12,7 +12,20 @@ from src.models import Manga
 today_date = datetime.date(datetime.today())
 
 
-def export_mmdb_backup():
+def export_mmdb_backup(automatic=False):
+    # Check if defination call is for automatic backup
+    # Setting `path` variable in this if-else block
+    if automatic == True:
+        if not os.path.exists("backup"):
+            os.mkdir("backup")
+        # This prevents unnecessary creation of backup files
+        if not os.path.exists(f"backup\\MMDB-Auto_Export-{today_date}.zip"):
+            path = f"backup\\MMDB-Auto_Export-{today_date}.zip"
+        else:
+            return
+    else:
+        path = f"src\\MMDB-Export-{today_date}.zip"
+
     mangas = Manga.query.all()
     obj = {}
     i = 0
@@ -34,7 +47,7 @@ def export_mmdb_backup():
             }
             i += 1
         json.dump(obj, backup_json_file, indent=4)
-    with ZipFile(f"src\\MMDB-Export-{today_date}.zip", "w") as zipfile:
+    with ZipFile(path, "w") as zipfile:
         for root, _, files in os.walk("src\\static\\manga_cover\\"):
             for file in files:
                 zipfile.write(os.path.join(root, file))
@@ -115,6 +128,14 @@ def extract_backup(filename):
             flash("Select mangalist file to upload!", "danger")
             return redirect(url_for("main.import_backup"))
         extract_mal_backup(filename)
+
+
+# Automatic backup every sunday
+def automatic_backup():
+    # Check weekday. today_date.weekday() returns integer where Monday is 0 and Sunday is 6.
+    weekday = today_date.weekday()
+    if weekday == 6:
+        export_mmdb_backup(True)
 
 
 def delete_export():
