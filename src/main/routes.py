@@ -126,12 +126,12 @@ def sort_head_order(head, order):
             manga_list = Manga.query.order_by(desc(Manga.chapter.name)).all()
         else:
             manga_list = Manga.query.order_by(Manga.chapter.name).all()
-    elif head == "start_date":
+    elif head == "start-date":
         if order == "descending":
             manga_list = Manga.query.order_by(desc(Manga.start_date.name)).all()
         else:
             manga_list = Manga.query.order_by(Manga.start_date.name).all()
-    elif head == "end_date":
+    elif head == "end-date":
         if order == "descending":
             manga_list = Manga.query.order_by(desc(Manga.end_date.name)).all()
         else:

@@ -115,16 +115,16 @@
             {% if show["show_start_date"] == "Yes" %}
             <th scope="col">
                 <p class="ps-2 text-center">Start Date<br>(<a
-                        href="{{ url_for('main.sort_head_order', head = 'start_date', order = 'ascending') }}">Asc</a>/<a
-                        href="{{ url_for('main.sort_head_order', head = 'start_date', order = 'descending') }}">Desc</a>)
+                        href="{{ url_for('main.sort_head_order', head = 'start-date', order = 'ascending') }}">Asc</a>/<a
+                        href="{{ url_for('main.sort_head_order', head = 'start-date', order = 'descending') }}">Desc</a>)
                 </p>
             </th>
             {% endif %}
             {% if show["show_end_date"] == "Yes" %}
             <th scope="col">
                 <p class="ps-2 text-center">End Date<br>(<a
-                        href="{{ url_for('main.sort_head_order', head = 'end_date', order = 'ascending') }}">Asc</a>/<a
-                        href="{{ url_for('main.sort_head_order', head = 'end_date', order = 'descending') }}">Desc</a>)
+                        href="{{ url_for('main.sort_head_order', head = 'end-date', order = 'ascending') }}">Asc</a>/<a
+                        href="{{ url_for('main.sort_head_order', head = 'end-date', order = 'descending') }}">Desc</a>)
                 </p>
             </th>
             {% endif %}
