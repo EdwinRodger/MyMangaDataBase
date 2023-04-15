@@ -186,6 +186,9 @@ def dashboard():
                     genre.append(i.strip())
 
     genre = Counter(genre)
+    # This is to sort dictionary in ascending order with respect to values of the dictioanry
+    # https://stackoverflow.com/a/613218
+    genre = {k: v for k, v in sorted(genre.items(), key=lambda item: item[1])}
 
     return render_template(
         "dashboard.html",
