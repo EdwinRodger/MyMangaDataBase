@@ -166,9 +166,14 @@ def dashboard():
                 if i != "N" and i != "o":
                     genre.append(i.strip())
     genre = Counter(genre)
-    # This is to sort dictionary in ascending order with respect to values of the dictioanry
-    # https://stackoverflow.com/a/613218
+    # Below is a code to sort dictionary values in acesnding order, https://stackoverflow.com/a/613218
     genre = {k: v for k, v in sorted(genre.items(), key=lambda item: item[1])}
+
+    score = []
+    for manga in mangas:
+        score.append(manga.score)
+    score = Counter(score)
+    score = {k: v for k, v in sorted(score.items(), reverse=True)}
 
     return render_template(
         "dashboard.html",
@@ -177,4 +182,5 @@ def dashboard():
         total_manga=total_manga,
         status=status,
         genre=genre,
+        score=score,
     )
