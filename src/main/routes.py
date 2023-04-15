@@ -1,4 +1,5 @@
 import os
+from collections import Counter
 from datetime import datetime
 
 from flask import (
@@ -147,4 +148,55 @@ def sort_head_order(head, order):
         mangas=manga_list,
         date=date,
         show=show["UserInterface"],
+    )
+
+
+@main.route("/dashboard")
+def dashboard():
+    mangas = Manga.query.order_by(Manga.title.name).all()
+    total_manga = len(mangas)
+    total_reading_manga = len(
+        Manga.query.order_by(Manga.title.name).where(Manga.status == "Reading").all()
+    )
+    total_completed_manga = len(
+        Manga.query.order_by(Manga.title.name).where(Manga.status == "Completed").all()
+    )
+    total_onhold_manga = len(
+        Manga.query.order_by(Manga.title.name).where(Manga.status == "On hold").all()
+    )
+    total_dropped_manga = len(
+        Manga.query.order_by(Manga.title.name).where(Manga.status == "Dropped").all()
+    )
+    total_plan_to_read_manga = len(
+        Manga.query.order_by(Manga.title.name)
+        .where(Manga.status == "Plan to read")
+        .all()
+    )
+    total_rereading_manga = len(
+        Manga.query.order_by(Manga.title.name).where(Manga.status == "Rereading").all()
+    )
+
+    genre = []
+
+    for manga in mangas:
+        if manga.tags != None and manga.tags != "":
+            tags = (manga.tags).split(", ")
+            for i in tags:
+                if i != "N" and i != "o":
+                    genre.append(i.strip())
+
+    genre = Counter(genre)
+
+    return render_template(
+        "dashboard.html",
+        title="Dashboard",
+        legend="Dashboard",
+        total_manga=total_manga,
+        total_reading_manga=total_reading_manga,
+        total_completed_manga=total_completed_manga,
+        total_onhold_manga=total_onhold_manga,
+        total_dropped_manga=total_dropped_manga,
+        total_plan_to_read_manga=total_plan_to_read_manga,
+        total_rereading_manga=total_rereading_manga,
+        genre=genre,
     )

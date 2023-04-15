@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block body %}
+<div>
+    <div class="content-section m-sm-5 p-sm-5 p-2 mt-3">
+        <h1 class="border-bottom mb-4">
+            {{ legend }}
+        </h1>
+        <div class="row">
+            <div class="col-4">
+                <div id="dashboard-nav" class="list-group">
+                    <a class="list-group-item list-group-item-action bg-dark text-white border-white"
+                        href="#no-of-manga">No. of
+                        Manga</a>
+                    <a class="list-group-item list-group-item-action bg-dark text-white border-white"
+                        href="#genre">Genre</a>
+                    <a class="list-group-item list-group-item-action bg-dark text-white border-white"
+                        href="#score">Score</a>
+                    <a class="list-group-item list-group-item-action bg-dark text-white border-white"
+                        href="#list-item-4">Item 4</a>
+                </div>
+            </div>
+            <div class="col-8">
+                <div data-bs-spy="scroll" data-bs-target="#dashboard-nav" data-bs-smooth-scroll="true"
+                    class="scrollspy-example" tabindex="0">
+                    <h2 id="no-of-manga" class="border-bottom">No. of Manga</h2>
+                    <p class="fs-5">Total No. of Reading Manga: {{ total_reading_manga }}</p>
+                    <p class="fs-5">Total No. of Completed Manga: {{ total_completed_manga }}</p>
+                    <p class="fs-5">Total No. of On Hold Manga: {{ total_onhold_manga }}</p>
+                    <p class="fs-5">Total No. of Dropped Manga: {{ total_dropped_manga }}</p>
+                    <p class="fs-5">Total No. of Plan to Read Manga: {{ total_plan_to_read_manga }}</p>
+                    <p class="fs-5">Total No. of Rereading Manga: {{ total_rereading_manga }}</p>
+                    <p class="fs-5">Total No. of Manga: {{ total_manga }}</p>
+
+                    <h2 id="genre" class="border-bottom mt-5">Genre</h2>
+                    {% for key, value in genre.items() %}
+                    <p class="fs-5">{{ key }}: {{ value }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
