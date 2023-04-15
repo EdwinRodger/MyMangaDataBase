@@ -23,13 +23,10 @@
                 <div data-bs-spy="scroll" data-bs-target="#dashboard-nav" data-bs-smooth-scroll="true"
                     class="scrollspy-example" tabindex="0">
                     <h2 id="no-of-manga" class="border-bottom">No. of Manga</h2>
-                    <p class="fs-5">Total No. of Reading Manga: {{ total_reading_manga }}</p>
-                    <p class="fs-5">Total No. of Completed Manga: {{ total_completed_manga }}</p>
-                    <p class="fs-5">Total No. of On Hold Manga: {{ total_onhold_manga }}</p>
-                    <p class="fs-5">Total No. of Dropped Manga: {{ total_dropped_manga }}</p>
-                    <p class="fs-5">Total No. of Plan to Read Manga: {{ total_plan_to_read_manga }}</p>
-                    <p class="fs-5">Total No. of Rereading Manga: {{ total_rereading_manga }}</p>
                     <p class="fs-5">Total No. of Manga: {{ total_manga }}</p>
+                    {% for key, value in status.items() %}
+                    <p class="fs-5">Total No. of {{ key }} Manga: {{ value }}</p>
+                    {% endfor %}
 
                     <h2 id="genre" class="border-bottom mt-5">Genre</h2>
                     {% for key, value in genre.items() %}

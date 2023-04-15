@@ -17,4 +17,4 @@ class Manga(db.Model):
     artist = db.Column(db.String)
 
     def __repr__(self):
-        return f"Manga('{self.title}', '{self.start_date}', '{self.end_date}', '{self.tags}')"
+        return f"Manga('{self.title}', '{self.start_date}', '{self.end_date}', '{self.status}', '{self.tags}')"

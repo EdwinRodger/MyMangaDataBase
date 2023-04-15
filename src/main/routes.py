@@ -152,36 +152,19 @@ def sort_head_order(head, order):
 def dashboard():
     mangas = Manga.query.order_by(Manga.title.name).all()
     total_manga = len(mangas)
-    total_reading_manga = len(
-        Manga.query.order_by(Manga.title.name).where(Manga.status == "Reading").all()
-    )
-    total_completed_manga = len(
-        Manga.query.order_by(Manga.title.name).where(Manga.status == "Completed").all()
-    )
-    total_onhold_manga = len(
-        Manga.query.order_by(Manga.title.name).where(Manga.status == "On hold").all()
-    )
-    total_dropped_manga = len(
-        Manga.query.order_by(Manga.title.name).where(Manga.status == "Dropped").all()
-    )
-    total_plan_to_read_manga = len(
-        Manga.query.order_by(Manga.title.name)
-        .where(Manga.status == "Plan to read")
-        .all()
-    )
-    total_rereading_manga = len(
-        Manga.query.order_by(Manga.title.name).where(Manga.status == "Rereading").all()
-    )
+
+    status = []
+    for manga in mangas:
+        status.append(manga.status)
+    status = Counter(status)
 
     genre = []
-
     for manga in mangas:
         if manga.tags != None and manga.tags != "":
             tags = (manga.tags).split(", ")
             for i in tags:
                 if i != "N" and i != "o":
                     genre.append(i.strip())
-
     genre = Counter(genre)
     # This is to sort dictionary in ascending order with respect to values of the dictioanry
     # https://stackoverflow.com/a/613218
@@ -192,11 +175,6 @@ def dashboard():
         title="Dashboard",
         legend="Dashboard",
         total_manga=total_manga,
-        total_reading_manga=total_reading_manga,
-        total_completed_manga=total_completed_manga,
-        total_onhold_manga=total_onhold_manga,
-        total_dropped_manga=total_dropped_manga,
-        total_plan_to_read_manga=total_plan_to_read_manga,
-        total_rereading_manga=total_rereading_manga,
+        status=status,
         genre=genre,
     )
