@@ -152,35 +152,33 @@ def sort_head_order(head, order):
 def dashboard():
     mangas = Manga.query.order_by(Manga.title.name).all()
     total_manga = len(mangas)
-
+    score = []
     status = []
-    for manga in mangas:
-        status.append(manga.status)
-    status = Counter(status)
-
     genre = []
     for manga in mangas:
+        # Score
+        score.append(manga.score)
+        # Status
+        status.append(manga.status)
+        # Tags
         if manga.tags != None and manga.tags != "":
             tags = (manga.tags).split(", ")
             for i in tags:
                 if i != "N" and i != "o":
                     genre.append(i.strip())
+    # Count repeating values in list and store it in dictionary, https://docs.python.org/3/library/collections.html#collections.Counter
+    score = Counter(score)
+    status = Counter(status)
     genre = Counter(genre)
     # Below is a code to sort dictionary values in acesnding order, https://stackoverflow.com/a/613218
     genre = {k: v for k, v in sorted(genre.items(), key=lambda item: item[1])}
-
-    score = []
-    for manga in mangas:
-        score.append(manga.score)
-    score = Counter(score)
     score = {k: v for k, v in sorted(score.items(), reverse=True)}
-
     return render_template(
         "dashboard.html",
         title="Dashboard",
         legend="Dashboard",
         total_manga=total_manga,
+        score=score,
         status=status,
         genre=genre,
-        score=score,
     )
