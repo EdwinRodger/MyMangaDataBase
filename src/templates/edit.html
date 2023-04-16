@@ -17,7 +17,6 @@
             <p>Genre: {% for i in manga.tags.split(", ") %}
                 <a class="text-white" href="{{ url_for('mangas.search_genre', tag=i.strip())}}"> {{i}}</a> {%endfor%}
             </p>
-            <p>Source: mangaupdates.com</p>
         </div>
     </div>
 </div>
