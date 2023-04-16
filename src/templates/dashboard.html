@@ -6,7 +6,7 @@
             {{ legend }}
         </h1>
         <div class="row">
-            <div class="col-4">
+            <div class="col-3">
                 <div id="dashboard-nav" class="list-group">
                     <a class="list-group-item list-group-item-action bg-dark text-white border-white"
                         href="#no-of-manga">No. of
@@ -16,27 +16,88 @@
                     <a class="list-group-item list-group-item-action bg-dark text-white border-white"
                         href="#score">Score</a>
                     <a class="list-group-item list-group-item-action bg-dark text-white border-white"
-                        href="#list-item-4">Item 4</a>
+                        href="#open-source-libraries">Open Source Libraries</a>
                 </div>
             </div>
-            <div class="col-8">
+            <div class="col-9">
                 <div data-bs-spy="scroll" data-bs-target="#dashboard-nav" data-bs-smooth-scroll="true"
                     class="scrollspy-example" tabindex="0">
+                    <!-- Manga -->
                     <h2 id="no-of-manga" class="border-bottom">No. of Manga</h2>
                     <p class="fs-5">Total No. of Manga: {{ total_manga }}</p>
                     {% for key, value in status.items() %}
                     <p class="fs-5">Total No. of {{ key }} Manga: {{ value }}</p>
                     {% endfor %}
-
+                    <!-- Genre -->
                     <h2 id="genre" class="border-bottom mt-5">Genre</h2>
                     {% for key, value in genre.items() %}
                     <p class="fs-5">{{ key }}: {{ value }}</p>
                     {% endfor %}
-
+                    <!-- Score -->
                     <h2 id="score" class="border-bottom mt-5">Score</h2>
                     {% for key, value in score.items() %}
                     <p class="fs-5">{{ key }}: {{ value }}</p>
                     {% endfor %}
+                    <!-- Credits -->
+                    <h2 id="open-source-libraries" class="border-bottom mt-5">Open Source Libraries</h2>
+                    <ul>
+                        <li>
+                            <h3>Production</h3>
+                            <ul>
+                                <li>
+                                    <a class="fs-5" href="https://github.com/pallets/flask/" target="_blank"
+                                        rel="noopener noreferrer">Flask</a>
+                                </li>
+                                <li>
+                                    <a class="fs-5" href="https://github.com/pallets-eco/flask-sqlalchemy/"
+                                        target="_blank" rel="noopener noreferrer">Flask-SQLAlchemy</a>
+                                </li>
+                                <li>
+                                    <a class="fs-5" href="https://github.com/wtforms/flask-wtf/" target="_blank"
+                                        rel="noopener noreferrer">Flask-WTF</a>
+                                </li>
+                                <li>
+                                    <a class="fs-5" href="https://github.com/Pylons/waitress" target="_blank"
+                                        rel="noopener noreferrer">Waitress</a>
+                                </li>
+                                <li>
+                                    <a class="fs-5" href="https://beautiful-soup-4.readthedocs.io/en/latest/"
+                                        target="_blank" rel="noopener noreferrer">Beautiful Soup</a>
+                                </li>
+                                <li>
+                                    <a class="fs-5" href="https://github.com/cdent/paste" target="_blank"
+                                        rel="noopener noreferrer">Paste</a>
+                                </li>
+                                <li>
+                                    <a class="fs-5" href="https://github.com/psf/requests" target="_blank"
+                                        rel="noopener noreferrer">Requests</a>
+                                </li>
+                                <li>
+                                    <a class="fs-5" href="https://github.com/Textualize/rich" target="_blank"
+                                        rel="noopener noreferrer">Rich</a>
+                                </li>
+                                <li>
+                                    <a class="fs-5" href="https://github.com/MohamedAliRashad/flask-ngrok2"
+                                        target="_blank" rel="noopener noreferrer">flask-ngrok2</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3>Development</h3>
+                            <ul>
+                                <li><a class="fs-5" href="https://github.com/psf/black" target="_blank"
+                                        rel="noopener noreferrer">Black</a></li>
+                                <li><a class="fs-5" href="https://github.com/bittner/pyclean" target="_blank"
+                                        rel="noopener noreferrer">PyClean</a></li>
+                                <li><a class="fs-5" href="https://github.com/PyCQA/isort" target="_blank"
+                                        rel="noopener noreferrer">isort</a></li>
+                                <li><a class="fs-5" href="https://github.com/coleifer/sqlite-web" target="_blank"
+                                        rel="noopener noreferrer">SQLite-Web</a></li>
+                                <li><a class="fs-5" href="https://github.com/pylint-dev/pylint" target="_blank"
+                                        rel="noopener noreferrer">Pylint</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
