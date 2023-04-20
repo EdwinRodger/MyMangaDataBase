@@ -81,7 +81,9 @@ def extract_mmdb_backup(filename):
     db.session.commit()
 
     # Checks if chapter-log.json file is present
-    if os.path.exists("json/chapter-log.json") and os.path.exists("backup-chapter-log.json"):
+    if os.path.exists("json/chapter-log.json") and os.path.exists(
+        "backup-chapter-log.json"
+    ):
         # Loads backup-chapter-log.json and store its data in previous_data -> previous_data = {date:{title:chapter}}
         with open("backup-chapter-log.json", "r", encoding="UTF-8") as fp1:
             previous_data = json.load(fp1)
@@ -103,7 +105,7 @@ def extract_mmdb_backup(filename):
         # Finnaly writes all data into current chapter-log.json file
         with open("json/chapter-log.json", "w", encoding="UTF-8") as fp3:
             json.dump(current_data, fp3)
-    
+
         os.remove("backup-chapter-log.json")
 
     os.remove("manga.json")

@@ -1,8 +1,10 @@
-import json
 import datetime
+import json
+
 from src.models import Manga
 
-def log_chapter(manga_title:str, count:int):
+
+def log_chapter(manga_title: str, count: int):
     # Get the current date and format it as a string
     current_date = datetime.date.today().strftime("%Y-%m-%d")
 
@@ -10,7 +12,7 @@ def log_chapter(manga_title:str, count:int):
     with open("json/chapter-log.json", "r") as f:
         data = json.load(f)
         print(data)
-    
+
     # Initialising previous_count
     previous_count = 0
     # Get previous count if any

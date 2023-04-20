@@ -9,7 +9,6 @@ class Config:
     SECRET_KEY = os.urandom(16).hex()
 
 
-
 def check_settings_json():
     if not os.path.exists(FILE):
         settings = {
@@ -30,6 +29,7 @@ def check_settings_json():
         }
         with open(FILE, "w", encoding="UTF-8") as settings_file:
             json.dump(settings, settings_file, indent=4)
+
 
 def check_chapterlog_json():
     if not os.path.exists("json/chapter-log.json"):

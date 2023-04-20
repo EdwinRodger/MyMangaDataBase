@@ -1,7 +1,7 @@
+import json
 import os
 from collections import Counter
 from datetime import datetime
-import json
 
 from flask import (
     Blueprint,
@@ -184,5 +184,5 @@ def dashboard():
         score=score,
         status=status,
         genre=genre,
-        data=data 
+        data=data,
     )

@@ -9,7 +9,7 @@ from flask_ngrok2 import run_with_ngrok
 from paste.translogger import TransLogger
 
 from src import create_app, db
-from src.config import check_settings_json, check_chapterlog_json
+from src.config import check_chapterlog_json, check_settings_json
 from src.main.backup import automatic_backup, delete_export
 from src.utils import check_for_update
 
