@@ -16,6 +16,8 @@
                     <a class="list-group-item list-group-item-action bg-dark text-white border-white"
                         href="#score">Score</a>
                     <a class="list-group-item list-group-item-action bg-dark text-white border-white"
+                        href="#history">History</a>
+                    <a class="list-group-item list-group-item-action bg-dark text-white border-white"
                         href="#open-source-libraries">Open Source Libraries</a>
                 </div>
             </div>
@@ -38,6 +40,32 @@
                     {% for key, value in score.items() %}
                     <p class="fs-5">{{ key }}: {{ value }}</p>
                     {% endfor %}
+                    <!-- History -->
+                    <h2 id="history" class="border-bottom mt-5">History</h2>
+                    <ul>
+                        {% for date, manga_data in data.items() %}
+                        <li>
+                            <h3>{{ date }}</h3>
+                            <ul>
+                                {% for title, chapter in manga_data.items() %}
+                                {% if chapter == 0 %}
+                                <li>
+                                    <p class="fs-5">Updated {{ title }}</p>
+                                </li>
+                                {% elif chapter == 1 %}
+                                <li>
+                                    <p class="fs-5">Read {{ chapter }} chapter of {{ title }}</p>
+                                </li>
+                                {% else %}
+                                <li>
+                                    <p class="fs-5">Read {{ chapter }} chapters of {{ title }}</p>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
                     <!-- Credits -->
                     <h2 id="open-source-libraries" class="border-bottom mt-5">Open Source Libraries</h2>
                     <ul>

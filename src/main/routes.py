@@ -1,6 +1,7 @@
 import os
 from collections import Counter
 from datetime import datetime
+import json
 
 from flask import (
     Blueprint,
@@ -150,6 +151,8 @@ def sort_head_order(head, order):
 
 @main.route("/dashboard")
 def dashboard():
+    with open("json/chapter-log.json", "r", encoding="UTF-8") as fp:
+        data = json.load(fp)
     mangas = Manga.query.order_by(Manga.title.name).all()
     total_manga = len(mangas)
     score = []
@@ -181,4 +184,5 @@ def dashboard():
         score=score,
         status=status,
         genre=genre,
+        data=data 
     )
