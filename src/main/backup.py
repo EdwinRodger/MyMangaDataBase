@@ -53,6 +53,7 @@ def export_mmdb_backup(automatic=False):
                 zipfile.write(os.path.join(root, file))
         zipfile.write("manga.json")
         zipfile.write("settings.json")
+        zipfile.write("json\\chapter-log.json", "backup-chapter-log.json")
 
 
 def extract_mmdb_backup(filename):
@@ -78,6 +79,32 @@ def extract_mmdb_backup(filename):
         )
         db.session.add(manga)
     db.session.commit()
+
+    # Checks if chapter-log.json file is present
+    if os.path.exists("json/chapter-log.json"):
+        # Loads backup-chapter-log.json and store its data in previous_data -> previous_data = {date:{title:chapter}}
+        with open("backup-chapter-log.json", "r", encoding="UTF-8") as fp1:
+            previous_data = json.load(fp1)
+
+        # Loads chapter-log.json and store its data in current_data -> current_data = {date:{title:chapter}}
+        with open("json/chapter-log.json", "r", encoding="UTF-8") as fp2:
+            current_data = json.load(fp2)
+
+        # Here date is key and value is {title:chapter} of previous_data
+        for date, value in previous_data.items():
+            # If any date of previous_data is found in current_data then the title and chapters are assigned to that date
+            if date in current_data:
+                for title, chapters in value.items():
+                    current_data[date][title] = chapters
+            # If any date of previous_data is NOT found in current_data then whole value is assigned to that date
+            else:
+                current_data[date] = value
+
+        # Finnaly writes all data into current chapter-log.json file
+        with open("json/chapter-log.json", "w", encoding="UTF-8") as fp3:
+            json.dump(current_data, fp3)
+
+    os.remove("backup-chapter-log.json")
     os.remove("manga.json")
     os.remove(filename)
 
@@ -146,6 +173,8 @@ def delete_export():
             os.remove(f"{backup}")
         if os.path.exists("manga.json"):
             os.remove("manga.json")
+        if os.path.exists("backup-chapter-log.json"):
+            os.remove("backup-chapter-log.json")
     for backup in os.listdir("src/"):
         if "MMDB-Export-" in backup:
             os.remove(f"src\\{backup}")
@@ -153,3 +182,5 @@ def delete_export():
             os.remove(f"{backup}")
         if os.path.exists("src\\manga.json"):
             os.remove("src\\manga.json")
+        if os.path.exists("src\\backup-chapter-log.json"):
+            os.remove("src\\backup-chapter-log.json")
