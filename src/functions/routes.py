@@ -1,6 +1,7 @@
 from flask import Blueprint, redirect, url_for
 
 from src import db
+from src.chapter_log import log_chapter
 from src.models import Manga
 
 function = Blueprint("function", __name__, url_prefix="/function")
@@ -12,6 +13,7 @@ def add_one_chapter(manga_id, number):
     manga = Manga.query.get_or_404(manga_id)
     manga.chapter = number + 1
     db.session.commit()
+    log_chapter(manga_title=manga.title, count=1)
     return redirect(url_for("main.page_selector"))
 
 

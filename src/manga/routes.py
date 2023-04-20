@@ -8,6 +8,7 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from rich.progress import track
 
 from src import db
+from src.chapter_log import log_chapter
 from src.manga.forms import MangaForm, SearchBar
 from src.manga.web_scraper import manga_search
 from src.models import Manga
@@ -48,6 +49,7 @@ def new_manga():
 def update_manga(manga_id):
     metadata = False
     manga = Manga.query.get_or_404(manga_id)
+    previous_count = manga.chapter
     if manga.description not in (None, "None"):
         metadata = True
     form = MangaForm()
@@ -60,6 +62,7 @@ def update_manga(manga_id):
         manga.status = form.status.data
         manga.score = form.score.data
         db.session.commit()
+        log_chapter(manga_title=manga.title, count=(form.chapter.data - previous_count))
         flash("Your manga has been updated!", "success")
     elif request.method == "GET":
         form.title.data = manga.title

@@ -31,3 +31,8 @@ def check_settings_json():
         with open(FILE, "w", encoding="UTF-8") as settings_file:
             json.dump(settings, settings_file, indent=4)
 
+def check_chapterlog_json():
+    if not os.path.exists("json/chapter-log.json"):
+        os.makedirs("json")
+        with open("json/chapter-log.json", "w", encoding="UTF-8") as chapter_log:
+            json.dump({}, chapter_log, indent=4)
