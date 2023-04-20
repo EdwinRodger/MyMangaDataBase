@@ -28,7 +28,7 @@ def settings():
             form.show_star_on_github.data
         )
         with open("settings.json", "w", encoding="UTF-8") as settings_file:
-            json.dump(setting, settings_file)
+            json.dump(setting, settings_file, indent=4)
         flash("Your settings has been updated!", "success")
         if setting["UserInterface"]["default_status_to_show"] == "All":
             return redirect(url_for("main.home"))
