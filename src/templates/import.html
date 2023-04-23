@@ -22,6 +22,18 @@
                 </div>
             </div>
         </form>
+        <form action="{{ url_for('main.importbackup') }}" method="post" enctype="multipart/form-data">
+            <div class="card bg-dark border-white mt-5">
+                <div class="card-body">
+                    <h5 class="card-title">MangaUpdates Import</h5>
+                    <p class="card-text">Imports MangaUpdates " {status}_YY_MM_DD.txt " file
+                    </p>
+                    <p class="card-text">Doesn't supports custom lists</p>
+                    <input class="form-control form-control-lg" id="formFileLg" name="file" type="file" , accept=".txt">
+                    <input type="submit" class="mt-3">
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock body %}

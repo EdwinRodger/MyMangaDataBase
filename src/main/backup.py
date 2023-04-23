@@ -150,6 +150,38 @@ def extract_mal_backup(filename):
     db.session.commit()
 
 
+def extract_mangaupdates_backup(filename, status):
+    # Reading lines from MU backup file
+    with open(filename, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+    # Getting date object as MU doesn't support date editing
+    d = datetime.strptime("0001-01-01", "%Y-%m-%d")
+    date = d.date()
+    # Getting entries from backup file
+    for line in lines[1:]:
+        # Cleaning entry line and converting it into list
+        line = line.strip("\n").split("\t")
+        # 4th index is score and it is 'N/A' if not set on MU
+        if line[4] == "N/A":
+            rating = 0
+        else:
+            # Rounding score if it is set in decimals
+            rating = round(int(line[4]))
+        # Adding entries to database
+        manga = Manga(
+            title=line[0],
+            start_date=date,
+            end_date=date,
+            volume=line[1],
+            chapter=line[2],
+            status=status,
+            score=rating,
+        )
+        db.session.add(manga)
+    # Commiting entries to database
+    db.session.commit()
+
+
 def extract_backup(filename):
     if filename.lower().endswith(".zip"):
         extract_mmdb_backup(filename)
@@ -158,6 +190,24 @@ def extract_backup(filename):
             flash("Select mangalist file to upload!", "danger")
             return redirect(url_for("main.import_backup"))
         extract_mal_backup(filename)
+    # Extract MangaUpdates Backup
+    elif filename.lower().endswith(".txt"):
+        # Setting backup status according to file name
+        if filename.lower().startswith("read"):
+            status = "Reading"
+        elif filename.lower().startswith("wish"):
+            status = "Plan to read"
+        elif filename.lower().startswith("complete"):
+            status = "Completed"
+        elif filename.lower().startswith("unfinished"):
+            status = "Dropped"
+        elif filename.lower().startswith("hold"):
+            status = "On hold"
+        # If there is custom list then return without extracting
+        else:
+            flash("Custom lists are not supported!", "danger")
+            return redirect(url_for("main.import_backup"))
+        extract_mangaupdates_backup(filename, status)
 
 
 # Automatic backup every sunday
@@ -178,6 +228,15 @@ def delete_export():
             os.remove("manga.json")
         if os.path.exists("backup-chapter-log.json"):
             os.remove("backup-chapter-log.json")
+        # Removing MU backup
+        if (
+            backup.startswith("read_")
+            or backup.startswith("wish_")
+            or backup.startswith("complete_")
+            or backup.startswith("unfinished_")
+            or backup.startswith("hold_")
+        ):
+            os.remove(f"{backup}")
     for backup in os.listdir("src/"):
         if "MMDB-Export-" in backup:
             os.remove(f"src\\{backup}")
@@ -187,3 +246,12 @@ def delete_export():
             os.remove("src\\manga.json")
         if os.path.exists("src\\backup-chapter-log.json"):
             os.remove("src\\backup-chapter-log.json")
+        # Removing MU backup
+        if (
+            backup.startswith("read_")
+            or backup.startswith("wish_")
+            or backup.startswith("complete_")
+            or backup.startswith("unfinished_")
+            or backup.startswith("hold_")
+        ):
+            os.remove(f"{backup}")

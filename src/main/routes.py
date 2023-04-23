@@ -73,7 +73,7 @@ def importbackup():
         if backup_file.filename == "":
             flash("Choose a file to import!", "danger")
             return redirect(url_for("main.import_backup"))
-        if backup_file.filename.lower().endswith((".zip", ".xml")):
+        if backup_file.filename.lower().endswith((".zip", ".xml", ".txt")):
             backup_file.save(backup_file.filename)  # this will secure the file
             extract_backup(backup_file.filename)
         else:
@@ -174,7 +174,9 @@ def dashboard():
     status = Counter(status)
     genre = Counter(genre)
     # Below is a code to sort dictionary values in acesnding order, https://stackoverflow.com/a/613218
-    genre = {k: v for k, v in sorted(genre.items(), key=lambda item: item[1], reverse= True)}
+    genre = {
+        k: v for k, v in sorted(genre.items(), key=lambda item: item[1], reverse=True)
+    }
     score = {k: v for k, v in sorted(score.items(), reverse=True)}
     return render_template(
         "dashboard.html",
