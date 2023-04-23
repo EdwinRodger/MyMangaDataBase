@@ -174,7 +174,7 @@ def dashboard():
     status = Counter(status)
     genre = Counter(genre)
     # Below is a code to sort dictionary values in acesnding order, https://stackoverflow.com/a/613218
-    genre = {k: v for k, v in sorted(genre.items(), key=lambda item: item[1])}
+    genre = {k: v for k, v in sorted(genre.items(), key=lambda item: item[1], reverse= True)}
     score = {k: v for k, v in sorted(score.items(), reverse=True)}
     return render_template(
         "dashboard.html",
