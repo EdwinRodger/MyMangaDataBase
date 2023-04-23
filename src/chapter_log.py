@@ -11,7 +11,6 @@ def log_chapter(manga_title: str, count: int):
     # Load the existing data from the JSON file
     with open("json/chapter-log.json", "r") as f:
         data = json.load(f)
-        print(data)
 
     # Initialising previous_count
     previous_count = 0
