@@ -61,6 +61,10 @@ def update_manga(manga_id):
         manga.chapter = form.chapter.data
         manga.status = form.status.data
         manga.score = form.score.data
+        manga.description = form.description.data
+        manga.tags = form.tags.data
+        manga.author = form.author.data
+        manga.artist = form.artist.data
         db.session.commit()
         log_chapter(manga_title=manga.title, count=(form.chapter.data - previous_count))
         flash("Your manga has been updated!", "success")
@@ -72,6 +76,10 @@ def update_manga(manga_id):
         form.chapter.data = manga.chapter
         form.status.data = manga.status
         form.score.data = str(manga.score)
+        form.description.data = manga.description
+        form.tags.data = manga.tags
+        form.author.data = manga.author
+        form.artist.data = manga.artist
     return render_template(
         "edit.html",
         title=f"Edit {manga.title}",
