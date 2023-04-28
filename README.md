@@ -21,8 +21,9 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 
 - Customizable
 - Dark Theme
+- Editable metadata (genre, description etc.)
 - Export to MMDB
-- Import from MAL, MMDB
+- Import from MangaUpdates, MyAnimeList, MMDB
 - Responsive UI
 - Self Hosted
 - Sort by status
@@ -32,7 +33,6 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 
 - Better UI
 - Cross Platform (Currently works on Windows and Linux(tested using [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)))
-- Editable metadata (genre, description, cover etc.)
 - Export to MAL, Anilist, Kitsu and other services
 - Import from Anilist, Kitsu and other services
 - Simple routes to edit manga remotely
@@ -42,7 +42,7 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 - Install python 3.10 for [Windows](https://www.python.org/downloads/release/python-3101/) or [Linux](https://tecadmin.net/how-to-install-python-3-10-on-ubuntu-debian-linuxmint/) based on your OS
 - Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest) (MyMangaDataBase-{version}.zip)
 - Extract the files from the zip folder
-- To run MMDB, Simply run `app_runner.py` file
+- To run MMDB, Simply run `app.py` file
     - This will automatically install pipenv and other required packages.
     - MyMangaDataBase will open on your default browser.
 
@@ -60,14 +60,14 @@ If you have [git](https://git-scm.com/) installed on your device, you can clone 
 git clone https://github.com/EdwinRodger/MyMangaDataBase.git
 ```
 
-Run `app_runner.py` to run the app. It will -
+Run `app.py` to run the app. It will -
 1. Install [pipenv](https://pipenv.pypa.io/en/latest/) package if not already installed
 2. Make virtual environment using pipenv
 3. Install other packages in that virtual environment if not already installed
 4. Automatically run the app on port 6070 in default browser
 
 Alternatively -
-1. Run command `app_runner.py --development`
+1. Run command `app.py --development`
 2. Open `http://127.0.0.1:6070/` in browser
 
 ## TLDR
