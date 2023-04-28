@@ -78,6 +78,14 @@
                                     <li>
                                         <p class="fs-5">Read {{ chapter }} chapter of {{ title }}</p>
                                     </li>
+                                    {% elif chapter == -1 %}
+                                    <li>
+                                        <p class="fs-5">Deleted {{ title }}</p>
+                                    </li>
+                                    {% elif chapter == -2 %}
+                                    <li>
+                                        <p class="fs-5">Added {{ title }}</p>
+                                    </li>
                                     {% else %}
                                     <li>
                                         <p class="fs-5">Read {{ chapter }} chapters of {{ title }}</p>

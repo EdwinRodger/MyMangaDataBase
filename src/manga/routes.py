@@ -13,6 +13,7 @@ from src.manga.forms import MangaForm, SearchBar
 from src.manga.web_scraper import manga_search
 from src.models import Manga
 from src.utils import read_settings, show_star_on_github
+from src.chapter_log import log_chapter
 
 mangas = Blueprint("mangas", __name__)
 
@@ -37,6 +38,7 @@ def new_manga():
         )
         db.session.add(manga)
         db.session.commit()
+        log_chapter(manga_title=form.title.data, count=0, create=True)
         flash(f"{form.title.data} is added!", "success")
         return redirect(url_for("main.page_selector"))
     return render_template(
@@ -94,6 +96,7 @@ def update_manga(manga_id):
 @mangas.route("/manga/delete/<int:manga_id>", methods=["POST"])
 def delete_manga(manga_id):
     manga = Manga.query.get_or_404(manga_id)
+    log_chapter(manga_title=manga.title, count=0, delete=True)
     db.session.delete(manga)
     db.session.commit()
     flash("Your manga has been Obliterated!", "success")

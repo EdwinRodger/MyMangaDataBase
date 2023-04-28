@@ -4,7 +4,7 @@ import json
 from src.models import Manga
 
 
-def log_chapter(manga_title: str, count: int):
+def log_chapter(manga_title: str, count: int, delete: bool = False, create: bool = False):
     # Get the current date and format it as a string
     current_date = datetime.date.today().strftime("%Y-%m-%d")
 
@@ -21,9 +21,19 @@ def log_chapter(manga_title: str, count: int):
 
     # Update the data with the new information
     if current_date in data:
-        data[current_date][manga_title] = previous_count + count
+        if delete:
+            data[current_date][manga_title] = -1
+        elif create:
+            data[current_date][manga_title] = -2
+        else:
+            data[current_date][manga_title] = previous_count + count
     else:
-        data[current_date] = {manga_title: previous_count + count}
+        if delete:
+            data[current_date] = {manga_title: -1}
+        elif create:
+            data[current_date] = {manga_title: -2}
+        else:
+            data[current_date] = {manga_title: previous_count + count}
 
     # Save the updated data to the JSON file
     with open("json/chapter-log.json", "w") as f:
