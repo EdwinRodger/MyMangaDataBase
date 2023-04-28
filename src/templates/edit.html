@@ -7,86 +7,12 @@
     </legend>
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        {% if manga.description or manga.tags or manga.author or manga.artist %}
-        <metadata>
-            <div class="d-sm-flex justify-content-center mt-5">
-                <div class="img-fluid text-center">
-                    <img src="{{url_for('static', filename='manga_cover/' + manga.cover)}}" alt="Manga Cover"
-                        style="width: 250px;">
-                </div>
-                <div class="description ps-5">
-                    <dl class="row">
-                        <dd class="col-sm-12 py-4">
-                            {% if manga.description %}
-                            <label class="form-label">{{ form.description.label }}</label>
-                            {% if form.description.errors %}
-                            {{ form.description(class="form-control is-invalid", rows=10) }}
-                            <div class="invalid-feedback">
-                                {% for error in form.description.errors %}
-                                <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                            {% else %}
-                            {{ form.description(class="form-control", rows=10) }}
-                            {% endif %}
-                            {% endif %}
-                        </dd>
-
-                        <dd class="col-sm-12 py-4">
-                            {% if manga.artist %}
-                            <label class="form-label">{{ form.artist.label }}</label>
-                            {% if form.artist.errors %}
-                            {{ form.artist(class="form-control is-invalid ") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.artist.errors %}
-                                <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                            {% else %}
-                            {{ form.artist(class="form-control ") }}
-                            {% endif %}
-                            {% endif %}
-                        </dd>
-
-                        <dd class="col-sm-12 py-4">
-                            {% if manga.author %}
-                            <label class="form-label">{{ form.author.label }}</label>
-                            {% if form.author.errors %}
-                            {{ form.author(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.author.errors %}
-                                <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                            {% else %}
-                            {{ form.author(class="form-control") }}
-                            {% endif %}
-                            {% endif %}
-                        </dd>
-
-                        <dd class="col-sm-12 py-4">
-                            {% if manga.tags %}
-                            <label class="form-label">{{ form.tags.label }}</label>
-                            {% if form.tags.errors %}
-                            {{ form.tags(class="form-control is-invalid ") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.tags.errors %}
-                                <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                            {% else %}
-                            {{ form.tags(class="form-control ") }}
-                            {% endif %}
-                            {% endif %}
-                        </dd>
-                    </dl>
-                </div>
-                <div class="text-center">
-                    <a class="btn btn-outline-secondary px-5 rounded-0 d-sm-none" href="#">Edit Account</a>
-                </div>
+        <div class="d-sm-flex justify-content-center mt-5">
+            <div class="img-fluid text-center">
+                <img src="{{url_for('static', filename='manga_cover/' + manga.cover)}}" alt="Manga Cover"
+                    style="width: 250px;">
             </div>
-        </metadata>
-        {% endif %}
+        </div>
         <div>
             <div class="px-3">
                 <div class="row g-3">
@@ -144,9 +70,7 @@
                         {{ form.volume(class="form-control") }}
                         {% endif %}
                         <p class="text-muted">If you haven't started the manga or the manga doesn't have any volumes,
-                            enter
-                            0
-                            (zero) in above field</p>
+                            enter 0 (zero) in above field</p>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">{{ form.chapter.label }}</label>
@@ -188,10 +112,63 @@
                         {{ form.status(class="form-control") }}
                         {% endif %}
                     </div>
+                    <div class="col-md-12">
+                        <label class="form-label">{{ form.description.label }}</label>
+                        {% if form.description.errors %}
+                        {{ form.description(class="form-control is-invalid", rows=7) }}
+                        <div class="invalid-feedback">
+                            {% for error in form.description.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.description(class="form-control", rows=7) }}
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">{{ form.artist.label }}</label>
+                        {% if form.artist.errors %}
+                        {{ form.artist(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.artist.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.artist(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">{{ form.author.label }}</label>
+                        {% if form.author.errors %}
+                        {{ form.author(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.author.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.author(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">{{ form.tags.label }}</label>
+                        {% if form.tags.errors %}
+                        {{ form.tags(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.tags.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.tags(class="form-control") }}
+                        {% endif %}
+                    </div>
                     <div class="btn-group form my-3" role="group">
                         {{ form.update(class="btn btn-primary px-auto") }}
                         <a href="{{ url_for('mangas.update_metadata', manga_id=manga.id) }}" class="btn btn-info">Update
-                            Metadata</a>
+                            From MangaUpdates</a>
                         <a href="{{ url_for('main.page_selector') }}" class="btn btn-secondary">Go Home</a>
                         <button type="button" class="btn btn-danger px-auto" data-bs-toggle="modal"
                             data-bs-target="#deleteModal">Delete</button>
