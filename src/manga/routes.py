@@ -13,7 +13,6 @@ from src.manga.forms import MangaForm, SearchBar
 from src.manga.web_scraper import manga_search
 from src.models import Manga
 from src.utils import read_settings, show_star_on_github
-from src.chapter_log import log_chapter
 
 mangas = Blueprint("mangas", __name__)
 

@@ -4,7 +4,9 @@ import json
 from src.models import Manga
 
 
-def log_chapter(manga_title: str, count: int, delete: bool = False, create: bool = False):
+def log_chapter(
+    manga_title: str, count: int, delete: bool = False, create: bool = False
+):
     # Get the current date and format it as a string
     current_date = datetime.date.today().strftime("%Y-%m-%d")
 

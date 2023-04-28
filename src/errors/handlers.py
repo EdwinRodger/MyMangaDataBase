@@ -12,6 +12,7 @@ def error_404(error):
 def error_500(error):
     return render_template("errors/500.html"), 500
 
+
 @errors.route("/errors/<int:error>")
 def err(error):
     if error == 404:
