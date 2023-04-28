@@ -153,8 +153,8 @@
                     {% endif %}
                 </show-cover>
                 <show-title>
-                    <td><a href="{{ url_for('mangas.update_manga', manga_id=manga.id) }}"
-                            class="text-decoration-none text-reset"><u>{{ manga.title }}</u></a></td>
+                    <td><a href="{{ url_for('mangas.update_manga', manga_id=manga.id) }}" class="text-white"><u>{{
+                                manga.title }}</u></a></td>
                 </show-title>
                 <if-status-plan-to-read>
                     {% if manga.status == "Plan to read" %}
