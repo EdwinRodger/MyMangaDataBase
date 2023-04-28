@@ -32,7 +32,9 @@
                 <div id="genre" class="accordion-collapse collapse" aria-labelledby="genre-heading">
                     <div class="accordion-body bg-dark text-white">
                         {% for key, value in genre.items() %}
-                        <p class="fs-5">{{ key }}: {{ value }}</p>
+                        <p class="fs-5"><a href="{{ url_for('mangas.search_genre', tag=key) }}" class="text-white">{{
+                                key }}</a>: {{ value
+                            }}</p>
                         {% endfor %}
                     </div>
                 </div>
