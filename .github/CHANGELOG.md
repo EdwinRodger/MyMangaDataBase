@@ -1,5 +1,64 @@
 # Changelog
 
+## 1.8.0
+
+### New
+
+- Link to Alternativeto.net
+  - https://alternativeto.net/software/mymangadatabase/about/
+- Routes to error pages
+  - 404
+  - 500
+- Sorting of Table Heads
+  - Ascending (Asc)
+  - Descensing (Desc)
+- Weekly Automatic Backups
+  - Every sunday
+- Dashboard
+  - No. of Manga
+  - Genre
+  - Score
+  - History
+  - Open Source libraries
+- Chapter Logging
+  - Logs amount of chapters read per title per day
+  - Updation of manga
+  - Deletion of manga
+- **Added MangaUpdates Import**
+  - Imports every normal list
+  - Doesn't support custom lists
+- Editable Metadata
+  - Description
+  - Author
+  - Artist
+  - Tags
+
+### Updated
+
+- `--run-with-{server}` warning messages
+  - localhost.run
+  - ngrok
+- Libraries
+- **Migrate settings file**
+  - From `ini` to `json`
+- Linting
+- Table head code
+- Rename
+  - `main/utils.py` -> `main/backup.py`
+- Edit page layout
+- Import description
+  - Added steps to import MyAnimeList backup
+  - Added information about status assignment in MangaUpdates backup
+
+### Fixed
+
+- No indentation in json file while updating setting
+- Importing MyAnimeList backup giving server error
+
+###### Released On: 01 May 2023
+
+---
+
 ## 1.7.0
 
 ### New
