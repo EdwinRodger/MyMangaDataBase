@@ -28,8 +28,8 @@ def checks():
         pass
     delete_export()
     with app.app_context():
-        automatic_backup()
         db.create_all()
+        automatic_backup()
 
 
 def run_app():
