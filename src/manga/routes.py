@@ -1,7 +1,6 @@
 import os
 import random
 import time
-from configparser import ConfigParser
 from datetime import datetime
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
