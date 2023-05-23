@@ -33,6 +33,10 @@ def new_manga():
             chapter=form.chapter.data,
             status=form.status.data,
             score=form.score.data,
+            description=form.description.data,
+            tags=form.tags.data,
+            author=form.author.data,
+            artist=form.artist.data,
         )
         db.session.add(manga)
         db.session.commit()
