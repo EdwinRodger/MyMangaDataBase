@@ -1,5 +1,9 @@
 # MyMangaDataBase
 
+I am currently working on MyMangaDataBase 2.0 which includes anime tracking. Many things will get changed and it could take sometime to release MMDB 2.0. Please look forward to it :)
+
+---
+
 ![Home Page](docs/images/hero(2023-05-01).png "Home Page")
 
 One database to keep a track of all your mangas.
