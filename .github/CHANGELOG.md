@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.9.0
+
+### New
+
+- Add metadata while creating entry
+
 ## 1.8.0
 
 ### New
