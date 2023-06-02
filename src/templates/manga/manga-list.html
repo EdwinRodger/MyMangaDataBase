@@ -29,17 +29,10 @@
         {% for manga in manga_list %}
         <tr>
             <cover>
-                {% if manga.cover == "default.png" %}
-                <td class="text-center">
-                    <img src="{{ url_for('static', filename='manga_cover/default.svg') }}" alt="Manga Cover"
-                        style="height: 13vh; max-width: 65px;">
-                </td>
-                {% else %}
                 <td class="text-center">
                     <img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}" alt="Manga Cover"
                         style="height: 13vh; max-width: 65px;">
                 </td>
-                {% endif %}
             </cover>
             <td class="text-center">{{ manga.title }}</td>
             <td class="text-center">{{ manga.score }}</td>
