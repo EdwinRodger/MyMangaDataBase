@@ -1,56 +1,100 @@
 {% extends 'layout.html' %}
 {% block body %}
-<div class="bg-light-subtle">
+<!-- Secondary Header -->
+<div>
     <div class="container">
         <header class="d-flex justify-content-center py-3">
             <ul class="nav nav-pills">
                 <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-database-down"></i> Import</a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-film"></i> Add Anime</a></li>
+                <li class="nav-item"><a href="{{ url_for('anime.new_anime') }}" class="nav-link"><i
+                            class="bi bi-book"></i> Add Anime</a></li>
                 <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-database-up"></i> Export</a></li>
             </ul>
         </header>
     </div>
 </div>
-<table class="table table-striped table-hover table-responsive mt-5">
-    <thead>
-        <tr>
-            <th scope="col">Cover</th>
-            <th scope="col">Title</th>
-            <th scope="col">Score</th>
-            <th scope="col">Episodes</th>
-            <th scope="col">Start Date</th>
-            <th scope="col">End Date</th>
-            <th scope="col">Status</th>
-        </tr>
-    </thead>
-    <tbody class="table-group-divider">
-        <tr>
-            <th>1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th>2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th>3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-        </tr>
-    </tbody>
-</table>
+
+<!-- Sorting Options -->
+<div class="container">
+    <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+            {% if sort_function == "All" %}
+            <li class="nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link active"
+                    aria-current="page">All</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link">All</a></li>
+            {% endif %}
+            {% if sort_function == "Watching" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Watching') }}"
+                    class="nav-link active" aria-current="page">Watching</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Watching') }}"
+                    class="nav-link">Watching</a></li>
+            {% endif %}
+            {% if sort_function == "Completed" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Completed') }}"
+                    class="nav-link active" aria-current="page">Completed</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Completed') }}"
+                    class="nav-link">Completed</a></li>
+            {% endif %}
+            {% if sort_function == "On hold" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'On hold') }}"
+                    class="nav-link active" aria-current="page">On Hold</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'On hold') }}"
+                    class="nav-link">On Hold</a></li>
+            {% endif %}
+            {% if sort_function == "Dropped" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Dropped') }}"
+                    class="nav-link active" aria-current="page">Dropped</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Dropped') }}"
+                    class="nav-link">Dropped</a></li>
+            {% endif %}
+            {% if sort_function == "Plan to watch" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Plan to watch') }}"
+                    class="nav-link active" aria-current="page">Plan To Watch</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Plan to watch') }}"
+                    class="nav-link">Plan To Watch</a></li>
+            {% endif %}
+        </ul>
+    </header>
+</div>
+
+<!-- Table -->
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle mt-4">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">Cover</th>
+                <th scope="col">Title</th>
+                <th scope="col">Score</th>
+                <th scope="col">Episodes</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for anime in anime_list %}
+            <tr class="text-center">
+                <cover>
+                    <td>
+                        <img src="{{ url_for('static', filename='anime_cover/' + anime.cover) }}" alt="Anime Cover"
+                            style="height: 13vh; max-width: 65px;">
+                    </td>
+                </cover>
+                <td>{{ anime.title }}</td>
+                <td>{{ anime.score }}</td>
+                <td>{{ anime.episode }}</td>
+                <td>{{ anime.start_date }}</td>
+                <td>{{ anime.end_date }}</td>
+                <td>{{ anime.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

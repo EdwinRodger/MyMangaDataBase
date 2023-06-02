@@ -67,33 +67,33 @@
 <div class="table-responsive">
     <table class="table table-striped table-hover align-middle mt-4">
         <thead>
-            <tr>
-                <th class="text-center" scope="col">Cover</th>
-                <th class="text-center" scope="col">Title</th>
-                <th class="text-center" scope="col">Score</th>
-                <th class="text-center" scope="col">Volume</th>
-                <th class="text-center" scope="col">Chapter</th>
-                <th class="text-center" scope="col">Start Date</th>
-                <th class="text-center" scope="col">End Date</th>
-                <th class="text-center" scope="col">Status</th>
+            <tr class="text-center">
+                <th scope="col">Cover</th>
+                <th scope="col">Title</th>
+                <th scope="col">Score</th>
+                <th scope="col">Volume</th>
+                <th scope="col">Chapter</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
             {% for manga in manga_list %}
-            <tr>
+            <tr class="text-center">
                 <cover>
-                    <td class="text-center">
+                    <td>
                         <img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}" alt="Manga Cover"
                             style="height: 13vh; max-width: 65px;">
                     </td>
                 </cover>
-                <td class="text-center">{{ manga.title }}</td>
-                <td class="text-center">{{ manga.score }}</td>
-                <td class="text-center">{{ manga.volume }}</td>
-                <td class="text-center">{{ manga.chapter }}</td>
-                <td class="text-center">{{ manga.start_date }}</td>
-                <td class="text-center">{{ manga.end_date }}</td>
-                <td class="text-center">{{ manga.status }}</td>
+                <td>{{ manga.title }}</td>
+                <td>{{ manga.score }}</td>
+                <td>{{ manga.volume }}</td>
+                <td>{{ manga.chapter }}</td>
+                <td>{{ manga.start_date }}</td>
+                <td>{{ manga.end_date }}</td>
+                <td>{{ manga.status }}</td>
             </tr>
             {% endfor %}
         </tbody>
