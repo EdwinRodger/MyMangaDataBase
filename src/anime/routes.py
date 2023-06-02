@@ -5,7 +5,7 @@ from src import db
 
 anime = Blueprint("anime", __name__, url_prefix="/anime")
 
-@anime.route("/list")
+@anime.route("/list/all")
 def anime_list():
     anime_list = Anime.query.order_by(Anime.title.name).all()
     return render_template("anime/anime-list.html", title = "Anime List", current_section = "Anime", anime_list=anime_list, sort_function = "All")
@@ -31,7 +31,7 @@ def new_anime():
         flash(f"{form.title.data} is added!", "success")
         return redirect(url_for("anime.anime_list"))
     return render_template(
-        "anime/create-anime.html", title="New Anime", form=form, legend="New Anime"
+        "anime/create-anime.html", title="New Anime", form=form, legend="New Anime", current_section = "Anime"
     )
 
 # Sort Anime
@@ -42,5 +42,5 @@ def sort_anime(sort_function):
         "anime/anime-list.html",
         title=f"{sort_function} Anime",
         anime_list=anime_list,
-        sort_function = sort_function
+        sort_function = sort_function, current_section = "Anime"
     )

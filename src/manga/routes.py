@@ -36,7 +36,7 @@ def add_manga():
         flash(f"{form.title.data} is added!", "success")
         return redirect(url_for("manga.manga_list"))
     return render_template(
-        "manga/create-manga.html", title="New Manga", form=form, legend="New Manga"
+        "manga/create-manga.html", title="New Manga", form=form, legend="New Manga", current_section = "Manga"
     )
 
 # Sort Manga
@@ -47,5 +47,5 @@ def sort_manga(sort_function):
         "manga/manga-list.html",
         title=f"{sort_function} Manga",
         manga_list=manga_list,
-        sort_function = sort_function
+        sort_function = sort_function, current_section = "Manga"
     )
