@@ -70,6 +70,7 @@
             </header>
         </div>
     </nav>
+    {% block secondHeader %}{% endblock secondHeader %}
     <flashMessage>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -81,7 +82,7 @@
         {% endif %}
         {% endwith %}
     </flashMessage>
-    {% block body %} {% endblock body %}
+    {% block body %}{% endblock body %}
 </body>
 
 </html>
