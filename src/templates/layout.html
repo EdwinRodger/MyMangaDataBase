@@ -37,16 +37,19 @@
             <header class="d-flex justify-content-center py-3">
                 <ul class="nav nav-pills">
                     {% if current_section == "Home" %}
-                    <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+                    <li class="nav-item"><a href="{{ url_for('home.homepage') }}" class="nav-link active"
+                            aria-current="page">Home</a></li>
                     {% else %}
-                    <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="{{ url_for('home.homepage') }}" class="nav-link">Home</a></li>
                     {% endif %}
-                    {% if current_section == "Manga List" %}
-                    <li class="nav-item"><a href="#" class="nav-link active" aria-current="page"">Manga List</a></li>
+                    {% if current_section == "Manga" %}
+                    <li class="nav-item"><a href="{{ url_for('manga.manga_list') }}" class="nav-link active"
+                            aria-current="page"">Manga List</a></li>
                     {% else %}
-                    <li class=" nav-item"><a href="#" class="nav-link">Manga List</a></li>
+                    <li class=" nav-item"><a href="{{ url_for('manga.manga_list') }}" class="nav-link">Manga List</a>
+                    </li>
                     {% endif %}
-                    {% if current_section == "Anime List" %}
+                    {% if current_section == "Anime" %}
                     <li class="nav-item"><a href="#" class="nav-link active" aria-current="page"">Anime List</a></li>
                     {% else %}
                     <li class=" nav-item"><a href="#" class="nav-link">Anime List</a></li>
