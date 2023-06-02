@@ -38,30 +38,33 @@
                 <ul class="nav nav-pills">
                     {% if current_section == "Home" %}
                     <li class="nav-item"><a href="{{ url_for('home.homepage') }}" class="nav-link active"
-                            aria-current="page">Home</a></li>
+                            aria-current="page"><i class="bi bi-house"></i> Home</a></li>
                     {% else %}
-                    <li class="nav-item"><a href="{{ url_for('home.homepage') }}" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="{{ url_for('home.homepage') }}" class="nav-link"><i
+                                class="bi bi-house"></i> Home</a></li>
                     {% endif %}
                     {% if current_section == "Manga" %}
                     <li class="nav-item"><a href="{{ url_for('manga.manga_list') }}" class="nav-link active"
-                            aria-current="page"">Manga List</a></li>
+                            aria-current="page"><i class="bi bi-book"></i> Manga List</a></li>
                     {% else %}
-                    <li class=" nav-item"><a href="{{ url_for('manga.manga_list') }}" class="nav-link">Manga List</a>
+                    <li class=" nav-item"><a href="{{ url_for('manga.manga_list') }}" class="nav-link"><i
+                                class="bi bi-book"></i> Manga List</a>
                     </li>
                     {% endif %}
                     {% if current_section == "Anime" %}
                     <li class="nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link active"
-                            aria-current="page"">Anime List</a></li>
+                            aria-current="page"><i class="bi bi-film"></i> Anime List</a></li>
                     {% else %}
-                    <li class=" nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link">Anime List</a>
+                    <li class=" nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link"><i
+                                class="bi bi-film"></i> Anime List</a>
                     </li>
                     {% endif %}
                     {% if current_section == "Settings" %}
                     <li class="nav-item"><a href="{{ url_for('settings.settingspage') }}" class="nav-link active"
-                            aria-current="page"">Settings</a></li>
+                            aria-current="page"><i class="bi bi-gear"></i> Settings</a></li>
                     {% else %}
-                    <li class=" nav-item"><a href="{{ url_for('settings.settingspage') }}"
-                                class="nav-link">Settings</a></li>
+                    <li class=" nav-item"><a href="{{ url_for('settings.settingspage') }}" class="nav-link"><i
+                                class="bi bi-gear"></i> Settings</a></li>
                     {% endif %}
                 </ul>
             </header>

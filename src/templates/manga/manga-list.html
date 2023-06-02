@@ -1,12 +1,24 @@
 {% extends 'layout.html' %}
 {% block body %}
+<div class="bg-light-subtle">
+    <div class="container">
+        <header class="d-flex justify-content-center py-3">
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-database-down"></i> Import</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-book"></i> Add Manga</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-database-up"></i> Export</a></li>
+            </ul>
+        </header>
+    </div>
+</div>
 <table class="table table-striped table-hover table-responsive mt-5">
     <thead>
         <tr>
             <th scope="col">Cover</th>
             <th scope="col">Title</th>
             <th scope="col">Score</th>
-            <th scope="col">Episodes</th>
+            <th scope="col">Volume</th>
+            <th scope="col">Chapter</th>
             <th scope="col">Start Date</th>
             <th scope="col">End Date</th>
             <th scope="col">Status</th>
@@ -21,11 +33,13 @@
             <td>@mdo</td>
             <td>@mdo</td>
             <td>@mdo</td>
+            <td>@mdo</td>
         </tr>
         <tr>
             <th>2</th>
             <td>Jacob</td>
             <td>Thornton</td>
+            <td>@fat</td>
             <td>@fat</td>
             <td>@fat</td>
             <td>@fat</td>
@@ -39,7 +53,8 @@
             <td>@twitter</td>
             <td>@twitter</td>
             <td>@twitter</td>
+            <td>@twitter</td>
         </tr>
     </tbody>
 </table>
-{% endblock %}
+{% endblock body %}
