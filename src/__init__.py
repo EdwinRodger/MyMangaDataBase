@@ -8,8 +8,10 @@ def create_app(config_class=Config):
 
     from src.home.routes import home
     from src.manga.routes import manga
+    from src.anime.routes import anime
 
     app.register_blueprint(home)
     app.register_blueprint(manga)
+    app.register_blueprint(anime)
 
     return app

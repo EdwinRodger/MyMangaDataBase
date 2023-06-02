@@ -50,9 +50,11 @@
                     </li>
                     {% endif %}
                     {% if current_section == "Anime" %}
-                    <li class="nav-item"><a href="#" class="nav-link active" aria-current="page"">Anime List</a></li>
+                    <li class="nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link active"
+                            aria-current="page"">Anime List</a></li>
                     {% else %}
-                    <li class=" nav-item"><a href="#" class="nav-link">Anime List</a></li>
+                    <li class=" nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link">Anime List</a>
+                    </li>
                     {% endif %}
                     {% if current_section == "Settings" %}
                     <li class="nav-item"><a href="#" class="nav-link active" aria-current="page"">Settings</a></li>
