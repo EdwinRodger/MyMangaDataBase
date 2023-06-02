@@ -163,7 +163,7 @@ cython_debug/
 .vscode/
 
 Extras 
-manga_cover/
+# manga_cover/
 versionhash.txt
 Makefile
 config.ini
