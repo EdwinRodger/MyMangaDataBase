@@ -5,11 +5,11 @@ from src import db
 
 manga = Blueprint("manga", __name__, url_prefix="/manga")
 
-@manga.route("/list")
+@manga.route("/list/all")
 def manga_list():
     manga_list = Manga.query.order_by(Manga.title.name).all()
     return render_template(
-        "manga/manga-list.html", title = "Manga List", current_section = "Manga", manga_list=manga_list
+        "manga/manga-list.html", title = "Manga List", current_section = "Manga", manga_list=manga_list, sort_function = "All"
     )
 
 # Add New Manga
@@ -37,4 +37,15 @@ def add_manga():
         return redirect(url_for("manga.manga_list"))
     return render_template(
         "manga/create-manga.html", title="New Manga", form=form, legend="New Manga"
+    )
+
+# Sort Manga
+@manga.route("/list/<string:sort_function>", methods=["GET", "POST"])
+def sort_manga(sort_function):
+    manga_list = Manga.query.filter_by(status=sort_function).order_by(Manga.title.name).all()
+    return render_template(
+        "manga/manga-list.html",
+        title=f"{sort_function} Manga",
+        manga_list=manga_list,
+        sort_function = sort_function
     )

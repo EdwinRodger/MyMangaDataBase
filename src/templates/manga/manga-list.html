@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% block body %}
+<!-- Secondary Header -->
 <div class="bg-light-subtle">
     <div class="container">
         <header class="d-flex justify-content-center py-3">
@@ -12,6 +13,54 @@
         </header>
     </div>
 </div>
+
+<!-- Sorting Options -->
+<div class="btn-group d-flex px-1 my-3" role="group">
+    {% if sort_function == "All" %}
+    <a type="button" class="btn btn-outline-primary flex-grow-1 text-decoration-none active" aria-current="page"
+        href="{{ url_for('manga.manga_list') }}"><b>All</b></a>
+    {% else %}
+    <a type="button" class="btn btn-outline-primary flex-grow-1 text-decoration-none"
+        href="{{ url_for('manga.manga_list') }}"><b>All</b></a>
+    {% endif %}
+    {% if sort_function == "Reading" %}
+    <a type="button" class="btn btn-outline-primary flex-grow-1 text-decoration-none active" aria-current="page"
+        href="{{ url_for('manga.sort_manga', sort_function = 'Reading') }}"><b>Reading</b></a>
+    {% else %}
+    <a type="button" class="btn btn-outline-primary flex-grow-1 text-decoration-none"
+        href="{{ url_for('manga.sort_manga', sort_function = 'Reading') }}"><b>Reading</b></a>
+    {% endif %}
+    {% if sort_function == "Completed" %}
+    <a type="button" class="btn btn-outline-primary flex-grow-1 text-decoration-none active" aria-current="page"
+        href="{{ url_for('manga.sort_manga', sort_function = 'Completed') }}"><b>Completed</b></a>
+    {% else %}
+    <a type="button" class="btn btn-outline-primary flex-grow-1 text-decoration-none"
+        href="{{ url_for('manga.sort_manga', sort_function = 'Completed') }}"><b>Completed</b></a>
+    {% endif %}
+    {% if sort_function == "On Hold" %}
+    <a type="button" class="btn btn-outline-primary flex-grow-1 text-decoration-none active" aria-current="page"
+        href="{{ url_for('manga.sort_manga', sort_function = 'On hold') }}"><b>On Hold</b></a>
+    {% else %}
+    <a type="button" class="btn btn-outline-primary flex-grow-1 text-decoration-none"
+        href="{{ url_for('manga.sort_manga', sort_function = 'On hold') }}"><b>On Hold</b></a>
+    {% endif %}
+    {% if sort_function == "Dropped" %}
+    <a type="button" class="btn btn-outline-primary flex-grow-1 text-decoration-none active" aria-current="page"
+        href="{{ url_for('manga.sort_manga', sort_function = 'Dropped') }}"><b>Dropped</b></a>
+    {% else %}
+    <a type="button" class="btn btn-outline-primary flex-grow-1 text-decoration-none"
+        href="{{ url_for('manga.sort_manga', sort_function = 'Dropped') }}"><b>Dropped</b></a>
+    {% endif %}
+    {% if sort_function == "Plan To Read" %}
+    <a type="button" class="btn btn-outline-primary flex-grow-1 text-decoration-none active" aria-current="page"
+        href="{{ url_for('manga.sort_manga', sort_function = 'Plan to read') }}"><b>Plan To Read</b></a>
+    {% else %}
+    <a type="button" class="btn btn-outline-primary flex-grow-1 text-decoration-none"
+        href="{{ url_for('manga.sort_manga', sort_function = 'Plan to read') }}"><b>Plan To Read</b></a>
+    {% endif %}
+</div>
+
+<!-- Table -->
 <table class="table table-striped table-hover table-responsive align-middle mt-5">
     <thead>
         <tr>
