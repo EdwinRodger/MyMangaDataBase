@@ -25,8 +25,7 @@ class MangaForm(FlaskForm):
             "Completed",
             "On hold",
             "Dropped",
-            "Plan to read",
-            "Rereading",
+            "Plan to read"
         ],
     )
     description = TextAreaField("Description")
