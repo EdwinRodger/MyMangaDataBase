@@ -9,6 +9,7 @@ waitress = "*"
 flask-sqlalchemy = "*"
 flask-wtf = "*"
 requests = "*"
+pillow = "*"
 
 [dev-packages]
 
