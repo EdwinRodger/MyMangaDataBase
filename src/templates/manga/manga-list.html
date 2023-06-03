@@ -89,7 +89,12 @@
                             style="height: 13vh; max-width: 65px;">
                     </td>
                 </cover>
-                <td>{{ manga.title }}</td>
+                <td>
+                    <a class="text-decoration-underline text-reset"
+                        href="{{ url_for('manga.update_manga', manga_id=manga.id) }}">
+                        {{ manga.title }}
+                    </a>
+                </td>
                 {% if manga.score == 0 %}
                 <td>-</td>
                 {% else %}

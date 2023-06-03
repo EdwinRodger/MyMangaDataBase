@@ -1,7 +1,8 @@
-from flask import (Blueprint, render_template, flash, redirect, url_for)
+from flask import (Blueprint, render_template, flash, redirect, url_for, request)
 from src.anime.forms import AnimeForm
 from src.models import Anime
 from src import db
+from datetime import datetime
 
 anime = Blueprint("anime", __name__, url_prefix="/anime")
 
@@ -34,6 +35,53 @@ def new_anime():
     return render_template(
         "anime/create-anime.html", title="New Anime", form=form, legend="New Anime", current_section = "Anime"
     )
+
+
+# Update a Anime
+@anime.route("/update/<int:anime_id>", methods=["GET", "POST"])
+def update_anime(anime_id):
+    anime = Anime.query.get_or_404(anime_id)
+    form = AnimeForm()
+    if form.validate_on_submit():
+        anime.title = form.title.data
+        anime.start_date = form.start_date.data
+        anime.end_date = form.end_date.data
+        anime.episode = form.episode.data
+        anime.status = form.status.data
+        anime.score = form.score.data
+        anime.description = form.description.data
+        anime.tags = form.tags.data
+        anime.notes = form.notes.data
+        db.session.commit()
+        flash("Your anime has been updated!", "success")
+    elif request.method == "GET":
+        form.title.data = anime.title
+        form.start_date.data = datetime.strptime(anime.start_date, '%Y-%m-%d').date()
+        form.end_date.data = datetime.strptime(anime.end_date, '%Y-%m-%d').date()
+        form.episode.data = anime.episode
+        form.status.data = anime.status
+        form.score.data = str(anime.score)
+        form.description.data = anime.description
+        form.tags.data = anime.tags
+        form.notes.data = anime.notes
+    return render_template(
+        "anime/edit-anime.html",
+        title=f"Edit {anime.title}",
+        form=form,
+        anime=anime,
+        legend="Update Anime",
+        current_section = "Anime"
+    )
+
+# Delete A Anime
+@anime.route("/delete/<int:anime_id>", methods=["POST"])
+def delete_anime(anime_id):
+    anime = Anime.query.get_or_404(anime_id)
+    db.session.delete(anime)
+    db.session.commit()
+    flash("Your anime has been Obliterated!", "success")
+    return redirect(url_for("anime.anime_list"))
+
 
 # Sort Anime
 @anime.route("/list/<string:sort_function>", methods=["GET", "POST"])
