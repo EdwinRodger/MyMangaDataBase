@@ -15,6 +15,7 @@ class Manga(db.Model):
     tags = db.Column(db.String)
     author = db.Column(db.String)
     artist = db.Column(db.String)
+    notes = db.Column(db.String)
 
     def __repr__(self):
         return f"Manga('{self.title}', '{self.start_date}', '{self.end_date}', '{self.score}', '{self.status}', '{self.tags}')"
@@ -30,6 +31,7 @@ class Anime(db.Model):
     status = db.Column(db.String(20), nullable=False, default="Plan to watch")
     description = db.Column(db.String)
     tags = db.Column(db.String)
+    notes = db.Column(db.String)
 
     def __repr__(self):
         return f"Anime('{self.title}', '{self.start_date}', '{self.end_date}', '{self.score}', '{self.status}', '{self.tags}')"

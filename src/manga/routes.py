@@ -30,6 +30,7 @@ def add_manga():
             tags=form.tags.data,
             author=form.author.data,
             artist=form.artist.data,
+            notes=form.notes.data,
         )
         db.session.add(manga)
         db.session.commit()

@@ -25,6 +25,7 @@ def new_anime():
             score=form.score.data,
             description=form.description.data,
             tags=form.tags.data,
+            notes=form.notes.data,
         )
         db.session.add(anime)
         db.session.commit()

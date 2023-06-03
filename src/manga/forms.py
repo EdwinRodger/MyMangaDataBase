@@ -32,6 +32,7 @@ class MangaForm(FlaskForm):
     tags = StringField("Tags")
     author = StringField("Author")
     artist = StringField("Artist")
+    notes = TextAreaField("Notes")
     submit = SubmitField("Add")
     update = SubmitField("Update")
     

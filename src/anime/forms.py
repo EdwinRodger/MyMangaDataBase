@@ -29,6 +29,7 @@ class AnimeForm(FlaskForm):
     )
     description = TextAreaField("Description")
     tags = StringField("Tags")
+    notes = TextAreaField("Notes")
     submit = SubmitField("Add")
     update = SubmitField("Update")
     

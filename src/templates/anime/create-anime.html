@@ -121,6 +121,10 @@
                     {% endif %}
                     <p class="text-muted">Seprate tags by using a comma (,)</p>
                 </div>
+                <div class="md-12 mb-3">
+                    <label class="form-label">{{ form.notes.label }}</label>
+                    {{ form.notes(class="form-control", rows=7) }}
+                </div>
             </fieldset>
             <div class="form mb-3 mt-3">
                 {{ form.submit(class="btn btn-outline-info") }}
