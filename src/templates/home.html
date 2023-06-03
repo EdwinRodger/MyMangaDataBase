@@ -8,33 +8,33 @@
             <hr>
             <div class="row g-3">
                 <div class="col-md-4 text-center">
-                    <p>{{ total_manga }}</p>
+                    <p>{{ manga_data["manga_len"] }}</p>
                     <p>Total Manga</p>
                 </div>
                 <div class="col-md-4 text-center">
-                    <p>{{ total_chapters }}</p>
+                    <p>{{ manga_data["manga_chapter_len"] }}</p>
                     <p>Chapter Read</p>
                 </div>
                 <div class="col-md-4 text-center">
-                    <p>{{ mean_score }}</p>
+                    <p>{{ manga_data["mean_score"] }}</p>
                     <p>Mean Score</p>
                 </div>
             </div>
             <hr>
             <h3>Status</h3>
-            {% for key, value in status.items() %}
+            {% for key, value in manga_data["status"].items() %}
             <p class="fs-5">Total No. of {{ key }} Manga: {{ value }}</p>
             {% endfor %}
             <hr>
             <h3>Genre</h3>
-            {% for key, value in genre.items() %}
-            <p class="fs-5"><a href="{{ url_for('mangas.search_genre', tag=key) }}" class="text-white">{{
+            {% for key, value in manga_data["genre"].items() %}
+            <p class="fs-5"><a href="#" class="text-decoration-underline text-reset">{{
                     key }}</a>: {{ value
                 }}</p>
             {% endfor %}
             <hr>
             <h3>Score</h3>
-            {% for key, value in score.items() %}
+            {% for key, value in manga_data["score"].items() %}
             <p class="fs-5">{{ key }}: {{ value }}</p>
             {% endfor %}
         </div>
