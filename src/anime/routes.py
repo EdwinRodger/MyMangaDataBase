@@ -102,4 +102,14 @@ def add_one_episode(anime_id):
     db.session.commit()
     return redirect(url_for("anime.anime_list"))
 
+# Searches anime related to given tags in the database
+@anime.route("/tags/<string:tag>", methods=["GET"])
+def search_tags(tag):
+    anime_list = Anime.query.filter(Anime.tags.like(f"%{tag}%")).all()
+    return render_template(
+        "anime/anime-list.html",
+        title=f"{tag} Tag",
+        anime_list=anime_list,
+        current_section = "Anime"
+    )
 

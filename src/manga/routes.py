@@ -121,3 +121,13 @@ def add_one_volume(manga_id):
     db.session.commit()
     return redirect(url_for("manga.manga_list"))
 
+# Searches manga related to given tags in the database
+@manga.route("/tags/<string:tag>", methods=["GET"])
+def search_tags(tag):
+    manga_list = Manga.query.filter(Manga.tags.like(f"%{tag}%")).all()
+    return render_template(
+        "manga/manga-list.html",
+        title=f"{tag} Tag",
+        manga_list=manga_list,
+        current_section = "Manga"
+    )
