@@ -3,6 +3,7 @@ from src.anime.forms import AnimeForm
 from src.models import Anime
 from src import db
 from datetime import datetime
+from src.anime.utils import save_picture, remove_cover
 
 anime = Blueprint("anime", __name__, url_prefix="/anime")
 
@@ -16,9 +17,13 @@ def anime_list():
 def new_anime():
     form = AnimeForm()
     if form.validate_on_submit():
+        if form.cover.data:
+            picture_file = save_picture(form.cover.data)
+        else:
+            picture_file = "default-anime.svg"
         anime = Anime(
             title=form.title.data,
-            cover=form.cover.data,
+            cover=picture_file,
             start_date=form.start_date.data,
             end_date=form.end_date.data,
             episode=form.episode.data,
@@ -43,6 +48,10 @@ def update_anime(anime_id):
     anime = Anime.query.get_or_404(anime_id)
     form = AnimeForm()
     if form.validate_on_submit():
+        if form.cover.data:
+            remove_cover(anime.cover)
+            picture_file = save_picture(form.cover.data)
+            anime.cover = picture_file
         anime.title = form.title.data
         anime.start_date = form.start_date.data
         anime.end_date = form.end_date.data
@@ -77,6 +86,7 @@ def update_anime(anime_id):
 @anime.route("/delete/<int:anime_id>", methods=["POST"])
 def delete_anime(anime_id):
     anime = Anime.query.get_or_404(anime_id)
+    remove_cover(anime.cover)
     db.session.delete(anime)
     db.session.commit()
     flash("Your anime has been Obliterated!", "success")

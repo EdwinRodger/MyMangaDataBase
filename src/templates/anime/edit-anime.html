@@ -5,7 +5,7 @@
         {{ legend }}
         <hr>
     </legend>
-    <form action="" method="post">
+    <form action="" enctype="multipart/form-data" method="post">
         {{ form.hidden_tag() }}
         <div class="d-sm-flex justify-content-center mt-5">
             <div class="img-fluid text-center">
@@ -95,6 +95,15 @@
                     <div class="col-md-12">
                         <label class="form-label">{{ form.notes.label }}</label>
                         {{ form.notes(class="form-control", rows=7) }}
+                    </div>
+                    <div class="md-12 mb-3">
+                        <label class="form-label">{{ form.cover.label }}</label>
+                        {{ form.cover(class="form-control") }}
+                        {% if form.cover.errors %}
+                        {% for error in form.cover.errors %}
+                        <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="btn-group form my-3" role="group">
                         <!-- Updates Anime -->

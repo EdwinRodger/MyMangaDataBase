@@ -2,7 +2,8 @@
 {% block body %}
 <div>
     <div class="content-section">
-        <form action="" method="post" class="m-sm-5 p-sm-5 border border-opacity-25 rounded-4 p-2 mt-3">
+        <form action="" method="post" enctype="multipart/form-data"
+            class="m-sm-5 p-sm-5 border border-opacity-25 rounded-4 p-2 mt-3">
             {{ form.hidden_tag() }}
             <fieldset>
                 <legend class="border-bottom mb-4">
@@ -106,6 +107,15 @@
                 <div class="md-12 mb-3">
                     <label class="form-label">{{ form.notes.label }}</label>
                     {{ form.notes(class="form-control", rows=7) }}
+                </div>
+                <div class="md-12 mb-3">
+                    <label class="form-label">{{ form.cover.label }}</label>
+                    {{ form.cover(class="form-control") }}
+                    {% if form.cover.errors %}
+                    {% for error in form.cover.errors %}
+                    <span class="text-danger">{{ error }}</span></br>
+                    {% endfor %}
+                    {% endif %}
                 </div>
             </fieldset>
             <div class="form mb-3 mt-3">

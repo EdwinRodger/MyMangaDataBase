@@ -3,6 +3,7 @@ from src.manga.forms import MangaForm
 from src.models import Manga
 from src import db
 from datetime import datetime
+from src.manga.utils import save_picture, remove_cover
 
 manga = Blueprint("manga", __name__, url_prefix="/manga")
 
@@ -18,9 +19,13 @@ def manga_list():
 def add_manga():
     form = MangaForm()
     if form.validate_on_submit():
+        if form.cover.data:
+            picture_file = save_picture(form.cover.data)
+        else:
+            picture_file = "default-manga.svg"
         manga = Manga(
             title=form.title.data,
-            cover=form.cover.data,
+            cover=picture_file,
             start_date=form.start_date.data,
             end_date=form.end_date.data,
             volume=form.volume.data,
@@ -48,6 +53,10 @@ def update_manga(manga_id):
     manga = Manga.query.get_or_404(manga_id)
     form = MangaForm()
     if form.validate_on_submit():
+        if form.cover.data:
+            remove_cover(manga.cover)
+            picture_file = save_picture(form.cover.data)
+            manga.cover = picture_file
         manga.title = form.title.data
         manga.start_date = form.start_date.data
         manga.end_date = form.end_date.data
@@ -88,6 +97,7 @@ def update_manga(manga_id):
 @manga.route("/delete/<int:manga_id>", methods=["POST"])
 def delete_manga(manga_id):
     manga = Manga.query.get_or_404(manga_id)
+    remove_cover(manga.cover)
     db.session.delete(manga)
     db.session.commit()
     flash("Your manga has been Obliterated!", "success")
