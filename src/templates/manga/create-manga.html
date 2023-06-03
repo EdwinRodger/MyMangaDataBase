@@ -110,55 +110,19 @@
                 </legend>
                 <div class="md-12 mb-3">
                     <label class="form-label">{{ form.description.label }}</label>
-                    {% if form.description.errors %}
-                    {{ form.description(class="form-control is-invalid", rows=7) }}
-                    <div class="invalid-feedback">
-                        {% for error in form.description.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
                     {{ form.description(class="form-control", rows=7) }}
-                    {% endif %}
                 </div>
                 <div class="md-4 mb-3">
                     <label class="form-label">{{ form.artist.label }}</label>
-                    {% if form.artist.errors %}
-                    {{ form.artist(class="form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.artist.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
                     {{ form.artist(class="form-control") }}
-                    {% endif %}
                 </div>
                 <div class="md-4 mb-3">
                     <label class="form-label">{{ form.author.label }}</label>
-                    {% if form.author.errors %}
-                    {{ form.author(class="form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.author.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
                     {{ form.author(class="form-control") }}
-                    {% endif %}
                 </div>
                 <div class="md-4 mb-3">
                     <label class="form-label">{{ form.tags.label }}</label>
-                    {% if form.tags.errors %}
-                    {{ form.tags(class="form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.tags.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
                     {{ form.tags(class="form-control") }}
-                    {% endif %}
                     <p class="text-muted">Seprate tags by using a comma (,)</p>
                 </div>
                 <div class="md-12 mb-3">
