@@ -90,9 +90,21 @@
                 </cover>
                 <td>{{ anime.title }}</td>
                 <td>{{ anime.score }}</td>
+                {% if anime.episode == 0 %}
+                <td>-</td>
+                {% else %}
                 <td>{{ anime.episode }}</td>
+                {% endif %}
+                {% if anime.start_date == "0001-01-01" %}
+                <td>-</td>
+                {% else %}
                 <td>{{ anime.start_date }}</td>
+                {% endif %}
+                {% if anime.end_date == "0001-01-01" %}
+                <td>-</td>
+                {% else %}
                 <td>{{ anime.end_date }}</td>
+                {% endif %}
                 <td>{{ anime.status }}</td>
             </tr>
             {% endfor %}

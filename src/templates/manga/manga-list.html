@@ -90,11 +90,31 @@
                     </td>
                 </cover>
                 <td>{{ manga.title }}</td>
+                {% if manga.score == 0 %}
+                <td>-</td>
+                {% else %}
                 <td>{{ manga.score }}</td>
+                {% endif %}
+                {% if manga.volume == 0 %}
+                <td>-</td>
+                {% else %}
                 <td>{{ manga.volume }}</td>
+                {% endif %}
+                {% if manga.chapter == 0 %}
+                <td>-</td>
+                {% else %}
                 <td>{{ manga.chapter }}</td>
+                {% endif %}
+                {% if manga.start_date == "0001-01-01" %}
+                <td>-</td>
+                {% else %}
                 <td>{{ manga.start_date }}</td>
+                {% endif %}
+                {% if manga.end_date == "0001-01-01" %}
+                <td>-</td>
+                {% else %}
                 <td>{{ manga.end_date }}</td>
+                {% endif %}
                 <td>{{ manga.status }}</td>
             </tr>
             {% endfor %}
