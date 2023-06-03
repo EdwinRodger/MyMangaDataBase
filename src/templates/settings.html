@@ -1,4 +1,23 @@
-{% extends 'layout.html' %}
+{% extends "layout.html" %}
 {% block body %}
-<h1 class="text-center">Settings Page</h1>
-{% endblock %}
+<div>
+    <h1 class="text-center pt-3">Settings</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div>
+            <div class="px-3">
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label class="form-label">{{ form.theme.label }}</label>
+                        {{ form.theme(class="form-control") }}
+                    </div>
+                    <div class="btn-group form my-3" role="group">
+                        <!-- Updates Settings -->
+                        {{ form.save(class="btn btn-outline-primary px-auto") }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock body %}

@@ -2,6 +2,7 @@ from src.config import Config
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import json
 
 db = SQLAlchemy()
 
@@ -20,5 +21,14 @@ def create_app(config_class=Config):
     app.register_blueprint(manga)
     app.register_blueprint(anime)
     app.register_blueprint(settings)
+
+    # Pass Stuff To Layout.html
+    @app.context_processor
+    def base():
+        with open("json/settings.json", "r") as f:
+            json_settings = json.load(f)
+            theme = json_settings["theme"]
+
+        return {"theme" : theme}
 
     return app
