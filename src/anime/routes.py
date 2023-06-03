@@ -93,3 +93,13 @@ def sort_anime(sort_function):
         anime_list=anime_list,
         sort_function = sort_function, current_section = "Anime"
     )
+
+# Add One episode To The Anime
+@anime.route("/add-one-episode/<int:anime_id>")
+def add_one_episode(anime_id):
+    anime = Anime.query.get_or_404(anime_id)
+    anime.episode = anime.episode + 1
+    db.session.commit()
+    return redirect(url_for("anime.anime_list"))
+
+

@@ -103,3 +103,21 @@ def sort_manga(sort_function):
         manga_list=manga_list,
         sort_function = sort_function, current_section = "Manga"
     )
+
+# Add One Chapter To The Manga
+@manga.route("/add-one-chapter/<int:manga_id>")
+def add_one_chapter(manga_id):
+    manga = Manga.query.get_or_404(manga_id)
+    manga.chapter = manga.chapter + 1
+    db.session.commit()
+    return redirect(url_for("manga.manga_list"))
+
+
+# Add One Volume To The Manga
+@manga.route("/add-one-volume/<int:manga_id>")
+def add_one_volume(manga_id):
+    manga = Manga.query.get_or_404(manga_id)
+    manga.volume = manga.volume + 1
+    db.session.commit()
+    return redirect(url_for("manga.manga_list"))
+

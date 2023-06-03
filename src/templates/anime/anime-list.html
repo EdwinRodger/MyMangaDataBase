@@ -98,7 +98,12 @@
                 {% if anime.episode == 0 %}
                 <td>-</td>
                 {% else %}
-                <td>{{ anime.episode }}</td>
+                <td>
+                    <a href="{{ url_for('anime.add_one_episode', anime_id=anime.id) }}"
+                        class="text-decoration-underline text-reset">
+                        {{ anime.episode }}
+                    </a>
+                </td>
                 {% endif %}
                 {% if anime.start_date == "0001-01-01" %}
                 <td>-</td>

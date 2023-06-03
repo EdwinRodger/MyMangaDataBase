@@ -103,12 +103,22 @@
                 {% if manga.volume == 0 %}
                 <td>-</td>
                 {% else %}
-                <td>{{ manga.volume }}</td>
+                <td>
+                    <a href="{{ url_for('manga.add_one_volume', manga_id=manga.id) }}"
+                        class="text-decoration-underline text-reset">
+                        {{ manga.volume }}
+                    </a>
+                </td>
                 {% endif %}
                 {% if manga.chapter == 0 %}
                 <td>-</td>
                 {% else %}
-                <td>{{ manga.chapter }}</td>
+                <td>
+                    <a href="{{ url_for('manga.add_one_chapter', manga_id=manga.id) }}"
+                        class="text-decoration-underline text-reset">
+                        {{ manga.chapter }}
+                    </a>
+                </td>
                 {% endif %}
                 {% if manga.start_date == "0001-01-01" %}
                 <td>-</td>
