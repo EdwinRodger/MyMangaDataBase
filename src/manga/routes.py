@@ -1,9 +1,12 @@
-from flask import (Blueprint, render_template, flash, redirect, url_for, request)
+from flask import (Blueprint, render_template, flash, redirect, url_for, request, send_file)
 from src.manga.forms import MangaForm
 from src.models import Manga
 from src import db
 from datetime import datetime
 from src.manga.utils import save_picture, remove_cover
+from src.manga.backup import export_mmdb_backup, extract_mmdb_backup
+
+today_date = datetime.date(datetime.today())
 
 manga = Blueprint("manga", __name__, url_prefix="/manga")
 
@@ -141,3 +144,41 @@ def search_tags(tag):
         manga_list=manga_list,
         current_section = "Manga"
     )
+
+# The path for uploading the file
+@manga.route("/import", methods=["GET", "POST"])
+def import_manga():
+    return render_template("manga/import-manga.html")
+
+# Imports backup based on file extension
+@manga.route("/import/<string:backup>", methods=["GET", "POST"])
+def importbackup(backup):
+    # check if the method is post
+    if request.method == "POST":
+        # get the file from the files object
+        backup_file = request.files["file"]
+        # Checking if no file is sent
+        if backup_file.filename == "":
+            flash("Choose a file to import!", "danger")
+            return redirect(url_for("manga.import_manga"))
+        # If file is sent through MMDB form, checking if file name is correct. If correct, then extracting the import
+        if backup == "MyMangaDataBase" and backup_file.filename.lower().endswith((".zip")) and backup_file.filename.startswith(("MMDB-Manga-Export")):
+            # this will secure the file
+            backup_file.save(backup_file.filename)
+            extract_mmdb_backup(backup_file.filename)
+        else:
+            flash("Choose correct file to import!", "danger")
+            return redirect(url_for("manga.import_manga"))
+        return redirect(
+            url_for("manga.manga_list")
+        )  # Display thsi message after uploading
+    return redirect(
+        url_for("manga.import_manga")
+    )  # Display thsi message after uploading
+
+
+# Downloads MMDB json export file
+@manga.route("/export")
+def export():
+    export_mmdb_backup()
+    return send_file(f"MMDB-Manga-Export-{today_date}.zip")

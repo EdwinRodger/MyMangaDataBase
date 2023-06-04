@@ -1,9 +1,12 @@
-from flask import (Blueprint, render_template, flash, redirect, url_for, request)
+from flask import (Blueprint, render_template, flash, redirect, url_for, request, send_file)
 from src.anime.forms import AnimeForm
 from src.models import Anime
 from src import db
 from datetime import datetime
 from src.anime.utils import save_picture, remove_cover
+from src.anime.backup import export_mmdb_backup, extract_mmdb_backup
+
+today_date = datetime.date(datetime.today())
 
 anime = Blueprint("anime", __name__, url_prefix="/anime")
 
@@ -122,4 +125,44 @@ def search_tags(tag):
         anime_list=anime_list,
         current_section = "Anime"
     )
+
+
+
+# The path for uploading the file
+@anime.route("/import", methods=["GET", "POST"])
+def import_anime():
+    return render_template("anime/import-anime.html")
+
+# Imports backup based on file extension
+@anime.route("/import/<string:backup>", methods=["GET", "POST"])
+def importbackup(backup):
+    # check if the method is post
+    if request.method == "POST":
+        # get the file from the files object
+        backup_file = request.files["file"]
+        # Checking if no file is sent
+        if backup_file.filename == "":
+            flash("Choose a file to import!", "danger")
+            return redirect(url_for("anime.import_anime"))
+        # If file is sent through MMDB form, checking if file name is correct. If correct, then extracting the import
+        if backup == "MyMangaDataBase" and backup_file.filename.lower().endswith((".zip")) and backup_file.filename.startswith(("MMDB-Anime-Export")):
+            # this will secure the file
+            backup_file.save(backup_file.filename)
+            extract_mmdb_backup(backup_file.filename)
+        else:
+            flash("Choose correct file to import!", "danger")
+            return redirect(url_for("anime.import_anime"))
+        return redirect(
+            url_for("anime.anime_list")
+        )  # Display thsi message after uploading
+    return redirect(
+        url_for("anime.import_anime")
+    )  # Display thsi message after uploading
+
+
+# Downloads MMDB json export file
+@anime.route("/export")
+def export():
+    export_mmdb_backup()
+    return send_file(f"MMDB-Anime-Export-{today_date}.zip")
 
