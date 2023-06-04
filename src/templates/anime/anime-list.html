@@ -16,7 +16,7 @@
     </div>
 </div>
 {% endblock %}
-
+<!-- Flash messages go here which comes from layout.html -->
 {% block body %}
 <!-- Sorting Options -->
 <div class="container">
@@ -87,7 +87,7 @@
                 <cover>
                     <td>
                         <img src="{{ url_for('static', filename='anime_cover/' + anime.cover) }}" alt="Anime Cover"
-                            style="height: 13vh; max-width: 65px;">
+                            style="height: 10vh;">
                     </td>
                 </cover>
                 <td>
