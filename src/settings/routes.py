@@ -21,9 +21,17 @@ def settingspage():
     form = SettingsForm()
     if form.validate_on_submit():
         json_settings["theme"] = form.theme.data
+        json_settings["enable_logging"] = form.enable_logging.data
         with open("json/settings.json", "w") as f:
             json.dump(json_settings, f, indent=4)
         flash("Settings Updated!", "success")
     elif request.method == "GET":
+        # Theme
         form.theme.data = json_settings["theme"]
+        # Enable Logging
+        try:
+            enable_logging = json_settings["enable_logging"]
+        except:
+            enable_logging = "Yes"
+        form.enable_logging.data = enable_logging
     return render_template("settings.html", form=form, legend = "Settings", title = "Settings", current_section = "Settings")

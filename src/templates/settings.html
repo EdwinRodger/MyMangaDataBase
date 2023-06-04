@@ -11,6 +11,11 @@
                         <label class="form-label">{{ form.theme.label }}</label>
                         {{ form.theme(class="form-control") }}
                     </div>
+                    <div class="col-md-12">
+                        <label class="form-label">{{ form.enable_logging.label }}</label>
+                        {{ form.enable_logging(class="form-control") }}
+                        <p>Logging will change when you start server next time</p>
+                    </div>
                     <div class="btn-group form my-3" role="group">
                         <!-- Updates Settings -->
                         {{ form.save(class="btn btn-outline-primary px-auto") }}
