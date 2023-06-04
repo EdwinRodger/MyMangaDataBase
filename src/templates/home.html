@@ -91,4 +91,37 @@
         </div>
     </div>
 </div>
+
+<!-- Check For Update Modal -->
+{% if show_update_modal %}
+<script>
+    // Trigger the modal using JavaScript
+    document.addEventListener('DOMContentLoaded', function () {
+        var staticBackdrop = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+        staticBackdrop.show();
+    });
+    function openGithubPage() {
+        window.open("https://github.com/EdwinRodger/MyMangaDataBase/releases/latest");
+    };
+</script>
+{% endif %}
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Update Available!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                A new version of MyMangaDataBase is released!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Not Now</button>
+                <button type="button" class="btn btn-primary" onclick="openGithubPage()">Download</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
