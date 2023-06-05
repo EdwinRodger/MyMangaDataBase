@@ -84,6 +84,13 @@
                     <li class=" nav-item"><a href="{{ url_for('settings.settingspage') }}" class="nav-link"><i
                                 class="bi bi-gear"></i> Settings</a></li>
                     {% endif %}
+                    {% if current_section == "More" %}
+                    <li class="nav-item"><a href="{{ url_for('home.more') }}" class="nav-link active"
+                            aria-current="page"><i class="bi bi-three-dots"></i></i> More</a></li>
+                    {% else %}
+                    <li class=" nav-item"><a href="{{ url_for('home.more') }}" class="nav-link"><i
+                                class="bi bi-three-dots"></i> More</a></li>
+                    {% endif %}
                 </ul>
             </header>
         </div>

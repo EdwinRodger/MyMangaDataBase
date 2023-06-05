@@ -10,3 +10,9 @@ def homepage():
     anime_data = anime_overview_data()
     show_update_modal = check_for_update()
     return render_template("home.html", title = "Home", current_section = "Home", manga_data = manga_data, anime_data = anime_data, show_update_modal = show_update_modal)
+
+
+@home.route("/more")
+def more():
+    return render_template("more.html", title = "More", current_section = "More")
+
