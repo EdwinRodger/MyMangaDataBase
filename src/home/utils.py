@@ -8,29 +8,51 @@ import json
 
 
 def manga_overview_data():
+    # Fetch all manga records from the database and order them by title
     manga_list = Manga.query.order_by(Manga.title.name).all()
+
+    # Total number of manga
     total_manga = len(manga_list)
+
+    # Accumulate the total number of chapters
     total_chapters = sum(manga.chapter for manga in manga_list)
+
+    # Initialize variables for total chapters, scores, status, and genre
     score = []
     status = []
     genre = []
 
     for manga in manga_list:
+        # Collect the scores of each manga
         score.append(manga.score)
+
+        # Collect the status of each manga
         status.append(manga.status)
+
+        # Collect the genre tags of each manga
         if manga.tags:
             tags = manga.tags.split(", ")
             genre.extend(i.strip() for i in tags if i.strip() not in ["N", "o"])
 
+    # Count the occurrence of each score, status, and genre
     score_count = Counter(score)
     status_count = Counter(status)
     genre_count = Counter(genre)
 
+    # Sort the genre count in descending order
     genre_count = dict(sorted(genre_count.items(), key=lambda item: item[1], reverse=True))
+
+    # Sort the score count in descending order
     score_count = dict(sorted(score_count.items(), reverse=True))
 
-    mean_score = statistics.mean(score) if score else 0
+    try:
+        # Calculate the mean score using the scores
+        mean_score = statistics.mean(score)
+    except statistics.StatisticsError:
+        # Handle the case where there are no scores
+        mean_score = 0
 
+    # Create a dictionary containing the overview data
     manga_overview_data = {
         "manga_len": total_manga,
         "manga_chapter_len": total_chapters,
@@ -43,31 +65,52 @@ def manga_overview_data():
     return manga_overview_data
 
 
-
 def anime_overview_data():
+    # Fetch all anime records from the database and order them by title
     anime_list = Anime.query.order_by(Anime.title.name).all()
+
+    # Total number of anime
     total_anime = len(anime_list)
+
+    # Accumulate the total number of episodes
     total_episodes = sum(anime.episode for anime in anime_list)
+
+    # Initialize variables for total episodes, scores, status, and genre
     score = []
     status = []
     genre = []
 
     for anime in anime_list:
+        # Collect the scores of each anime
         score.append(anime.score)
+
+        # Collect the status of each anime
         status.append(anime.status)
+
+        # Collect the genre tags of each anime
         if anime.tags:
             tags = anime.tags.split(", ")
             genre.extend(i.strip() for i in tags if i.strip() not in ["N", "o"])
 
+    # Count the occurrence of each score, status, and genre
     score_count = Counter(score)
     status_count = Counter(status)
     genre_count = Counter(genre)
 
+    # Sort the genre count in descending order
     genre_count = dict(sorted(genre_count.items(), key=lambda item: item[1], reverse=True))
+
+    # Sort the score count in descending order
     score_count = dict(sorted(score_count.items(), reverse=True))
 
-    mean_score = statistics.mean(score) if score else 0
+    try:
+        # Calculate the mean score using the scores
+        mean_score = statistics.mean(score)
+    except statistics.StatisticsError:
+        # Handle the case where there are no scores
+        mean_score = 0
 
+    # Create a dictionary containing the overview data
     anime_overview_data = {
         "anime_len": total_anime,
         "anime_episode_len": total_episodes,
