@@ -5,6 +5,8 @@ from src import db
 from datetime import datetime
 from src.manga.utils import save_picture, remove_cover
 from src.manga.backup import export_mmdb_backup, extract_mmdb_backup
+import os
+from sqlalchemy import delete
 
 today_date = datetime.date(datetime.today())
 
@@ -182,3 +184,17 @@ def importbackup(backup):
 def export():
     export_mmdb_backup()
     return send_file(f"MMDB-Manga-Export-{today_date}.zip")
+
+
+# Delete Database
+@manga.route("/delete/database")
+def delete_database():
+    delete_db = delete(Manga).where(Manga.id >= 0)
+    db.session.execute(delete_db)
+    db.session.commit()
+    for root, _, files in os.walk("src\\static\\manga_cover\\"):
+        for file in files:
+            # This if block will prevent deletion of default cover image files
+            if file not in ("default-manga.svg", "default-anime.svg"):
+                os.remove(os.path.join(root, file))
+    return redirect(url_for("manga.manga_list"))
