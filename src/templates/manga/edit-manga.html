@@ -73,7 +73,10 @@
                             enter 0 (zero) in above field</p>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">{{ form.chapter.label }}</label>
+                        <label class="form-label">
+                            {{ form.chapter.label }}
+                            <a type="button" data-bs-toggle="modal" data-bs-target="#historyModal">(<u>History</u>)</a>
+                        </label>
                         {% if form.chapter.errors %}
                         {{ form.chapter(class="form-control is-invalid") }}
                         <div class="invalid-feedback">
@@ -160,6 +163,24 @@
                     <form action="{{ url_for('manga.delete_manga', manga_id=manga.id) }}" method="POST">
                         <input class="btn btn-danger" type="submit" value="Yes, Obliterate it!">
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="historyModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ manga.title }} Chapter History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% for chapter in history %}
+                    <p>Chapter: {{ chapter[0] }}, read on {{ chapter[1] }} at {{ chapter[2] }}</p>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

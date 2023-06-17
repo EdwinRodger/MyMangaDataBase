@@ -7,6 +7,7 @@ from src.manga.utils import save_picture, remove_cover
 from src.manga.backup import export_mmdb_backup, extract_mmdb_backup
 import os
 from sqlalchemy import delete
+from src.manga.utils import MangaHistory
 
 today_date = datetime.date(datetime.today())
 
@@ -53,10 +54,12 @@ def add_manga():
 
 
 # Update a Manga
-@manga.route("/update/<int:manga_id>", methods=["GET", "POST"])
-def update_manga(manga_id):
+@manga.route("/edit/<int:manga_id>", methods=["GET", "POST"])
+def edit_manga(manga_id):
     manga = Manga.query.get_or_404(manga_id)
     form = MangaForm()
+    manga_history = MangaHistory()
+    history = manga_history.get_history(manga.title)
     if form.validate_on_submit():
         if form.cover.data:
             remove_cover(manga.cover)
@@ -75,6 +78,7 @@ def update_manga(manga_id):
         manga.artist = form.artist.data
         manga.notes = form.notes.data
         db.session.commit()
+        manga_history.add_chapter(manga.title, form.chapter.data)
         flash("Your manga has been updated!", "success")
     elif request.method == "GET":
         form.title.data = manga.title
@@ -95,7 +99,8 @@ def update_manga(manga_id):
         form=form,
         manga=manga,
         legend="Update Manga",
-        current_section = "Manga"
+        current_section = "Manga",
+        history = history
     )
 
 # Delete A Manga
@@ -122,9 +127,11 @@ def sort_manga(sort_function):
 # Add One Chapter To The Manga
 @manga.route("/add-one-chapter/<int:manga_id>")
 def add_one_chapter(manga_id):
+    manga_history = MangaHistory()
     manga = Manga.query.get_or_404(manga_id)
     manga.chapter = manga.chapter + 1
     db.session.commit()
+    manga_history.add_chapter(manga.title, manga.chapter)
     return redirect(url_for("manga.manga_list"))
 
 
