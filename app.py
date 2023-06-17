@@ -29,18 +29,21 @@ def after_request(response):
     return response
 
 
-def run():
+def checks():
     with app.app_context():
         db.create_all()
     create_json_files()
     check_for_update()
-    if sys.argv[1].lower() == "super-saiyan":
+
+def run():
+    if sys.argv[-1].lower() == "super-saiyan":
         app.run(host="127.0.0.1", port=6070, debug=True)
     else:
         waitress.serve(app=app, host="127.0.0.1", port=6070)
 
 
 if __name__ == "__main__":
+    checks()
     with open("json/settings.json", "r") as f:
         settings = json.load(f)
     logger = logging.getLogger("tdm")
