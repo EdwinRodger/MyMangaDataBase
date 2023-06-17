@@ -74,6 +74,7 @@ def export_mmdb_backup():
             for file in files:
                 zipfile.write(os.path.join(root, file))
         zipfile.write("anime.json")
+        zipfile.write("json/animelogs.json")
 
 
 def extract_mmdb_backup(filename):
