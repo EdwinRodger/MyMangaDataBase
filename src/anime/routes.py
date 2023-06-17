@@ -3,7 +3,7 @@ from src.anime.forms import AnimeForm
 from src.models import Anime
 from src import db
 from datetime import datetime
-from src.anime.utils import save_picture, remove_cover
+from src.anime.utils import save_picture, remove_cover, AnimeHistory
 from src.anime.backup import export_mmdb_backup, extract_mmdb_backup
 import os
 from sqlalchemy import delete
@@ -52,6 +52,8 @@ def new_anime():
 def edit_anime(anime_id):
     anime = Anime.query.get_or_404(anime_id)
     form = AnimeForm()
+    anime_history = AnimeHistory()
+    history = anime_history.get_history(anime.title)
     if form.validate_on_submit():
         if form.cover.data:
             remove_cover(anime.cover)
@@ -67,6 +69,7 @@ def edit_anime(anime_id):
         anime.tags = form.tags.data
         anime.notes = form.notes.data
         db.session.commit()
+        anime_history.add_episode(anime.title, form.episode.data)
         flash("Your anime has been updated!", "success")
     elif request.method == "GET":
         form.title.data = anime.title
@@ -84,7 +87,8 @@ def edit_anime(anime_id):
         form=form,
         anime=anime,
         legend="Update Anime",
-        current_section = "Anime"
+        current_section = "Anime",
+        history = history
     )
 
 # Delete A Anime
@@ -113,8 +117,10 @@ def sort_anime(sort_function):
 @anime.route("/add-one-episode/<int:anime_id>")
 def add_one_episode(anime_id):
     anime = Anime.query.get_or_404(anime_id)
+    anime_history = AnimeHistory()
     anime.episode = anime.episode + 1
     db.session.commit()
+    anime_history.add_episode(anime.title, anime.episode)
     return redirect(url_for("anime.anime_list"))
 
 # Searches anime related to given tags in the database

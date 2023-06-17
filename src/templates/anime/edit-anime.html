@@ -58,7 +58,10 @@
                         <p class="text-muted">If you don't know End Date, Enter 01-01-0001 in above field</p>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">{{ form.episode.label }}</label>
+                        <label class="form-label">
+                            {{ form.episode.label }}
+                            <a type="button" data-bs-toggle="modal" data-bs-target="#historyModal">(<u>History</u>)</a>
+                        </label>
                         {% if form.episode.errors %}
                         {{ form.episode(class="form-control is-invalid") }}
                         <div class="invalid-feedback">
@@ -137,6 +140,24 @@
                     <form action="{{ url_for('anime.delete_anime', anime_id=anime.id) }}" method="POST">
                         <input class="btn btn-danger" type="submit" value="Yes, Obliterate it!">
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="historyModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ anime.title }} Episode History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% for episode in history %}
+                    <p>Episode: {{ episode[0] }}, watched on {{ episode[1] }} at {{ episode[2] }}</p>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

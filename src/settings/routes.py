@@ -15,6 +15,10 @@ def create_json_files():
     if not os.path.exists("json/mangalogs.json"):
         with open("json/mangalogs.json", "w") as f:
             json.dump({}, f)
+            json.dump({}, f)
+    if not os.path.exists("json/animelogs.json"):
+        with open("json/animelogs.json", "w") as f:
+            json.dump({}, f)
 
 
 @settings.route("", methods=["POST", "GET"])
