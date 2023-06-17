@@ -48,8 +48,8 @@ def new_anime():
 
 
 # Update a Anime
-@anime.route("/update/<int:anime_id>", methods=["GET", "POST"])
-def update_anime(anime_id):
+@anime.route("/edit/<int:anime_id>", methods=["GET", "POST"])
+def edit_anime(anime_id):
     anime = Anime.query.get_or_404(anime_id)
     form = AnimeForm()
     if form.validate_on_submit():
