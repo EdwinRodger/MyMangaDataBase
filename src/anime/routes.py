@@ -53,6 +53,7 @@ def edit_anime(anime_id):
     anime = Anime.query.get_or_404(anime_id)
     form = AnimeForm()
     anime_history = AnimeHistory()
+    old_name = anime.title
     history = anime_history.get_history(anime.title)
     if form.validate_on_submit():
         if form.cover.data:
@@ -69,6 +70,7 @@ def edit_anime(anime_id):
         anime.tags = form.tags.data
         anime.notes = form.notes.data
         db.session.commit()
+        anime_history.check_rename(old_name=old_name, new_name=form.title.data)
         anime_history.add_episode(anime.title, form.episode.data)
         flash("Your anime has been updated!", "success")
     elif request.method == "GET":

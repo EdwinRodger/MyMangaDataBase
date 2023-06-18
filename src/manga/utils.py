@@ -44,6 +44,15 @@ class MangaHistory:
             return self.history[manga_name]
         else:
             return []
+    # To change key in dictionary: https://stackoverflow.com/a/16475408
+    def check_rename(self, old_name, new_name):
+        if old_name != new_name:
+            try:
+                self.history[new_name] = self.history[old_name]
+                del self.history[old_name]
+                self.commit()
+            except:
+                return
 
     def clear_history(self, manga_name):
         if manga_name in self.history:

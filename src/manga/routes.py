@@ -60,6 +60,7 @@ def edit_manga(manga_id):
     form = MangaForm()
     manga_history = MangaHistory()
     history = manga_history.get_history(manga.title)
+    old_name = manga.title
     if form.validate_on_submit():
         if form.cover.data:
             remove_cover(manga.cover)
@@ -78,6 +79,7 @@ def edit_manga(manga_id):
         manga.artist = form.artist.data
         manga.notes = form.notes.data
         db.session.commit()
+        manga_history.check_rename(old_name=old_name, new_name=form.title.data)
         manga_history.add_chapter(manga.title, form.chapter.data)
         flash("Your manga has been updated!", "success")
     elif request.method == "GET":
