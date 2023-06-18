@@ -26,13 +26,17 @@ class AnimeHistory:
         with open("json/animelogs.json", "r") as f:
             self.history = json.load(f)
 
-    def add_episode(self, anime_name, episode_number):
+    def add_episode(self, anime_name, new_episode_number):
         current_date = datetime.now().strftime("%Y-%m-%d")
         current_time = datetime.now().strftime("%H:%M:%S")
         if anime_name in self.history:
-            self.history[anime_name].append((episode_number, current_date, current_time))
+            # If user edits anime without updating episode then it creates duplicates of that episode number in logs
+            # This if else blocks above situation
+            old_episode_number = self.history[anime_name][-1][0] # self.history[anime_name][recent entry/episode of anime_name][episode_number]
+            if old_episode_number != new_episode_number:
+                self.history[anime_name].append((new_episode_number, current_date, current_time))
         else:
-            self.history[anime_name] = [(episode_number, current_date, current_time)]
+            self.history[anime_name] = [(new_episode_number, current_date, current_time)]
         self.commit()
 
     def get_history(self, anime_name):

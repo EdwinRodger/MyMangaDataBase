@@ -26,13 +26,17 @@ class MangaHistory:
         with open("json/mangalogs.json", "r") as f:
             self.history = json.load(f)
 
-    def add_chapter(self, manga_name, chapter_number):
+    def add_chapter(self, manga_name, new_chapter_number):
         current_date = datetime.now().strftime("%Y-%m-%d")
         current_time = datetime.now().strftime("%H:%M:%S")
         if manga_name in self.history:
-            self.history[manga_name].append((chapter_number, current_date, current_time))
+            # If user edits manga without updating chapter then it creates duplicates of that chapter number in logs
+            # This if else blocks above situation
+            old_chapter_number = self.history[manga_name][-1][0] # self.history[manga_name][recent entry/chapter of manga_name][chapter_number]
+            if old_chapter_number != new_chapter_number:
+                self.history[manga_name].append((new_chapter_number, current_date, current_time))
         else:
-            self.history[manga_name] = [(chapter_number, current_date, current_time)]
+            self.history[manga_name] = [(new_chapter_number, current_date, current_time)]
         self.commit()
 
     def get_history(self, manga_name):
