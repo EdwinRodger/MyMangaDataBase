@@ -107,9 +107,11 @@ def edit_manga(manga_id):
 @manga.route("/delete/<int:manga_id>", methods=["POST"])
 def delete_manga(manga_id):
     manga = Manga.query.get_or_404(manga_id)
+    manga_history = MangaHistory()
     remove_cover(manga.cover)
     db.session.delete(manga)
     db.session.commit()
+    manga_history.clear_history(manga.title)
     flash("Your manga has been Obliterated!", "success")
     return redirect(url_for("manga.manga_list"))
 

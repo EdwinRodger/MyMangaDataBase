@@ -95,9 +95,11 @@ def edit_anime(anime_id):
 @anime.route("/delete/<int:anime_id>", methods=["POST"])
 def delete_anime(anime_id):
     anime = Anime.query.get_or_404(anime_id)
+    anime_history = AnimeHistory()
     remove_cover(anime.cover)
     db.session.delete(anime)
     db.session.commit()
+    anime_history.clear_history(anime.title)
     flash("Your anime has been Obliterated!", "success")
     return redirect(url_for("anime.anime_list"))
 
