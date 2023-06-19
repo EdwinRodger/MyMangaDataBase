@@ -18,5 +18,40 @@
             </div>
         </form>
     </div>
+    <div class="content-section mx-1 my-3">
+        <form action="{{ url_for('manga.importbackup', backup='MyAnimeList') }}" method="post"
+            enctype="multipart/form-data">
+            <div class="card bg-dark border-white">
+                <div class="card-body">
+                    <h5 class="card-title">MyAnimeList Manga Import</h5>
+                    <p class="card-text">Imports " mangalist_{uuid}_-_{user_id}.xml " file</p>
+                    <div class="d-flex">
+                        <input type="submit" class="me-3 btn btn-secondary btn-lg">
+                        <input class="form-control form-control-lg" id="formFileLg" name="file" type="file" ,
+                            accept=".xml">
+                    </div>
+                    <p class="mt-3 card-text text-warning">Only import .xml file!</p>
+                    <p class="mt-3 card-text text-info">NOTE:</p>
+                    <ul class="card-text text-info">
+                        <li>
+                            Each entry will take between 1 to 2 seconds to get imported to avoid hitting
+                            <a href="https://docs.api.jikan.moe/#section/Information/Rate-Limiting" target="_blank"
+                                rel="noopener noreferrer">
+                                api rate limit.
+                            </a>
+                        </li>
+                        <li>
+                            In Short - the bigger the list, more the time taken to import.
+                        </li>
+                        <li>
+                            During import process, please wait until the page is redirected to
+                            <i class="bi bi-book"></i> Manga List page.
+                        </li>
+                        <li>You can see the progress on server terminal (＾▽＾)</li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock body %}

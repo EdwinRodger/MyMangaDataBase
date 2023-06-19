@@ -4,7 +4,7 @@ from src.models import Manga
 from src import db
 from datetime import datetime
 from src.manga.utils import save_picture, remove_cover
-from src.manga.backup import export_mmdb_backup, extract_mmdb_backup
+from src.manga.backup import export_mmdb_backup, extract_mmdb_backup, import_MyAnimeList_manga
 import os
 from sqlalchemy import delete
 from src.manga.utils import MangaHistory
@@ -175,10 +175,14 @@ def importbackup(backup):
             flash("Choose a file to import!", "danger")
             return redirect(url_for("manga.import_manga"))
         # If file is sent through MMDB form, checking if file name is correct. If correct, then extracting the import
-        if backup == "MyMangaDataBase" and backup_file.filename.lower().endswith((".zip")) and backup_file.filename.startswith(("MMDB-Manga-Export")):
+        elif backup == "MyMangaDataBase" and backup_file.filename.lower().endswith((".zip")) and backup_file.filename.startswith(("MMDB-Manga-Export")):
             # this will secure the file
             backup_file.save(backup_file.filename)
             extract_mmdb_backup(backup_file.filename)
+        elif backup == "MyAnimeList" and backup_file.filename.lower().endswith((".xml")):
+            # this will secure the file
+            backup_file.save(backup_file.filename)
+            import_MyAnimeList_manga(backup_file.filename)
         else:
             flash("Choose correct file to import!", "danger")
             return redirect(url_for("manga.import_manga"))

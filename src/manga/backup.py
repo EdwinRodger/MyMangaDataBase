@@ -1,8 +1,12 @@
 import json
 import os
 from datetime import datetime
+import requests
 from zipfile import ZipFile
+import xml.etree.ElementTree as ET
 from src import db
+import time
+import secrets
 
 from src.models import Manga
 
@@ -105,4 +109,76 @@ def extract_mmdb_backup(filename):
     delete_manga_export()
 
 
+def import_MyAnimeList_manga(filename):
+    tree = ET.parse(filename)
+    root = tree.getroot()
+    total_manga = len(root.findall('manga'))
+    current_manga = 0
+    
+    for manga in root.findall('manga'):
+        manga_title = manga.find('manga_title').text
+        my_read_volumes = manga.find('my_read_volumes').text
+        my_read_chapters = manga.find('my_read_chapters').text
+        my_score = manga.find('my_score').text
 
+        my_status = manga.find('my_status').text
+        if my_status.lower() == "plan to read":
+            my_status = "Plan to read"
+        if my_status.lower() == "on-hold":
+            my_status = "On hold"
+
+        my_start_date = manga.find('my_start_date').text
+        if my_start_date == "0000-00-00":
+            my_start_date = "0001-01-01"
+
+        my_finish_date = manga.find('my_finish_date').text
+        if my_finish_date == "0000-00-00":
+            my_finish_date = "0001-01-01"
+
+        mangadb_id = manga.find('manga_mangadb_id').text
+        response = requests.get(f"https://api.jikan.moe/v4/manga/{mangadb_id}/full")
+        
+        if response.status_code == 200:
+            data = response.json()
+
+            tags = []
+            authors = []
+            for i in data["data"]["genres"]:
+                tags.append(i["name"])
+            for i in data["data"]["authors"]:
+                authors.append(str(i["name"]).replace(", ", " "))
+            tags = ", ".join(tags)
+            authors = ", ".join(authors)
+
+            url = data["data"]["images"]["jpg"]["large_image_url"]
+            picture = requests.get(url).content
+            random_hex_name = secrets.token_hex(8)
+            with open(f"src/static/manga_cover/{random_hex_name}.jpg", "wb") as f:
+                f.write(picture)
+
+            manga = Manga(
+                title=manga_title,
+                start_date=my_start_date,
+                end_date=my_finish_date,
+                volume=my_read_volumes,
+                chapter=my_read_chapters,
+                status=my_status,
+                score= my_score,
+                cover=f"{random_hex_name}.jpg",
+                description=data["data"]["synopsis"],
+                tags=tags,
+                author=authors
+            )
+            db.session.add(manga)
+        else:
+            print(f"There is an error while getting {manga_title}... Skipping this Title!")
+            total_manga -= 1
+
+        current_manga += 1
+        print(f"Progress: {current_manga}/{total_manga}")
+
+        # Safety measure to not cross Jikan's Rate limit: https://docs.api.jikan.moe/#section/Information/Rate-Limiting
+        time.sleep(1)
+
+    db.session.commit()
+    delete_manga_export()
