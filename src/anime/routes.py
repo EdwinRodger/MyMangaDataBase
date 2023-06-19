@@ -4,7 +4,7 @@ from src.models import Anime
 from src import db
 from datetime import datetime
 from src.anime.utils import save_picture, remove_cover, AnimeHistory
-from src.anime.backup import export_mmdb_backup, extract_mmdb_backup
+from src.anime.backup import export_mmdb_backup, extract_mmdb_backup, import_MyAnimeList_anime
 import os
 from sqlalchemy import delete
 
@@ -161,6 +161,10 @@ def importbackup(backup):
             # this will secure the file
             backup_file.save(backup_file.filename)
             extract_mmdb_backup(backup_file.filename)
+        elif backup == "MyAnimeList" and backup_file.filename.lower().endswith((".xml")):
+            # this will secure the file
+            backup_file.save(backup_file.filename)
+            import_MyAnimeList_anime(backup_file.filename)
         else:
             flash("Choose correct file to import!", "danger")
             return redirect(url_for("anime.import_anime"))

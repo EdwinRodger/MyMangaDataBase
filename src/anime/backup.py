@@ -3,6 +3,10 @@ import os
 from datetime import datetime
 from zipfile import ZipFile
 from src import db
+import xml.etree.ElementTree as ET
+import requests
+import time
+import secrets
 
 from src.models import Anime
 
@@ -99,4 +103,72 @@ def extract_mmdb_backup(filename):
     delete_anime_export()
 
 
+
+def import_MyAnimeList_anime(filename):
+    tree = ET.parse(filename)
+    root = tree.getroot()
+    total_anime = len(root.findall('anime'))
+    current_anime = 0
+    
+    for anime in root.findall('anime'):
+        series_title = anime.find('series_title').text
+        my_watched_episodes = anime.find('my_watched_episodes').text
+        my_score = anime.find('my_score').text
+
+        my_status = anime.find('my_status').text
+        if my_status.lower() == "plan to watch":
+            my_status = "Plan to watch"
+        if my_status.lower() == "on-hold":
+            my_status = "On hold"
+
+        my_start_date = anime.find('my_start_date').text
+        if my_start_date == "0000-00-00":
+            my_start_date = "0001-01-01"
+
+        my_finish_date = anime.find('my_finish_date').text
+        if my_finish_date == "0000-00-00":
+            my_finish_date = "0001-01-01"
+
+        series_animedb_id = anime.find('series_animedb_id').text
+        response = requests.get(f"https://api.jikan.moe/v4/anime/{series_animedb_id}/full")
+        
+        if response.status_code == 200:
+            data = response.json()
+
+            tags = []
+            for i in data["data"]["genres"]:
+                tags.append(i["name"])
+            tags = ", ".join(tags)
+
+            url = data["data"]["images"]["jpg"]["large_image_url"]
+            picture = requests.get(url).content
+            random_hex_name = secrets.token_hex(8)
+            with open(f"src/static/anime_cover/{random_hex_name}.jpg", "wb") as f:
+                f.write(picture)
+
+            anime = Anime(
+                title=series_title,
+                start_date=my_start_date,
+                end_date=my_finish_date,
+                episode=my_watched_episodes,
+                status=my_status,
+                score= int(my_score),
+                cover=f"{random_hex_name}.jpg",
+                description=data["data"]["synopsis"],
+                tags=tags,
+            )
+            db.session.add(anime)
+        else:
+            print(f"There is an error while getting {series_title}... Skipping this Title!")
+            total_anime -= 1
+
+        current_anime += 1
+        print(f"Progress: {current_anime}/{total_anime}")
+        
+
+        # Safety measure to not cross Jikan's Rate limit: https://docs.api.jikan.moe/#section/Information/Rate-Limiting
+        time.sleep(1)
+
+    db.session.commit()
+    delete_anime_export()
 
