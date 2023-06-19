@@ -16,3 +16,7 @@ def homepage():
 def more():
     return render_template("more.html", title = "More", current_section = "More")
 
+@home.route("/credits")
+def credits():
+    return render_template("credits.html", title = "Credits", current_section = "More")
+
