@@ -163,7 +163,7 @@ def import_MyAnimeList_manga(filename):
                 volume=my_read_volumes,
                 chapter=my_read_chapters,
                 status=my_status,
-                score= my_score,
+                score= int(my_score),
                 cover=f"{random_hex_name}.jpg",
                 description=data["data"]["synopsis"],
                 tags=tags,
