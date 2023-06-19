@@ -205,8 +205,10 @@ def export():
 @manga.route("/delete/database")
 def delete_database():
     delete_db = delete(Manga).where(Manga.id >= 0)
+    manga_hitstory = MangaHistory()
     db.session.execute(delete_db)
     db.session.commit()
+    manga_hitstory.clear_all_history()
     for root, _, files in os.walk("src\\static\\manga_cover\\"):
         for file in files:
             # This if block will prevent deletion of default cover image files
