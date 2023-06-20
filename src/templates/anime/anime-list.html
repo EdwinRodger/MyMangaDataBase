@@ -90,7 +90,12 @@
                             style="height: 15vh;">
                     </td>
                 </cover>
+                {% if truncate_title == "Yes" %}
+                <!-- 25vw was very small (like 1 letter) in smaller devices so min-width is used to show starting of the title at least -->
+                <td class="text-truncate" style="max-width: 25vw; min-width: 200px">
+                    {% else %}
                 <td>
+                    {% endif %}
                     <a class="text-decoration-underline text-reset"
                         href="{{ url_for('anime.edit_anime', anime_id=anime.id) }}">
                         {{ anime.title }}

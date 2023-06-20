@@ -16,6 +16,10 @@
                         {{ form.enable_logging(class="form-control") }}
                         <p>Logging will change when you start server next time</p>
                     </div>
+                    <div class="col-md-12 mt-0">
+                        <label class="form-label">{{ form.truncate_title.label }}</label>
+                        {{ form.truncate_title(class="form-control") }}
+                    </div>
                     <div class="btn-group form my-3" role="group">
                         <!-- Updates Settings -->
                         {{ form.save(class="btn btn-outline-primary px-auto") }}

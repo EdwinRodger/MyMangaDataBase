@@ -3,7 +3,7 @@ from src.anime.forms import AnimeForm
 from src.models import Anime
 from src import db
 from datetime import datetime
-from src.anime.utils import save_picture, remove_cover, AnimeHistory
+from src.anime.utils import save_picture, remove_cover, AnimeHistory, get_settings
 from src.anime.backup import export_mmdb_backup, extract_mmdb_backup, import_MyAnimeList_anime
 import os
 from sqlalchemy import delete
@@ -15,7 +15,10 @@ anime = Blueprint("anime", __name__, url_prefix="/anime")
 @anime.route("/list/all")
 def anime_list():
     anime_list = Anime.query.order_by(Anime.title.name).all()
-    return render_template("anime/anime-list.html", title = "Anime List", current_section = "Anime", anime_list=anime_list, sort_function = "All")
+    settings = get_settings()
+    truncate_title = settings["truncate_title"]
+    return render_template("anime/anime-list.html", title = "Anime List", current_section = "Anime", anime_list=anime_list, sort_function = "All",
+        truncate_title = truncate_title)
 
 # Add New Anime
 @anime.route("/new", methods=["GET", "POST"])
@@ -110,11 +113,14 @@ def delete_anime(anime_id):
 @anime.route("/list/<string:sort_function>", methods=["GET", "POST"])
 def sort_anime(sort_function):
     anime_list = Anime.query.filter_by(status=sort_function).order_by(Anime.title.name).all()
+    settings = get_settings()
+    truncate_title = settings["truncate_title"]
     return render_template(
         "anime/anime-list.html",
         title=f"{sort_function} Anime",
         anime_list=anime_list,
-        sort_function = sort_function, current_section = "Anime"
+        sort_function = sort_function, current_section = "Anime",
+        truncate_title = truncate_title
     )
 
 # Add One episode To The Anime
@@ -131,11 +137,14 @@ def add_one_episode(anime_id):
 @anime.route("/tags/<string:tag>", methods=["GET"])
 def search_tags(tag):
     anime_list = Anime.query.filter(Anime.tags.like(f"%{tag}%")).all()
+    settings = get_settings()
+    truncate_title = settings["truncate_title"]
     return render_template(
         "anime/anime-list.html",
         title=f"{tag} Tag",
         anime_list=anime_list,
-        current_section = "Anime"
+        current_section = "Anime",
+        truncate_title = truncate_title
     )
 
 

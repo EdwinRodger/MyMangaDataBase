@@ -13,7 +13,8 @@ def create_json_files():
         with open("json/settings.json", "w") as f:
             settings = {
                 "theme": "Dark",
-                "enable_logging": "Yes"
+                "enable_logging": "Yes",
+                "truncate_title": "No"
             }
             json.dump(settings, f)
     if not os.path.exists("json/mangalogs.json"):
@@ -29,10 +30,17 @@ def create_json_files():
 def settingspage():
     with open("json/settings.json", "r") as f:
         json_settings = json.load(f)
+
     form = SettingsForm()
+
     if form.validate_on_submit():
+        # Theme
         json_settings["theme"] = form.theme.data
+        # Logging
         json_settings["enable_logging"] = form.enable_logging.data
+        # Truncate Title
+        json_settings["truncate_title"] = form.truncate_title.data
+
         with open("json/settings.json", "w") as f:
             json.dump(json_settings, f, indent=4)
         flash("Settings Updated!", "success")
@@ -40,9 +48,7 @@ def settingspage():
         # Theme
         form.theme.data = json_settings["theme"]
         # Enable Logging
-        try:
-            enable_logging = json_settings["enable_logging"]
-        except:
-            enable_logging = "Yes"
-        form.enable_logging.data = enable_logging
+        form.enable_logging.data = json_settings["enable_logging"]
+        # Truncate Title
+        form.truncate_title.data = json_settings["truncate_title"]
     return render_template("settings.html", form=form, legend = "Settings", title = "Settings", current_section = "Settings")

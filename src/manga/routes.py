@@ -3,7 +3,7 @@ from src.manga.forms import MangaForm
 from src.models import Manga
 from src import db
 from datetime import datetime
-from src.manga.utils import save_picture, remove_cover
+from src.manga.utils import save_picture, remove_cover, get_settings
 from src.manga.backup import export_mmdb_backup, extract_mmdb_backup, import_MyAnimeList_manga
 import os
 from sqlalchemy import delete
@@ -16,8 +16,11 @@ manga = Blueprint("manga", __name__, url_prefix="/manga")
 @manga.route("/list/all")
 def manga_list():
     manga_list = Manga.query.order_by(Manga.title.name).all()
+    settings = get_settings()
+    truncate_title = settings["truncate_title"]
     return render_template(
-        "manga/manga-list.html", title = "Manga List", current_section = "Manga", manga_list=manga_list, sort_function = "All"
+        "manga/manga-list.html", title = "Manga List", current_section = "Manga", manga_list=manga_list, sort_function = "All",
+        truncate_title = truncate_title
     )
 
 # Add New Manga
@@ -121,11 +124,14 @@ def delete_manga(manga_id):
 @manga.route("/list/<string:sort_function>", methods=["GET", "POST"])
 def sort_manga(sort_function):
     manga_list = Manga.query.filter_by(status=sort_function).order_by(Manga.title.name).all()
+    settings = get_settings()
+    truncate_title = settings["truncate_title"]
     return render_template(
         "manga/manga-list.html",
         title=f"{sort_function} Manga",
         manga_list=manga_list,
-        sort_function = sort_function, current_section = "Manga"
+        sort_function = sort_function, current_section = "Manga",
+        truncate_title = truncate_title
     )
 
 # Add One Chapter To The Manga
@@ -151,11 +157,14 @@ def add_one_volume(manga_id):
 @manga.route("/tags/<string:tag>", methods=["GET"])
 def search_tags(tag):
     manga_list = Manga.query.filter(Manga.tags.like(f"%{tag}%")).all()
+    settings = get_settings()
+    truncate_title = settings["truncate_title"]
     return render_template(
         "manga/manga-list.html",
         title=f"{tag} Tag",
         manga_list=manga_list,
-        current_section = "Manga"
+        current_section = "Manga",
+        truncate_title = truncate_title
     )
 
 # The path for uploading the file

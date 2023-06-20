@@ -70,4 +70,9 @@ class AnimeHistory:
             json.dump(self.history, f, indent=4)
 
             
+def get_settings():
+    with open("json/settings.json", "r") as f:
+        settings = json.load(f)
+    return settings
+
 
