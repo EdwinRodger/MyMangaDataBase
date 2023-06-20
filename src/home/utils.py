@@ -24,7 +24,8 @@ def manga_overview_data():
 
     for manga in manga_list:
         # Collect the scores of each manga
-        score.append(manga.score)
+        if manga.score != 0:
+            score.append(manga.score)
 
         # Collect the status of each manga
         status.append(manga.status)
@@ -82,7 +83,8 @@ def anime_overview_data():
 
     for anime in anime_list:
         # Collect the scores of each anime
-        score.append(anime.score)
+        if anime.score != 0:
+            score.append(anime.score)
 
         # Collect the status of each anime
         status.append(anime.status)
