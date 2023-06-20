@@ -11,7 +11,11 @@ def create_json_files():
         os.mkdir("json")
     if not os.path.exists("json/settings.json"):
         with open("json/settings.json", "w") as f:
-            json.dump({}, f)
+            settings = {
+                "theme": "Dark",
+                "enable_logging": "Yes"
+            }
+            json.dump(settings, f)
     if not os.path.exists("json/mangalogs.json"):
         with open("json/mangalogs.json", "w") as f:
             json.dump({}, f)
