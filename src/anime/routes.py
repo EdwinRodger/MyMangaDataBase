@@ -169,7 +169,7 @@ def search_tags(tag):
 # The path for uploading the file
 @anime.route("/import", methods=["GET", "POST"])
 def import_anime():
-    return render_template("anime/import-anime.html", current_section = "Anime")
+    return render_template("anime/import-anime.html", current_section = "Anime", title = "Import Anime")
 
 # Imports backup based on file extension
 @anime.route("/import/<string:backup>", methods=["GET", "POST"])

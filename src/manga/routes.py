@@ -187,7 +187,7 @@ def search_tags(tag):
 # The path for uploading the file
 @manga.route("/import", methods=["GET", "POST"])
 def import_manga():
-    return render_template("manga/import-manga.html", current_section = "Manga")
+    return render_template("manga/import-manga.html", current_section = "Manga", title = "Import Manga")
 
 # Imports backup based on file extension
 @manga.route("/import/<string:backup>", methods=["GET", "POST"])
