@@ -68,6 +68,7 @@ def export_mmdb_backup():
                 "status": f"{anime.status}",
                 "cover": f"{anime.cover}",
                 "description": f"{anime.description}",
+                "genre": f"{anime.genre}",
                 "tags": f"{anime.tags}",
                 "notes": f"{anime.notes}",
             }
@@ -95,6 +96,7 @@ def extract_mmdb_backup(filename):
             score=value["score"],
             cover=value["cover"],
             description=value["description"],
+            genre=value["genre"],
             tags=value["tags"],
             notes=value["notes"]
         )
@@ -135,10 +137,10 @@ def import_MyAnimeList_anime(filename):
         if response.status_code == 200:
             data = response.json()
 
-            tags = []
+            genre = []
             for i in data["data"]["genres"]:
-                tags.append(i["name"])
-            tags = ", ".join(tags)
+                genre.append(i["name"])
+            genre = ", ".join(genre)
 
             url = data["data"]["images"]["jpg"]["large_image_url"]
             picture = requests.get(url).content
@@ -155,7 +157,7 @@ def import_MyAnimeList_anime(filename):
                 score= int(my_score),
                 cover=f"{random_hex_name}.jpg",
                 description=data["data"]["synopsis"],
-                tags=tags,
+                genre=genre,
             )
             db.session.add(anime)
         else:

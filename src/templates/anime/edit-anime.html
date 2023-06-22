@@ -90,7 +90,12 @@
                         <label class="form-label">{{ form.description.label }}</label>
                         {{ form.description(class="form-control", rows=7) }}
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                        <label class="form-label">{{ form.genre.label }}</label>
+                        {{ form.genre(class="form-control") }}
+                        <p class="text-muted">Seprate genre by using a comma (,)</p>
+                    </div>
+                    <div class="col-md-6">
                         <label class="form-label">{{ form.tags.label }}</label>
                         {{ form.tags(class="form-control") }}
                         <p class="text-muted">Seprate tags by using a comma (,)</p>

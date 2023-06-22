@@ -29,6 +29,7 @@ class MangaForm(FlaskForm):
         ],
     )
     description = TextAreaField("Description")
+    genre = StringField("Genre")
     tags = StringField("Tags")
     author = StringField("Author")
     artist = StringField("Artist")

@@ -69,6 +69,7 @@ def export_mmdb_backup():
                 "status": f"{manga.status}",
                 "cover": f"{manga.cover}",
                 "description": f"{manga.description}",
+                "genre": f"{manga.genre}",
                 "tags": f"{manga.tags}",
                 "author": f"{manga.author}",
                 "artist": f"{manga.artist}",
@@ -99,6 +100,7 @@ def extract_mmdb_backup(filename):
             score=value["score"],
             cover=value["cover"],
             description=value["description"],
+            genre=value["genre"],
             tags=value["tags"],
             author=value["author"],
             artist=value["artist"],
@@ -141,13 +143,13 @@ def import_MyAnimeList_manga(filename):
         if response.status_code == 200:
             data = response.json()
 
-            tags = []
+            genre = []
             authors = []
             for i in data["data"]["genres"]:
-                tags.append(i["name"])
+                genre.append(i["name"])
             for i in data["data"]["authors"]:
                 authors.append(str(i["name"]).replace(", ", " "))
-            tags = ", ".join(tags)
+            genre = ", ".join(genre)
             authors = ", ".join(authors)
 
             url = data["data"]["images"]["jpg"]["large_image_url"]
@@ -166,7 +168,7 @@ def import_MyAnimeList_manga(filename):
                 score= int(my_score),
                 cover=f"{random_hex_name}.jpg",
                 description=data["data"]["synopsis"],
-                tags=tags,
+                genre=genre,
                 author=authors
             )
             db.session.add(manga)

@@ -12,13 +12,14 @@ class Manga(db.Model):
     score = db.Column(db.Integer)
     status = db.Column(db.String(20), nullable=False, default="Plan to read")
     description = db.Column(db.String)
+    genre = db.Column(db.String)
     tags = db.Column(db.String)
     author = db.Column(db.String)
     artist = db.Column(db.String)
     notes = db.Column(db.String)
 
     def __repr__(self):
-        return f"Manga('{self.title}', '{self.start_date}', '{self.end_date}', '{self.score}', '{self.status}', '{self.tags}')"
+        return f"Manga('{self.title}', '{self.start_date}', '{self.end_date}', '{self.score}', '{self.status}', '{self.genre}')"
 
 class Anime(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -30,8 +31,9 @@ class Anime(db.Model):
     score = db.Column(db.Integer)
     status = db.Column(db.String(20), nullable=False, default="Plan to watch")
     description = db.Column(db.String)
+    genre = db.Column(db.String)
     tags = db.Column(db.String)
     notes = db.Column(db.String)
 
     def __repr__(self):
-        return f"Anime('{self.title}', '{self.start_date}', '{self.end_date}', '{self.score}', '{self.status}', '{self.tags}')"
+        return f"Anime('{self.title}', '{self.start_date}', '{self.end_date}', '{self.score}', '{self.status}', '{self.genre}')"

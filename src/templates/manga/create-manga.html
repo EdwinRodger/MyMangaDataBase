@@ -122,6 +122,11 @@
                     {{ form.author(class="form-control") }}
                 </div>
                 <div class="md-4 mb-3">
+                    <label class="form-label">{{ form.genre.label }}</label>
+                    {{ form.genre(class="form-control") }}
+                    <p class="text-muted">Seprate genre by using a comma (,)</p>
+                </div>
+                <div class="md-4 mb-3">
                     <label class="form-label">{{ form.tags.label }}</label>
                     {{ form.tags(class="form-control") }}
                     <p class="text-muted">Seprate tags by using a comma (,)</p>

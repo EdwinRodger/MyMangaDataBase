@@ -105,15 +105,20 @@
                         {{ form.description(class="form-control", rows=7) }}
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label">{{ form.artist.label }}</label>
                         {{ form.artist(class="form-control") }}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label">{{ form.author.label }}</label>
                         {{ form.author(class="form-control") }}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
+                        <label class="form-label">{{ form.genre.label }}</label>
+                        {{ form.genre(class="form-control") }}
+                        <p class="text-muted">Seprate genre by using a comma (,)</p>
+                    </div>
+                    <div class="col-md-6">
                         <label class="form-label">{{ form.tags.label }}</label>
                         {{ form.tags(class="form-control") }}
                         <p class="text-muted">Seprate tags by using a comma (,)</p>

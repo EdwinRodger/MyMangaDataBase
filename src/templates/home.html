@@ -28,16 +28,16 @@
                 {% endfor %}
             </status>
             <hr>
-            <tags>
-                <h3>Tags</h3>
+            <genres>
+                <h3>Genres</h3>
                 {% for key, value in manga_data["genre"].items() %}
                 <p class="fs-5">
-                    <a href="{{ url_for('manga.search_tags', tag=key) }}"
+                    <a href="{{ url_for('manga.search_genre', genre=key) }}"
                         class="text-decoration-underline text-reset">{{ key
                         }}</a>: {{ value }}
                 </p>
                 {% endfor %}
-            </tags>
+            </genres>
             <hr>
             <score>
                 <h3>Score</h3>
@@ -72,15 +72,15 @@
                 {% endfor %}
             </status>
             <hr>
-            <tags>
-                <h3>Tags</h3>
+            <genres>
+                <h3>Genres</h3>
                 {% for key, value in anime_data["genre"].items() %}
-                <p class="fs-5"><a href="{{ url_for('anime.search_tags', tag=key) }}"
+                <p class="fs-5"><a href="{{ url_for('anime.search_genre', genre=key) }}"
                         class="text-decoration-underline text-reset">{{
                         key }}</a>: {{ value
                     }}</p>
                 {% endfor %}
-            </tags>
+            </genres>
             <hr>
             <score>
                 <h3>Score</h3>

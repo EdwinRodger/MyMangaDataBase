@@ -42,6 +42,7 @@ def add_manga():
             status=form.status.data,
             score=form.score.data,
             description=form.description.data,
+            genre=form.genre.data,
             tags=form.tags.data,
             author=form.author.data,
             artist=form.artist.data,
@@ -77,6 +78,7 @@ def edit_manga(manga_id):
         manga.status = form.status.data
         manga.score = form.score.data
         manga.description = form.description.data
+        manga.genre = form.genre.data
         manga.tags = form.tags.data
         manga.author = form.author.data
         manga.artist = form.artist.data
@@ -95,6 +97,7 @@ def edit_manga(manga_id):
         form.score.data = str(manga.score)
         form.description.data = manga.description
         form.tags.data = manga.tags
+        form.genre.data = manga.genre
         form.author.data = manga.author
         form.artist.data = manga.artist
         form.notes.data = manga.notes
@@ -152,6 +155,20 @@ def add_one_volume(manga_id):
     manga.volume = manga.volume + 1
     db.session.commit()
     return redirect(url_for("manga.manga_list"))
+
+# Searches manga related to given genre in the database
+@manga.route("/genre/<string:genre>", methods=["GET"])
+def search_genre(genre):
+    manga_list = Manga.query.filter(Manga.genre.like(f"%{genre}%")).all()
+    settings = get_settings()
+    truncate_title = settings["truncate_title"]
+    return render_template(
+        "manga/manga-list.html",
+        title=f"{genre} Genre",
+        manga_list=manga_list,
+        current_section = "Manga",
+        truncate_title = truncate_title
+    )
 
 # Searches manga related to given tags in the database
 @manga.route("/tags/<string:tag>", methods=["GET"])

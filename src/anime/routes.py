@@ -38,6 +38,7 @@ def new_anime():
             status=form.status.data,
             score=form.score.data,
             description=form.description.data,
+            genre=form.genre.data,
             tags=form.tags.data,
             notes=form.notes.data,
         )
@@ -70,6 +71,7 @@ def edit_anime(anime_id):
         anime.status = form.status.data
         anime.score = form.score.data
         anime.description = form.description.data
+        anime.genre = form.genre.data
         anime.tags = form.tags.data
         anime.notes = form.notes.data
         db.session.commit()
@@ -84,6 +86,7 @@ def edit_anime(anime_id):
         form.status.data = anime.status
         form.score.data = str(anime.score)
         form.description.data = anime.description
+        form.genre.data = anime.genre
         form.tags.data = anime.tags
         form.notes.data = anime.notes
     return render_template(
@@ -133,6 +136,21 @@ def add_one_episode(anime_id):
     anime_history.add_episode(anime.title, anime.episode)
     return redirect(url_for("anime.anime_list"))
 
+# Searches anime related to given genres in the database
+@anime.route("/genre/<string:genre>", methods=["GET"])
+def search_genre(genre):
+    anime_list = Anime.query.filter(Anime.genre.like(f"%{genre}%")).all()
+    settings = get_settings()
+    truncate_title = settings["truncate_title"]
+    return render_template(
+        "anime/anime-list.html",
+        title=f"{genre} Genre",
+        anime_list=anime_list,
+        current_section = "Anime",
+        truncate_title = truncate_title
+    )
+
+
 # Searches anime related to given tags in the database
 @anime.route("/tags/<string:tag>", methods=["GET"])
 def search_tags(tag):
@@ -146,7 +164,6 @@ def search_tags(tag):
         current_section = "Anime",
         truncate_title = truncate_title
     )
-
 
 
 # The path for uploading the file
