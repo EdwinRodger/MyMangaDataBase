@@ -100,12 +100,23 @@
                     {{ form.description(class="form-control", rows=7) }}
                 </div>
                 <div class="md-4 mb-3">
-                    <label class="form-label">{{ form.genre.label }}</label>
+                    <label class="form-label">
+                        {{ form.genre.label }}
+                        <a data-bs-toggle="tooltip"
+                            title="These are predefined labels recognized within the industry (Romantic, Comedy, Action etc.)">
+                            <i class="bi bi-info-circle"></i>
+                        </a>
+                    </label>
                     {{ form.genre(class="form-control") }}
                     <p class="text-muted">Seprate genre by using a comma (,)</p>
                 </div>
                 <div class="md-4 mb-3">
-                    <label class="form-label">{{ form.tags.label }}</label>
+                    <label class="form-label">
+                        {{ form.tags.label }}
+                        <a data-bs-toggle="tooltip" title="User genereated labels (romcom, action-packed etc.)">
+                            <i class="bi bi-info-circle"></i>
+                        </a>
+                    </label>
                     {{ form.tags(class="form-control") }}
                     <p class="text-muted">Seprate tags by using a comma (,)</p>
                 </div>
