@@ -49,6 +49,8 @@ def manga_overview_data():
     try:
         # Calculate the mean score using the scores
         mean_score = statistics.mean(score)
+        # Rounding mean score to 2 decimal places
+        mean_score = round(mean_score, 2)
     except statistics.StatisticsError:
         # Handle the case where there are no scores
         mean_score = 0
@@ -108,6 +110,8 @@ def anime_overview_data():
     try:
         # Calculate the mean score using the scores
         mean_score = statistics.mean(score)
+        # Rounding mean score to 2 decimal places
+        mean_score = round(mean_score, 2)
     except statistics.StatisticsError:
         # Handle the case where there are no scores
         mean_score = 0
