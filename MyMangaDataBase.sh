@@ -1,1 +1,5 @@
-python3 -m pip install --upgrade pipenv && pipenv install && pipenv run app.py
+python3 -m venv venv
+call venv\Scripts\activate
+pip3 install -r requirements.txt
+start "" "http://127.0.0.1:6070"
+python3 app.py
