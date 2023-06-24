@@ -10,6 +10,7 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired, Length
 
+
 class AnimeForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired(), Length(min=2)])
     cover = FileField("Cover Image", validators=[FileAllowed(["jpg", "png"])])
@@ -19,13 +20,7 @@ class AnimeForm(FlaskForm):
     score = SelectField("Score", choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     status = SelectField(
         "Status",
-        choices=[
-            "Watching",
-            "Completed",
-            "On hold",
-            "Dropped",
-            "Plan to watch"
-        ],
+        choices=["Watching", "Completed", "On hold", "Dropped", "Plan to watch"],
     )
     description = TextAreaField("Description")
     genre = StringField("Genre")
@@ -33,4 +28,3 @@ class AnimeForm(FlaskForm):
     notes = TextAreaField("Notes")
     submit = SubmitField("Add")
     update = SubmitField("Update")
-    

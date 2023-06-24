@@ -1,10 +1,12 @@
-from src.models import Manga, Anime
-import statistics
-from collections import Counter
-import requests
-import os
 import hashlib
 import json
+import os
+import statistics
+from collections import Counter
+
+import requests
+
+from src.models import Anime, Manga
 
 
 def manga_overview_data():
@@ -41,7 +43,9 @@ def manga_overview_data():
     genre_count = Counter(genre)
 
     # Sort the genre count in descending order
-    genre_count = dict(sorted(genre_count.items(), key=lambda item: item[1], reverse=True))
+    genre_count = dict(
+        sorted(genre_count.items(), key=lambda item: item[1], reverse=True)
+    )
 
     # Sort the score count in descending order
     score_count = dict(sorted(score_count.items(), reverse=True))
@@ -102,7 +106,9 @@ def anime_overview_data():
     genre_count = Counter(genre)
 
     # Sort the genre count in descending order
-    genre_count = dict(sorted(genre_count.items(), key=lambda item: item[1], reverse=True))
+    genre_count = dict(
+        sorted(genre_count.items(), key=lambda item: item[1], reverse=True)
+    )
 
     # Sort the score count in descending order
     score_count = dict(sorted(score_count.items(), reverse=True))
@@ -128,16 +134,17 @@ def anime_overview_data():
 
     return anime_overview_data
 
+
 def check_for_update():
     # API URL to fetch the latest tags/releases
     url = "https://api.github.com/repos/EdwinRodger/MyMangaDataBase/tags"
-    
+
     # Fetch the JSON response from the API
     response = requests.get(url).json()
 
     # File path to store the version hash
     version_hash_file = "json/versionhash.json"
-    
+
     # Calculate the hash of the response
     current_hash = hashlib.sha224(str(response).encode("utf-8")).hexdigest()
 
@@ -150,7 +157,7 @@ def check_for_update():
         # If the file exists, read the stored hash
         with open(version_hash_file, "r", encoding="utf-8") as file:
             data = json.load(file)
-            
+
             # Check if the current hash matches the stored hash
             if current_hash == data["current_hash"]:
                 # No update available
@@ -162,4 +169,3 @@ def check_for_update():
 
     # An update is available
     return True
-

@@ -1,17 +1,31 @@
-from flask import (Blueprint, render_template, flash, redirect, url_for, request, send_file)
-from src.manga.forms import MangaForm
-from src.models import Manga
-from src import db
-from datetime import datetime
-from src.manga.utils import save_picture, remove_cover, get_settings
-from src.manga.backup import export_mmdb_backup, extract_mmdb_backup, import_MyAnimeList_manga
 import os
+from datetime import datetime
+
+from flask import (
+    Blueprint,
+    flash,
+    redirect,
+    render_template,
+    request,
+    send_file,
+    url_for,
+)
 from sqlalchemy import delete
-from src.manga.utils import MangaHistory
+
+from src import db
+from src.manga.backup import (
+    export_mmdb_backup,
+    extract_mmdb_backup,
+    import_MyAnimeList_manga,
+)
+from src.manga.forms import MangaForm
+from src.manga.utils import MangaHistory, get_settings, remove_cover, save_picture
+from src.models import Manga
 
 today_date = datetime.date(datetime.today())
 
 manga = Blueprint("manga", __name__, url_prefix="/manga")
+
 
 @manga.route("/list/all")
 def manga_list():
@@ -19,9 +33,14 @@ def manga_list():
     settings = get_settings()
     truncate_title = settings["truncate_title"]
     return render_template(
-        "manga/manga-list.html", title = "Manga List", current_section = "Manga", manga_list=manga_list, sort_function = "All",
-        truncate_title = truncate_title
+        "manga/manga-list.html",
+        title="Manga List",
+        current_section="Manga",
+        manga_list=manga_list,
+        sort_function="All",
+        truncate_title=truncate_title,
     )
+
 
 # Add New Manga
 @manga.route("/new", methods=["GET", "POST"])
@@ -53,7 +72,11 @@ def add_manga():
         flash(f"{form.title.data} is added!", "success")
         return redirect(url_for("manga.manga_list"))
     return render_template(
-        "manga/create-manga.html", title="New Manga", form=form, legend="New Manga", current_section = "Manga"
+        "manga/create-manga.html",
+        title="New Manga",
+        form=form,
+        legend="New Manga",
+        current_section="Manga",
     )
 
 
@@ -89,8 +112,8 @@ def edit_manga(manga_id):
         flash("Your manga has been updated!", "success")
     elif request.method == "GET":
         form.title.data = manga.title
-        form.start_date.data = datetime.strptime(manga.start_date, '%Y-%m-%d').date()
-        form.end_date.data = datetime.strptime(manga.end_date, '%Y-%m-%d').date()
+        form.start_date.data = datetime.strptime(manga.start_date, "%Y-%m-%d").date()
+        form.end_date.data = datetime.strptime(manga.end_date, "%Y-%m-%d").date()
         form.volume.data = manga.volume
         form.chapter.data = manga.chapter
         form.status.data = manga.status
@@ -107,9 +130,10 @@ def edit_manga(manga_id):
         form=form,
         manga=manga,
         legend="Update Manga",
-        current_section = "Manga",
-        history = history
+        current_section="Manga",
+        history=history,
     )
+
 
 # Delete A Manga
 @manga.route("/delete/<int:manga_id>", methods=["POST"])
@@ -123,19 +147,24 @@ def delete_manga(manga_id):
     flash("Your manga has been Obliterated!", "success")
     return redirect(url_for("manga.manga_list"))
 
+
 # Sort Manga
 @manga.route("/list/<string:sort_function>", methods=["GET", "POST"])
 def sort_manga(sort_function):
-    manga_list = Manga.query.filter_by(status=sort_function).order_by(Manga.title.name).all()
+    manga_list = (
+        Manga.query.filter_by(status=sort_function).order_by(Manga.title.name).all()
+    )
     settings = get_settings()
     truncate_title = settings["truncate_title"]
     return render_template(
         "manga/manga-list.html",
         title=f"{sort_function} Manga",
         manga_list=manga_list,
-        sort_function = sort_function, current_section = "Manga",
-        truncate_title = truncate_title
+        sort_function=sort_function,
+        current_section="Manga",
+        truncate_title=truncate_title,
     )
+
 
 # Add One Chapter To The Manga
 @manga.route("/add-one-chapter/<int:manga_id>")
@@ -156,6 +185,7 @@ def add_one_volume(manga_id):
     db.session.commit()
     return redirect(url_for("manga.manga_list"))
 
+
 # Searches manga related to given genre in the database
 @manga.route("/genre/<string:genre>", methods=["GET"])
 def search_genre(genre):
@@ -166,9 +196,10 @@ def search_genre(genre):
         "manga/manga-list.html",
         title=f"{genre} Genre",
         manga_list=manga_list,
-        current_section = "Manga",
-        truncate_title = truncate_title
+        current_section="Manga",
+        truncate_title=truncate_title,
     )
+
 
 # Searches manga related to given tags in the database
 @manga.route("/tags/<string:tag>", methods=["GET"])
@@ -180,14 +211,18 @@ def search_tags(tag):
         "manga/manga-list.html",
         title=f"{tag} Tag",
         manga_list=manga_list,
-        current_section = "Manga",
-        truncate_title = truncate_title
+        current_section="Manga",
+        truncate_title=truncate_title,
     )
+
 
 # The path for uploading the file
 @manga.route("/import", methods=["GET", "POST"])
 def import_manga():
-    return render_template("manga/import-manga.html", current_section = "Manga", title = "Import Manga")
+    return render_template(
+        "manga/import-manga.html", current_section="Manga", title="Import Manga"
+    )
+
 
 # Imports backup based on file extension
 @manga.route("/import/<string:backup>", methods=["GET", "POST"])
@@ -201,11 +236,17 @@ def importbackup(backup):
             flash("Choose a file to import!", "danger")
             return redirect(url_for("manga.import_manga"))
         # If file is sent through MMDB form, checking if file name is correct. If correct, then extracting the import
-        elif backup == "MyMangaDataBase" and backup_file.filename.lower().endswith((".zip")) and backup_file.filename.startswith(("MMDB-Manga-Export")):
+        elif (
+            backup == "MyMangaDataBase"
+            and backup_file.filename.lower().endswith((".zip"))
+            and backup_file.filename.startswith(("MMDB-Manga-Export"))
+        ):
             # this will secure the file
             backup_file.save(backup_file.filename)
             extract_mmdb_backup(backup_file.filename)
-        elif backup == "MyAnimeList" and backup_file.filename.lower().endswith((".xml")):
+        elif backup == "MyAnimeList" and backup_file.filename.lower().endswith(
+            (".xml")
+        ):
             # this will secure the file
             backup_file.save(backup_file.filename)
             import_MyAnimeList_manga(backup_file.filename)

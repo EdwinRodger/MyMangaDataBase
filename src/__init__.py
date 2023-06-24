@@ -1,10 +1,12 @@
-from src.config import Config
+import json
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import json
+
+from src.config import Config
 
 db = SQLAlchemy()
+
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -12,11 +14,11 @@ def create_app(config_class=Config):
 
     db.init_app(app)
 
+    from src.anime.routes import anime
+    from src.errors.handlers import errors
     from src.home.routes import home
     from src.manga.routes import manga
-    from src.anime.routes import anime
     from src.settings.routes import settings
-    from src.errors.handlers import errors
 
     app.register_blueprint(home)
     app.register_blueprint(manga)
@@ -31,6 +33,6 @@ def create_app(config_class=Config):
             json_settings = json.load(f)
             theme = json_settings["theme"]
 
-        return {"theme" : theme}
+        return {"theme": theme}
 
     return app

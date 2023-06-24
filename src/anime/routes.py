@@ -1,24 +1,46 @@
-from flask import (Blueprint, render_template, flash, redirect, url_for, request, send_file)
-from src.anime.forms import AnimeForm
-from src.models import Anime
-from src import db
-from datetime import datetime
-from src.anime.utils import save_picture, remove_cover, AnimeHistory, get_settings
-from src.anime.backup import export_mmdb_backup, extract_mmdb_backup, import_MyAnimeList_anime
 import os
+from datetime import datetime
+
+from flask import (
+    Blueprint,
+    flash,
+    redirect,
+    render_template,
+    request,
+    send_file,
+    url_for,
+)
 from sqlalchemy import delete
+
+from src import db
+from src.anime.backup import (
+    export_mmdb_backup,
+    extract_mmdb_backup,
+    import_MyAnimeList_anime,
+)
+from src.anime.forms import AnimeForm
+from src.anime.utils import AnimeHistory, get_settings, remove_cover, save_picture
+from src.models import Anime
 
 today_date = datetime.date(datetime.today())
 
 anime = Blueprint("anime", __name__, url_prefix="/anime")
+
 
 @anime.route("/list/all")
 def anime_list():
     anime_list = Anime.query.order_by(Anime.title.name).all()
     settings = get_settings()
     truncate_title = settings["truncate_title"]
-    return render_template("anime/anime-list.html", title = "Anime List", current_section = "Anime", anime_list=anime_list, sort_function = "All",
-        truncate_title = truncate_title)
+    return render_template(
+        "anime/anime-list.html",
+        title="Anime List",
+        current_section="Anime",
+        anime_list=anime_list,
+        sort_function="All",
+        truncate_title=truncate_title,
+    )
+
 
 # Add New Anime
 @anime.route("/new", methods=["GET", "POST"])
@@ -47,7 +69,11 @@ def new_anime():
         flash(f"{form.title.data} is added!", "success")
         return redirect(url_for("anime.anime_list"))
     return render_template(
-        "anime/create-anime.html", title="New Anime", form=form, legend="New Anime", current_section = "Anime"
+        "anime/create-anime.html",
+        title="New Anime",
+        form=form,
+        legend="New Anime",
+        current_section="Anime",
     )
 
 
@@ -80,8 +106,8 @@ def edit_anime(anime_id):
         flash("Your anime has been updated!", "success")
     elif request.method == "GET":
         form.title.data = anime.title
-        form.start_date.data = datetime.strptime(anime.start_date, '%Y-%m-%d').date()
-        form.end_date.data = datetime.strptime(anime.end_date, '%Y-%m-%d').date()
+        form.start_date.data = datetime.strptime(anime.start_date, "%Y-%m-%d").date()
+        form.end_date.data = datetime.strptime(anime.end_date, "%Y-%m-%d").date()
         form.episode.data = anime.episode
         form.status.data = anime.status
         form.score.data = str(anime.score)
@@ -95,9 +121,10 @@ def edit_anime(anime_id):
         form=form,
         anime=anime,
         legend="Update Anime",
-        current_section = "Anime",
-        history = history
+        current_section="Anime",
+        history=history,
     )
+
 
 # Delete A Anime
 @anime.route("/delete/<int:anime_id>", methods=["POST"])
@@ -115,16 +142,20 @@ def delete_anime(anime_id):
 # Sort Anime
 @anime.route("/list/<string:sort_function>", methods=["GET", "POST"])
 def sort_anime(sort_function):
-    anime_list = Anime.query.filter_by(status=sort_function).order_by(Anime.title.name).all()
+    anime_list = (
+        Anime.query.filter_by(status=sort_function).order_by(Anime.title.name).all()
+    )
     settings = get_settings()
     truncate_title = settings["truncate_title"]
     return render_template(
         "anime/anime-list.html",
         title=f"{sort_function} Anime",
         anime_list=anime_list,
-        sort_function = sort_function, current_section = "Anime",
-        truncate_title = truncate_title
+        sort_function=sort_function,
+        current_section="Anime",
+        truncate_title=truncate_title,
     )
+
 
 # Add One episode To The Anime
 @anime.route("/add-one-episode/<int:anime_id>")
@@ -136,6 +167,7 @@ def add_one_episode(anime_id):
     anime_history.add_episode(anime.title, anime.episode)
     return redirect(url_for("anime.anime_list"))
 
+
 # Searches anime related to given genres in the database
 @anime.route("/genre/<string:genre>", methods=["GET"])
 def search_genre(genre):
@@ -146,8 +178,8 @@ def search_genre(genre):
         "anime/anime-list.html",
         title=f"{genre} Genre",
         anime_list=anime_list,
-        current_section = "Anime",
-        truncate_title = truncate_title
+        current_section="Anime",
+        truncate_title=truncate_title,
     )
 
 
@@ -161,15 +193,18 @@ def search_tags(tag):
         "anime/anime-list.html",
         title=f"{tag} Tag",
         anime_list=anime_list,
-        current_section = "Anime",
-        truncate_title = truncate_title
+        current_section="Anime",
+        truncate_title=truncate_title,
     )
 
 
 # The path for uploading the file
 @anime.route("/import", methods=["GET", "POST"])
 def import_anime():
-    return render_template("anime/import-anime.html", current_section = "Anime", title = "Import Anime")
+    return render_template(
+        "anime/import-anime.html", current_section="Anime", title="Import Anime"
+    )
+
 
 # Imports backup based on file extension
 @anime.route("/import/<string:backup>", methods=["GET", "POST"])
@@ -183,11 +218,17 @@ def importbackup(backup):
             flash("Choose a file to import!", "danger")
             return redirect(url_for("anime.import_anime"))
         # If file is sent through MMDB form, checking if file name is correct. If correct, then extracting the import
-        if backup == "MyMangaDataBase" and backup_file.filename.lower().endswith((".zip")) and backup_file.filename.startswith(("MMDB-Anime-Export")):
+        if (
+            backup == "MyMangaDataBase"
+            and backup_file.filename.lower().endswith((".zip"))
+            and backup_file.filename.startswith(("MMDB-Anime-Export"))
+        ):
             # this will secure the file
             backup_file.save(backup_file.filename)
             extract_mmdb_backup(backup_file.filename)
-        elif backup == "MyAnimeList" and backup_file.filename.lower().endswith((".xml")):
+        elif backup == "MyAnimeList" and backup_file.filename.lower().endswith(
+            (".xml")
+        ):
             # this will secure the file
             backup_file.save(backup_file.filename)
             import_MyAnimeList_anime(backup_file.filename)
@@ -223,4 +264,3 @@ def delete_database():
             if file not in ("default-manga.svg", "default-anime.svg"):
                 os.remove(os.path.join(root, file))
     return redirect(url_for("anime.anime_list"))
-

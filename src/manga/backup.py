@@ -1,16 +1,18 @@
 import json
 import os
-from datetime import datetime
-import requests
-from zipfile import ZipFile
-import xml.etree.ElementTree as ET
-from src import db
-import time
 import secrets
+import time
+import xml.etree.ElementTree as ET
+from datetime import datetime
+from zipfile import ZipFile
 
+import requests
+
+from src import db
 from src.models import Manga
 
 today_date = datetime.date(datetime.today())
+
 
 def delete_manga_export():
     for backup in os.listdir("."):
@@ -49,7 +51,6 @@ def delete_manga_export():
             or backup.startswith("hold_")
         ):
             os.remove(f"{backup}")
-
 
 
 def export_mmdb_backup():
@@ -104,7 +105,7 @@ def extract_mmdb_backup(filename):
             tags=value["tags"],
             author=value["author"],
             artist=value["artist"],
-            notes=value["notes"]
+            notes=value["notes"],
         )
         db.session.add(manga)
     db.session.commit()
@@ -114,32 +115,32 @@ def extract_mmdb_backup(filename):
 def import_MyAnimeList_manga(filename):
     tree = ET.parse(filename)
     root = tree.getroot()
-    total_manga = len(root.findall('manga'))
+    total_manga = len(root.findall("manga"))
     current_manga = 0
-    
-    for manga in root.findall('manga'):
-        manga_title = manga.find('manga_title').text
-        my_read_volumes = manga.find('my_read_volumes').text
-        my_read_chapters = manga.find('my_read_chapters').text
-        my_score = manga.find('my_score').text
 
-        my_status = manga.find('my_status').text
+    for manga in root.findall("manga"):
+        manga_title = manga.find("manga_title").text
+        my_read_volumes = manga.find("my_read_volumes").text
+        my_read_chapters = manga.find("my_read_chapters").text
+        my_score = manga.find("my_score").text
+
+        my_status = manga.find("my_status").text
         if my_status.lower() == "plan to read":
             my_status = "Plan to read"
         if my_status.lower() == "on-hold":
             my_status = "On hold"
 
-        my_start_date = manga.find('my_start_date').text
+        my_start_date = manga.find("my_start_date").text
         if my_start_date == "0000-00-00":
             my_start_date = "0001-01-01"
 
-        my_finish_date = manga.find('my_finish_date').text
+        my_finish_date = manga.find("my_finish_date").text
         if my_finish_date == "0000-00-00":
             my_finish_date = "0001-01-01"
 
-        mangadb_id = manga.find('manga_mangadb_id').text
+        mangadb_id = manga.find("manga_mangadb_id").text
         response = requests.get(f"https://api.jikan.moe/v4/manga/{mangadb_id}/full")
-        
+
         if response.status_code == 200:
             data = response.json()
 
@@ -165,15 +166,17 @@ def import_MyAnimeList_manga(filename):
                 volume=my_read_volumes,
                 chapter=my_read_chapters,
                 status=my_status,
-                score= int(my_score),
+                score=int(my_score),
                 cover=f"{random_hex_name}.jpg",
                 description=data["data"]["synopsis"],
                 genre=genre,
-                author=authors
+                author=authors,
             )
             db.session.add(manga)
         else:
-            print(f"There is an error while getting {manga_title}... Skipping this Title!")
+            print(
+                f"There is an error while getting {manga_title}... Skipping this Title!"
+            )
             total_manga -= 1
 
         current_manga += 1

@@ -1,10 +1,13 @@
-from flask import (Blueprint, render_template, flash, request)
-from src.settings.forms import SettingsForm
-from src import db
-import os
 import json
+import os
+
+from flask import Blueprint, flash, render_template, request
+
+from src import db
+from src.settings.forms import SettingsForm
 
 settings = Blueprint("settings", __name__, url_prefix="/settings")
+
 
 def create_json_files():
     if not os.path.exists("json"):
@@ -14,7 +17,7 @@ def create_json_files():
             settings = {
                 "theme": "Dark",
                 "enable_logging": "Yes",
-                "truncate_title": "No"
+                "truncate_title": "No",
             }
             json.dump(settings, f)
     if not os.path.exists("json/mangalogs.json"):
@@ -51,4 +54,10 @@ def settingspage():
         form.enable_logging.data = json_settings["enable_logging"]
         # Truncate Title
         form.truncate_title.data = json_settings["truncate_title"]
-    return render_template("settings.html", form=form, legend = "Settings", title = "Settings", current_section = "Settings")
+    return render_template(
+        "settings.html",
+        form=form,
+        legend="Settings",
+        title="Settings",
+        current_section="Settings",
+    )

@@ -21,6 +21,7 @@ class Manga(db.Model):
     def __repr__(self):
         return f"Manga('{self.title}', '{self.start_date}', '{self.end_date}', '{self.score}', '{self.status}', '{self.genre}')"
 
+
 class Anime(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     cover = db.Column(db.String, nullable=False, default="default-anime.svg")

@@ -1,16 +1,18 @@
-from flask import Blueprint, render_template
-import requests
 import random
+
+import requests
+from flask import Blueprint, render_template
 
 errors = Blueprint("errors", __name__)
 
 
 # List of reactions for 404 error
-reactions_404 = ['facepalm', 'mad', 'smack']
+reactions_404 = ["facepalm", "mad", "smack"]
 # List of reactions for 500 error
-reactions_500 = ['nervous', 'sorry', 'surprised', 'sweat', 'confused']
+reactions_500 = ["nervous", "sorry", "surprised", "sweat", "confused"]
 # Base URL for the API
-api_base_url = 'https://api.otakugifs.xyz/gif'
+api_base_url = "https://api.otakugifs.xyz/gif"
+
 
 # Function to retrieve the GIF URL for a given reaction
 def get_gif_url(reaction):
@@ -21,6 +23,7 @@ def get_gif_url(reaction):
         gif_url = data["url"]
         return gif_url
     return None
+
 
 # Function to get the GIF URL based on the error code and a list of reactions
 def gif_url(code):
@@ -37,24 +40,23 @@ def gif_url(code):
     return None
 
 
-
 @errors.app_errorhandler(404)
 def error_404(error):
     url = gif_url(404)
-    return render_template("errors/404.html", url = url), 404
+    return render_template("errors/404.html", url=url), 404
 
 
 @errors.app_errorhandler(500)
 def error_500(error):
     url = gif_url(500)
-    return render_template("errors/500.html", url = url), 500
+    return render_template("errors/500.html", url=url), 500
 
 
 @errors.route("/errors/<int:error>")
 def err(error):
     if error == 404:
         url = gif_url(404)
-        return render_template("errors/404.html", url = url)
+        return render_template("errors/404.html", url=url)
     if error == 500:
         url = gif_url(500)
-        return render_template("errors/500.html", url = url)
+        return render_template("errors/500.html", url=url)
