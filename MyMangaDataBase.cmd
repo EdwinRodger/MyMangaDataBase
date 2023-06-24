@@ -1,0 +1,1 @@
+py -m pip install --upgrade pipenv && pipenv install && pipenv run app.py

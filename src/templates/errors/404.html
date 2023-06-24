@@ -1,13 +1,18 @@
 {% extends "layout.html" %}
 {% block body %}
 <div class="d-flex justify-content-center mt-5 mb-5">
-    <img src="{{ url_for('static', filename='error_assests/404 not found.gif') }}" alt="404 Not Found GIF"
+    {% if url %}
+    <img src="{{ url }}" alt="400 Server Down GIF" class="img-fluid">
+    {% else %}
+    <img src="{{ url_for('static', filename='error_assests/400 server down.jpg') }}" alt="400 Server Down JPG"
         class="img-fluid">
+    {% endif %}
 </div>
 <div>
     <figure class="text-center">
         <blockquote class="blockquote">
             <p class="fs-1">Oops. Page Not Found (404)</p>
+            <p>Check the URL properly... BAKA!</p>
         </blockquote>
     </figure>
 </div>

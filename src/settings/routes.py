@@ -1,55 +1,54 @@
+from flask import (Blueprint, render_template, flash, request)
+from src.settings.forms import SettingsForm
+from src import db
+import os
 import json
 
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+settings = Blueprint("settings", __name__, url_prefix="/settings")
 
-from src.settings.forms import SettingsForm
-from src.utils import read_settings
+def create_json_files():
+    if not os.path.exists("json"):
+        os.mkdir("json")
+    if not os.path.exists("json/settings.json"):
+        with open("json/settings.json", "w") as f:
+            settings = {
+                "theme": "Dark",
+                "enable_logging": "Yes",
+                "truncate_title": "No"
+            }
+            json.dump(settings, f)
+    if not os.path.exists("json/mangalogs.json"):
+        with open("json/mangalogs.json", "w") as f:
+            json.dump({}, f)
+            json.dump({}, f)
+    if not os.path.exists("json/animelogs.json"):
+        with open("json/animelogs.json", "w") as f:
+            json.dump({}, f)
 
-setting = Blueprint("setting", __name__)
 
+@settings.route("", methods=["POST", "GET"])
+def settingspage():
+    with open("json/settings.json", "r") as f:
+        json_settings = json.load(f)
 
-# Home Page
-@setting.route("/settings", methods=["GET", "POST"])
-def settings():
-    setting = read_settings()
     form = SettingsForm()
+
     if form.validate_on_submit():
-        setting["UserInterface"]["default_status_to_show"] = str(
-            form.default_status_to_show.data
-        )
-        setting["UserInterface"]["show_cover"] = str(form.show_cover.data)
-        setting["UserInterface"]["show_score"] = str(form.show_score.data)
-        setting["UserInterface"]["show_volume"] = str(form.show_volume.data)
-        setting["UserInterface"]["show_chapter"] = str(form.show_chapter.data)
-        setting["UserInterface"]["show_start_date"] = str(form.show_start_date.data)
-        setting["UserInterface"]["show_end_date"] = str(form.show_end_date.data)
-        setting["UserInterface"]["show_status"] = str(form.show_status.data)
-        setting["FlashMessages"]["show_star_on_github"] = str(
-            form.show_star_on_github.data
-        )
-        with open("settings.json", "w", encoding="UTF-8") as settings_file:
-            json.dump(setting, settings_file, indent=4)
-        flash("Your settings has been updated!", "success")
-        if setting["UserInterface"]["default_status_to_show"] == "All":
-            return redirect(url_for("main.home"))
-        return redirect(
-            url_for(
-                "mangas.sort_manga",
-                status_value=setting["UserInterface"]["default_status_to_show"],
-            )
-        )
-    if request.method == "GET":
-        form.default_status_to_show.data = setting["UserInterface"][
-            "default_status_to_show"
-        ]
-        form.show_cover.data = setting["UserInterface"]["show_cover"]
-        form.show_score.data = setting["UserInterface"]["show_score"]
-        form.show_volume.data = setting["UserInterface"]["show_volume"]
-        form.show_chapter.data = setting["UserInterface"]["show_chapter"]
-        form.show_start_date.data = setting["UserInterface"]["show_start_date"]
-        form.show_end_date.data = setting["UserInterface"]["show_end_date"]
-        form.show_status.data = setting["UserInterface"]["show_status"]
-        form.show_star_on_github.data = setting["FlashMessages"]["show_star_on_github"]
-    return render_template(
-        "settings.html", title="Settings", legend="Settings", form=form
-    )
+        # Theme
+        json_settings["theme"] = form.theme.data
+        # Logging
+        json_settings["enable_logging"] = form.enable_logging.data
+        # Truncate Title
+        json_settings["truncate_title"] = form.truncate_title.data
+
+        with open("json/settings.json", "w") as f:
+            json.dump(json_settings, f, indent=4)
+        flash("Settings Updated!", "success")
+    elif request.method == "GET":
+        # Theme
+        form.theme.data = json_settings["theme"]
+        # Enable Logging
+        form.enable_logging.data = json_settings["enable_logging"]
+        # Truncate Title
+        form.truncate_title.data = json_settings["truncate_title"]
+    return render_template("settings.html", form=form, legend = "Settings", title = "Settings", current_section = "Settings")

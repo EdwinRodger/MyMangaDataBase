@@ -1,70 +1,56 @@
+import json
 import logging
-import os
+from time import strftime
 import sys
-import threading
-from webbrowser import open_new_tab
 
 import waitress
-from flask_ngrok2 import run_with_ngrok
-from paste.translogger import TransLogger
+from flask import request
 
 from src import create_app, db
-from src.config import check_chapterlog_json, check_settings_json
-from src.main.backup import automatic_backup, delete_export
-from src.utils import check_for_update
+from src.home.utils import check_for_update
+from src.settings.routes import create_json_files
+from src.anime.backup import delete_anime_export
+from src.manga.backup import delete_manga_export
 
 app = create_app()
 
-logger = logging.getLogger("waitress")
-logger.setLevel(logging.CRITICAL)
+
+# This custom logging is taken from https://gist.github.com/alexaleluia12/e40f1dfa4ce598c2e958611f67d28966#file-flask_logging_requests-py-L28
+@app.after_request
+def after_request(response):
+    timestamp = strftime("[%Y-%b-%d %H:%M]")
+    logger.info(
+        "%s %s %s %s %s %s",
+        timestamp,
+        request.remote_addr,
+        request.method,
+        request.scheme,
+        request.full_path,
+        response.status,
+    )
+    return response
 
 
 def checks():
-    check_settings_json()
-    check_chapterlog_json()
-    try:
-        check_for_update()
-    except:
-        pass
-    delete_export()
     with app.app_context():
         db.create_all()
-        automatic_backup()
+    create_json_files()
+    check_for_update()
+    delete_anime_export()
+    delete_manga_export()
 
-
-def run_app():
-    if "--development" in sys.argv:
-        app.run(port=6070, debug=True)
-        sys.exit(0)
-    if "--run_with_ngrok" in sys.argv:
-        run_with_ngrok(app=app)
-        app.run()
-        sys.exit(0)
-    if "--run_with_localhost" in sys.argv:
-
-        def host():
-            waitress.serve(app=app, host="127.0.0.1", port=6070)
-
-        def localhost():
-            os.system("ssh -R 80:127.0.0.1:6070 nokey@localhost.run")
-
-        thread1 = threading.Thread(target=host)
-        thread2 = threading.Thread(target=localhost)
-        thread1.start()
-        thread2.start()
-        thread1.join()
-        thread2.join()
-        sys.exit(0)
-    print("\nopening http://127.0.0.1:6070\n")
-    open_new_tab("http://127.0.0.1:6070")
-    if "--logging" in sys.argv:
-        waitress.serve(
-            TransLogger(app, setup_console_handler=False), host="127.0.0.1", port=6070
-        )
+def run():
+    if sys.argv[-1].lower() == "super-saiyan":
+        app.run(host="127.0.0.1", port=6070, debug=True)
     else:
         waitress.serve(app=app, host="127.0.0.1", port=6070)
 
 
 if __name__ == "__main__":
     checks()
-    run_app()
+    with open("json/settings.json", "r") as f:
+        settings = json.load(f)
+    logger = logging.getLogger("tdm")
+    if settings["enable_logging"] == "Yes":
+        logger.setLevel(logging.INFO)
+    run()
