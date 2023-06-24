@@ -33,9 +33,9 @@ def manga_overview_data():
         status.append(manga.status)
 
         # Collect the genre tags of each manga
-        if manga.tags:
-            tags = manga.tags.split(", ")
-            genre.extend(i.strip() for i in tags if i.strip() not in ["N", "o"])
+        if manga.genre:
+            genres = manga.genre.split(", ")
+            genre.extend(i.strip() for i in genres if i.strip() not in ["N", "o"])
 
     # Count the occurrence of each score, status, and genre
     score_count = Counter(score)
@@ -96,9 +96,9 @@ def anime_overview_data():
         status.append(anime.status)
 
         # Collect the genre tags of each anime
-        if anime.tags:
-            tags = anime.tags.split(", ")
-            genre.extend(i.strip() for i in tags if i.strip() not in ["N", "o"])
+        if anime.genre:
+            genres = anime.genre.split(", ")
+            genre.extend(i.strip() for i in genres if i.strip() not in ["N", "o"])
 
     # Count the occurrence of each score, status, and genre
     score_count = Counter(score)
