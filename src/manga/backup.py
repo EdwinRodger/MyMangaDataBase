@@ -91,6 +91,20 @@ def extract_mmdb_backup(filename):
     with open("manga.json", "r", encoding="UTF-8") as file:
         data = json.load(file)
     for _, value in data.items():
+        # This condition is because in json None is sent as string which,
+        # here, goes to DB as "None" and shows respective fields with none
+        if value["tags"] == "None":
+            tags = None
+        else:
+            tags = value["tags"]
+        if value["genre"] == "None":
+            genre = None
+        else:
+            genre = value["genre"]
+        if value["notes"] == "None":
+            notes = None
+        else:
+            notes = value["notes"]
         manga = Manga(
             title=value["title"],
             start_date=value["start_date"],
@@ -101,11 +115,11 @@ def extract_mmdb_backup(filename):
             score=value["score"],
             cover=value["cover"],
             description=value["description"],
-            genre=value["genre"],
-            tags=value["tags"],
+            genre=genre,
+            tags=tags,
             author=value["author"],
             artist=value["artist"],
-            notes=value["notes"],
+            notes=notes,
         )
         db.session.add(manga)
     db.session.commit()
