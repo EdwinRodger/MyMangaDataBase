@@ -1,16 +1,16 @@
 import json
 import logging
-from time import strftime
 import sys
+from time import strftime
 
 import waitress
 from flask import request
 
 from src import create_app, db
-from src.home.utils import check_for_update
-from src.settings.routes import create_json_files
 from src.anime.backup import delete_anime_export
+from src.home.utils import check_for_update
 from src.manga.backup import delete_manga_export
+from src.settings.routes import create_json_files
 
 app = create_app()
 
@@ -38,6 +38,7 @@ def checks():
     check_for_update()
     delete_anime_export()
     delete_manga_export()
+
 
 def run():
     if sys.argv[-1].lower() == "super-saiyan":
