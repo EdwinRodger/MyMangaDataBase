@@ -38,13 +38,25 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 
 ## How To Use
 
-- Install python 3.10 for [Windows](https://www.python.org/downloads/release/python-3101/) or [Linux](https://tecadmin.net/how-to-install-python-3-10-on-ubuntu-debian-linuxmint/) based on your OS
+### Windows 
+- Install python 3.10 for [Windows](https://www.python.org/downloads/release/python-3101/)
 - Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest) (MyMangaDataBase-{version}.zip)
 - Extract the files from the zip folder
-- To run MMDB, Simply run `MyMangaDataBase.cmd` or `MyMangaDataBase.sh` file depending on your OS
+- To run MMDB, Simply run `MyMangaDataBase.cmd`
     - This will automatically make virtual environment.
     - Install all required packages in it.
     - MyMangaDataBase will open on your default browser.
+
+### Linux
+-  Install python 3.10 for [Linux](https://tecadmin.net/how-to-install-python-3-10-on-ubuntu-debian-linuxmint/)
+- Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest) (MyMangaDataBase-{version}.zip)
+- Extract the files from the zip folder
+- To run MMDB -
+  - Make virtual environment
+  - Install required packages from requirements.txt
+  - Run `app.py` using python
+- You can automate the above process using shell script (as used in windows .cmd file) but I don't know anything about shell scripts or how it works. It would be very helpful if you can submit a pull request which helps in automating above process.
+
 
 ## Want to Contribute?
 
