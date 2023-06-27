@@ -3,7 +3,7 @@
 - License: GNU General Public License v3.0 (https://github.com/EdwinRodger/MyMangaDataBase/blob/main/LICENSE)
 
 Instructions -
-To run MyMangaDataBase, simply run `MyMangaDataBase.cmd`
+To run MyMangaDataBase, simply run `MyMangaDataBase.cmd`(Windows) or `MyMangaDataBase.sh`(Linux) depending on your OS.
 
 Bugs -
 If you found bugs or gliches in the application, you can report it by creating an issue on github.
