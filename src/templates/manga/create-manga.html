@@ -1,0 +1,165 @@
+{% extends "layout.html" %}
+{% block body %}
+<div>
+    <div class="content-section">
+        <form action="" method="post" enctype="multipart/form-data"
+            class="m-sm-5 p-sm-5 border border-opacity-25 rounded-4 p-2 mt-3">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend class="border-bottom mb-4">
+                    {{ legend }}
+                </legend>
+                <div class="form mb-3">
+                    {{ form.title.label(class="form-label") }}
+                    {% if form.title.errors %}
+                    {{ form.title(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.title(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form mb-3">
+                    {{ form.start_date.label(class="form-label") }}
+                    {% if form.start_date.errors %}
+                    {{ form.start_date(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.start_date.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.start_date(class="form-control form-control-lg") }}
+                    {% endif %}
+                    <p class="text-muted">If you don't know Start Date, Enter 01-01-0001 in above field</p>
+                </div>
+                <div class="form mb-3">
+                    {{ form.end_date.label(class="form-label") }}
+                    {% if form.end_date.errors %}
+                    {{ form.end_date(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.end_date.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.end_date(class="form-control form-control-lg") }}
+                    {% endif %}
+                    <p class="text-muted">If you don't know End Date, Enter 01-01-0001 in above field</p>
+                </div>
+                <div class="form mb-3">
+                    {{ form.volume.label(class="form-label") }}
+                    {% if form.volume.errors %}
+                    {{ form.volume(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.volume.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.volume(class="form-control form-control-lg") }}
+                    {% endif %}
+                    <p class="text-muted">If you haven't started the manga or the manga doesn't have any volumes, enter
+                        0
+                        (zero) in above field</p>
+                </div>
+                <div class="form mb-3">
+                    {{ form.chapter.label(class="form-label") }}
+                    {% if form.chapter.errors %}
+                    {{ form.chapter(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.chapter.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.chapter(class="form-control form-control-lg") }}
+                    {% endif %}
+                    <p class="text-muted">If you haven't started the manga, enter 0 (zero) in above field</p>
+                </div>
+                <div class="form mb-3">
+                    {{ form.score.label(class="form-label") }}
+                    {% if form.score.errors %}
+                    {{ form.score(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.score.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.score(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form mb-3">
+                    {{ form.status.label(class="form-label") }}
+                    {% if form.status.errors %}
+                    {{ form.status(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.status.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.status(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <legend class="border-bottom my-4">
+                    Optional
+                </legend>
+                <div class="md-12 mb-3">
+                    <label class="form-label">{{ form.description.label }}</label>
+                    {{ form.description(class="form-control", rows=7) }}
+                </div>
+                <div class="md-4 mb-3">
+                    <label class="form-label">{{ form.artist.label }}</label>
+                    {{ form.artist(class="form-control") }}
+                </div>
+                <div class="md-4 mb-3">
+                    <label class="form-label">{{ form.author.label }}</label>
+                    {{ form.author(class="form-control") }}
+                </div>
+                <div class="md-4 mb-3">
+                    <label class="form-label">
+                        {{ form.genre.label }}
+                        <a data-bs-toggle="tooltip"
+                            title="These are predefined labels recognized within the industry (Romantic, Comedy, Action etc.)">
+                            <i class="bi bi-info-circle"></i>
+                        </a>
+                    </label>
+                    {{ form.genre(class="form-control") }}
+                    <p class="text-muted">Seprate genre by using a comma (,)</p>
+                </div>
+                <div class="md-4 mb-3">
+                    <label class="form-label">
+                        {{ form.tags.label }}
+                        <a data-bs-toggle="tooltip" title="User genereated labels (romcom, action-packed etc.)">
+                            <i class="bi bi-info-circle"></i>
+                        </a>
+                    </label>
+                    {{ form.tags(class="form-control") }}
+                    <p class="text-muted">Seprate tags by using a comma (,)</p>
+                </div>
+                <div class="md-12 mb-3">
+                    <label class="form-label">{{ form.notes.label }}</label>
+                    {{ form.notes(class="form-control", rows=7) }}
+                </div>
+                <div class="md-12 mb-3">
+                    <label class="form-label">{{ form.cover.label }}</label>
+                    {{ form.cover(class="form-control") }}
+                    {% if form.cover.errors %}
+                    {% for error in form.cover.errors %}
+                    <span class="text-danger">{{ error }}</span></br>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form mb-3 mt-3">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock body %}

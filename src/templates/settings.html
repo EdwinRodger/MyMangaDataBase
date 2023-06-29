@@ -1,55 +1,31 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="content-section">
-    <form action="" method="post" class="m-sm-5 p-sm-5 border border-opacity-25 rounded-4 p-2 mt-3">
+<div>
+    <h1 class="text-center pt-3">Settings</h1>
+    <form action="" method="post">
         {{ form.hidden_tag() }}
-        <fieldset>
-            <h1 class="border-bottom mb-4">
-                {{ legend }}
-            </h1>
-            <h2 class="mt-5">Defaults</h2>
-            <div class="form mb-3">
-                {{ form.default_status_to_show.label(class="form-label") }}
-                {{ form.default_status_to_show(class="form-control form-control-lg") }}
+        <div>
+            <div class="px-3">
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label class="form-label">{{ form.theme.label }}</label>
+                        {{ form.theme(class="form-control") }}
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">{{ form.enable_logging.label }}</label>
+                        {{ form.enable_logging(class="form-control") }}
+                        <p>Logging will change when you start server next time</p>
+                    </div>
+                    <div class="col-md-12 mt-0">
+                        <label class="form-label">{{ form.truncate_title.label }}</label>
+                        {{ form.truncate_title(class="form-control") }}
+                    </div>
+                    <div class="btn-group form my-3" role="group">
+                        <!-- Updates Settings -->
+                        {{ form.save(class="btn btn-outline-primary px-auto") }}
+                    </div>
+                </div>
             </div>
-            <h2 class="mt-5">Column Interface</h2>
-            <div class="d-flex form mb-3" style="max-width: 200px;">
-                {{ form.show_cover.label(class="form-label")}}
-                {{ form.show_cover(class="form-select-sm ms-auto") }}
-            </div>
-            <div class="d-flex form mb-3" style="max-width: 200px;">
-                {{ form.show_score.label(class="form-label")}}
-                {{ form.show_score(class="form-select-sm ms-auto") }}
-            </div>
-            <div class="d-flex form mb-3" style="max-width: 200px;">
-                {{ form.show_volume.label(class="form-label")}}
-                {{ form.show_volume(class="form-select-sm ms-auto") }}
-            </div>
-            <div class="d-flex form mb-3" style="max-width: 200px;">
-                {{ form.show_chapter.label(class="form-label")}}
-                {{ form.show_chapter(class="form-select-sm ms-auto") }}
-            </div>
-            <div class="d-flex form mb-3" style="max-width: 200px;">
-                {{ form.show_start_date.label(class="form-label")}}
-                {{ form.show_start_date(class="form-select-sm ms-auto") }}
-            </div>
-            <div class="d-flex form mb-3" style="max-width: 200px;">
-                {{ form.show_end_date.label(class="form-label")}}
-                {{ form.show_end_date(class="form-select-sm ms-auto") }}
-            </div>
-            <div class="d-flex form mb-3" style="max-width: 200px;">
-                {{ form.show_status.label(class="form-label")}}
-                {{ form.show_status(class="form-select-sm ms-auto") }}
-            </div>
-            <h2 class="mt-5">Flash Messages</h2>
-            <div class="d-flex form mb-3" style="max-width: 550px;">
-                {{ form.show_star_on_github.label(class="form-label")}}
-                {{ form.show_star_on_github(class="form-select-sm ms-auto") }}
-            </div>
-        </fieldset>
-        <div class="d-flex btn-group form my-3 px-auto" role="group">
-            {{ form.update(class="btn btn-info") }}
-            <a href="{{ url_for('main.page_selector') }}" class="btn btn-secondary">Cancel</a>
         </div>
     </form>
 </div>

@@ -2,7 +2,8 @@
 {% block body %}
 <div>
     <div class="content-section">
-        <form action="" method="post" class="m-sm-5 p-sm-5 border border-opacity-25 rounded-4 p-2 mt-3">
+        <form action="" method="post" enctype="multipart/form-data"
+            class="m-sm-5 p-sm-5 border border-opacity-25 rounded-4 p-2 mt-3">
             {{ form.hidden_tag() }}
             <fieldset>
                 <legend class="border-bottom mb-4">
@@ -50,34 +51,20 @@
                     <p class="text-muted">If you don't know End Date, Enter 01-01-0001 in above field</p>
                 </div>
                 <div class="form mb-3">
-                    {{ form.volume.label(class="form-label") }}
-                    {% if form.volume.errors %}
-                    {{ form.volume(class="form-control form-control-lg is-invalid") }}
+                    {{ form.episode.label(class="form-label") }}
+                    {% if form.episode.errors %}
+                    {{ form.episode(class="form-control form-control-lg is-invalid") }}
                     <div class="invalid-feedback">
-                        {% for error in form.volume.errors %}
+                        {% for error in form.episode.errors %}
                         <span>{{ error }}</span>
                         {% endfor %}
                     </div>
                     {% else %}
-                    {{ form.volume(class="form-control form-control-lg") }}
+                    {{ form.episode(class="form-control form-control-lg") }}
                     {% endif %}
-                    <p class="text-muted">If you haven't started the manga or the manga doesn't have any volumes, enter
+                    <p class="text-muted">If you haven't started the anime or the anime doesn't have any episodes, enter
                         0
                         (zero) in above field</p>
-                </div>
-                <div class="form mb-3">
-                    {{ form.chapter.label(class="form-label") }}
-                    {% if form.chapter.errors %}
-                    {{ form.chapter(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.chapter.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ form.chapter(class="form-control form-control-lg") }}
-                    {% endif %}
-                    <p class="text-muted">If you haven't started the manga, enter 0 (zero) in above field</p>
                 </div>
                 <div class="form mb-3">
                     {{ form.score.label(class="form-label") }}
@@ -110,56 +97,41 @@
                 </legend>
                 <div class="md-12 mb-3">
                     <label class="form-label">{{ form.description.label }}</label>
-                    {% if form.description.errors %}
-                    {{ form.description(class="form-control is-invalid", rows=7) }}
-                    <div class="invalid-feedback">
-                        {% for error in form.description.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
                     {{ form.description(class="form-control", rows=7) }}
-                    {% endif %}
                 </div>
                 <div class="md-4 mb-3">
-                    <label class="form-label">{{ form.artist.label }}</label>
-                    {% if form.artist.errors %}
-                    {{ form.artist(class="form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.artist.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ form.artist(class="form-control") }}
-                    {% endif %}
+                    <label class="form-label">
+                        {{ form.genre.label }}
+                        <a data-bs-toggle="tooltip"
+                            title="These are predefined labels recognized within the industry (Romantic, Comedy, Action etc.)">
+                            <i class="bi bi-info-circle"></i>
+                        </a>
+                    </label>
+                    {{ form.genre(class="form-control") }}
+                    <p class="text-muted">Seprate genre by using a comma (,)</p>
                 </div>
                 <div class="md-4 mb-3">
-                    <label class="form-label">{{ form.author.label }}</label>
-                    {% if form.author.errors %}
-                    {{ form.author(class="form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.author.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ form.author(class="form-control") }}
-                    {% endif %}
-                </div>
-                <div class="md-4 mb-3">
-                    <label class="form-label">{{ form.tags.label }}</label>
-                    {% if form.tags.errors %}
-                    {{ form.tags(class="form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.tags.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
+                    <label class="form-label">
+                        {{ form.tags.label }}
+                        <a data-bs-toggle="tooltip" title="User genereated labels (romcom, action-packed etc.)">
+                            <i class="bi bi-info-circle"></i>
+                        </a>
+                    </label>
                     {{ form.tags(class="form-control") }}
-                    {% endif %}
                     <p class="text-muted">Seprate tags by using a comma (,)</p>
+                </div>
+                <div class="md-12 mb-3">
+                    <label class="form-label">{{ form.notes.label }}</label>
+                    {{ form.notes(class="form-control", rows=7) }}
+                </div>
+                <div class="md-12 mb-3">
+                    <label class="form-label">{{ form.cover.label }}</label>
+                    {{ form.cover(class="form-control") }}
+                    {% if form.cover.errors %}
+                    {% for error in form.cover.errors %}
+                    <span class="text-danger">{{ error }}</span></br>
+                    {% endfor %}
+                    {% endif %}
                 </div>
             </fieldset>
             <div class="form mb-3 mt-3">
