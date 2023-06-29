@@ -1,5 +1,56 @@
 # Changelog
 
+## 2.0.0
+
+### New
+
+- Anime Section
+  - Anime List
+  - Create Anime
+  - Import
+    - MAL
+    - MMDB
+  - SVG Icon
+- Home Page
+  - Overviews
+    - Manga
+    - Anime
+- More Page
+- User Interface
+- APIs
+  - Jikan (Use to collect Manga Information)
+  - OtakuXYZ (Shown on error pages)
+- Metadata: Genre
+- Themes
+  - Dark
+  - Light
+
+### Updated
+
+- Rename database filename from `manga.db` to `database.db`
+- Table/List User Interface
+- Switeched functions of tags field to genre field
+  - Genre field is for official tags
+  - Tags field is for user desired tags
+- Chapter Logging
+  - Before it was used to log chapters based on date and show history all at once
+  - Now it logs chapters based on title name and shows each title history separetly
+- Instructions in readme.txt
+- [Website](https://edwinrodger.github.io/MyMangaDataBase/)
+- Folder Structure
+- Latest Images
+- Many Internal Functions
+
+### Removed
+
+- default png image
+  - Before, the default cover can be png or svg
+  - Now it is only svg
+- Unused errors in create and update/edit forms
+- Many functions and routes (some will be added in future updates)
+  - Ascending and descending sort
+  - MangaUpdates import etc.
+
 ## 1.9.0
 
 ### New
