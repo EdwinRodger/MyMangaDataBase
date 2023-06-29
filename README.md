@@ -67,7 +67,7 @@ Run `MyMangaDataBase.cmd/sh` to run the app. It will -
 3. Automatically run the app on port 6070 in default browser
 
 Alternatively -
-1. Run command `app.py super-saiyan`, This will give MMDB god-like powers like debugging.
+1. Run command `app.py super-saiyan` (Make sure you are in virtual environement), This will give MMDB god-like powers like debugging.
 2. Open `http://127.0.0.1:6070/` in browser
 
 ## TLDR
