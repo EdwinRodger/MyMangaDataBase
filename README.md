@@ -1,6 +1,6 @@
 # MyMangaDataBase
 
-![Home Page](docs/images/hero(2023-06-24).png "Home Page")
+![Home Page](docs/images/2023-06-24/hero(2023-06-24).png "Home Page")
 
 One database to keep track of your Anime and Manga.
 
