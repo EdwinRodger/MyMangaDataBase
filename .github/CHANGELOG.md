@@ -1,5 +1,175 @@
 # Changelog
 
+## 2.0.0
+
+### New
+
+- Anime Section
+  - Anime List
+  - Create Anime
+  - Import
+    - MAL
+    - MMDB
+  - SVG Icon
+- Home Page
+  - Overviews
+    - Manga
+    - Anime
+- More Page
+- User Interface
+- APIs
+  - Jikan (Use to collect Manga Information)
+  - OtakuXYZ (Shown on error pages)
+- Metadata: Genre
+- Themes
+  - Dark
+  - Light
+
+### Updated
+
+- Rename database filename from `manga.db` to `database.db`
+- Table/List User Interface
+- Switeched functions of tags field to genre field
+  - Genre field is for official tags
+  - Tags field is for user desired tags
+- Chapter Logging
+  - Before it was used to log chapters based on date and show history all at once
+  - Now it logs chapters based on title name and shows each title history separetly
+- Instructions in readme.txt
+- [Website](https://edwinrodger.github.io/MyMangaDataBase/)
+- Folder Structure
+- Latest Images
+- Many Internal Functions
+
+### Removed
+
+- default png image
+  - Before, the default cover can be png or svg
+  - Now it is only svg
+- Unused errors in create and update/edit forms
+- Many functions and routes (some will be added in future updates)
+  - Ascending and descending sort
+  - MangaUpdates import etc.
+
+## 1.9.0
+
+### New
+
+- Add metadata while creating entry
+
+## 1.8.0
+
+### New
+
+- Link to Alternativeto.net
+  - https://alternativeto.net/software/mymangadatabase/about/
+- Routes to error pages
+  - 404
+  - 500
+- Sorting of Table Heads
+  - Ascending (Asc)
+  - Descensing (Desc)
+- Weekly Automatic Backups
+  - Every sunday
+- Dashboard
+  - No. of Manga
+  - Genre
+  - Score
+  - History
+  - Open Source libraries
+- Chapter Logging
+  - Logs amount of chapters read per title per day
+  - Updation of manga
+  - Deletion of manga
+- **Added MangaUpdates Import**
+  - Imports every normal list
+  - Doesn't support custom lists
+- Editable Metadata
+  - Description
+  - Author
+  - Artist
+  - Tags
+
+### Updated
+
+- `--run-with-{server}` warning messages
+  - localhost.run
+  - ngrok
+- Libraries
+- **Migrate settings file**
+  - From `ini` to `json`
+- Linting
+- Table head code
+- Rename
+  - `main/utils.py` -> `main/backup.py`
+- Edit page layout
+- Import description
+  - Added steps to import MyAnimeList backup
+  - Added information about status assignment in MangaUpdates backup
+
+### Fixed
+
+- No indentation in json file while updating setting
+- Importing MyAnimeList backup giving server error
+
+###### Released On: 01 May 2023
+
+---
+
+## 1.7.0
+
+### New
+
+- **NEW DEMO SITE!!!** at https://mymangadatabase.pythonanywhere.com/
+- An occasional flash message to star MMDB on github and setting to toggle it On or Off
+- Arguments -
+  - `--run-with-ngrok`, Hosts the server on [ngrok](https://ngrok.com/)
+    - Requires ngrok to be installed on the system
+    - Requires ngrok account
+    - Requires authtoken to be configured by ngrok
+  - `--run-with-localhost`, Hosts the server on [localhost.run](https://localhost.run)
+    - Load site slowly
+- Blueprint: errors, new error pages
+- Blueprint: functions, to make simple database operations easier
+- `help.md` to help non-technical users with basic things
+- Links to github under info section -
+  - Bug report
+  - Feature request
+  - Star MyMangaDataBase
+- Packages -
+  - [sqlite-web](https://github.com/coleifer/sqlite-web) (dev)
+  - [flask-ngrok2](https://github.com/MohamedAliRashad/flask-ngrok2)
+  - [pylint](https://pylint.readthedocs.io/en/latest/)
+- Rich help panel
+- Search by genre
+- Three setting sections - 
+  - Defaults
+  - Column Interface
+  - Flash Messages
+
+### Fixed
+
+- Overflowing of metadata content from main div on smaller devices
+- Typos
+
+### Updated
+
+- Change `Info` to `Help` in navbar
+- Changed `sort_func` variable to `status_value`
+- Python Packages
+- Rerouting to same manga page after updating manga/metadata
+- Whole code standards according to PyLint
+
+### Deleted
+
+- Packages
+  - pillow
+  - python-dotenv
+
+###### Released On: 01 March 2023
+
+---
+
 ## 1.6.0
 
 ### New
@@ -64,7 +234,7 @@
 - Removed all "# type: ignore" (used to hide error less code warning messages)
 - Removed .env file
 
-###### Released On: 01 Feb 2021
+###### Released On: 01 Feb 2023
 
 ---
 

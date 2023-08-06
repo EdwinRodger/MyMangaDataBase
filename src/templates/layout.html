@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+{% if theme == "Dark" %}
+<html lang="en" data-bs-theme="dark">
+{% else %}
+<html lang="en" data-bs-theme="light">
+{% endif %}
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title -->
     {% if title %}
-    <title>{{ title }} - MyMangaDataBase</title>
+    <title>{{ title }}</title>
     {% else %}
     <title>MyMangaDataBase</title>
     {% endif %}
+    <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180"
         href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32"
@@ -17,11 +23,11 @@
     <link rel="icon" type="image/png" sizes="16x16"
         href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
     <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
     <!-- Bootstrap Icons/Glyphs -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
@@ -29,133 +35,68 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-    <!-- Github Button -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Meta Elements -->
+    <meta name="description" content="MyMangaDataBase or MMDB for short is a app to track you manga and anime">
 </head>
 
 <style>
     * {
         font-family: 'Nunito', sans-serif;
     }
+
+    td {
+        width: 200px;
+    }
 </style>
 
-
-<body class="bg-dark text-white" style="overflow: visible;">
-    <div>
-        <nav class="navbar navbar-expand-md navbar-transparent" style="z-index: 1;">
-            <div class="container-fluid">
-                <a class="navbar-brand border-end pe-3 text-white"
-                    href="{{ url_for('main.page_selector') }}">MyMangaDataBase</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ url_for('mangas.new_manga') }}">
-                                <i class="bi bi-database-add"></i>
-                                New Manga
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ url_for('main.import_backup') }}">
-                                <i class="bi bi-database-down"></i>
-                                Import
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#">
-                                <i class="bi bi-database-up"></i>
-                                Export
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ url_for('setting.settings') }}">
-                                <i class="bi bi-gear"></i>
-                                Settings
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-info-square"></i>
-                                Help
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark mb-3">
-                                <li>
-                                    <a class="dropdown-item" href="https://edwinrodger.github.io/MyMangaDataBase/"
-                                        target="_blank">
-                                        <i class="bi bi-question-circle"></i>
-                                        About MMDB
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="https://edwinrodger.github.io" target="_blank">
-                                        <i class="bi bi-file-person"></i>
-                                        Author
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="https://github.com/EdwinRodger/MyMangaDataBase"
-                                        target="_blank">
-                                        <i class="bi bi-code-square"></i>
-                                        Source Code
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="https://github.com/EdwinRodger/MyMangaDataBase/blob/main/.github/CHANGELOG.md"
-                                        target="_blank">
-                                        <i class="bi bi-card-list"></i>
-                                        Changelog
-                                    </a>
-                                </li>
-                                <hr class="dropdown-divider">
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="https://github.com/EdwinRodger/MyMangaDataBase/issues/new?assignees=&labels=Bug&template=bug_report.yml"
-                                        target="_blank">
-                                        <i class="bi bi-bug"></i>
-                                        Report Bug
-                                    </a>
-                                    <a class="dropdown-item"
-                                        href="https://github.com/EdwinRodger/MyMangaDataBase/issues/new?assignees=&labels=Feature+request&template=feature_request.yml"
-                                        target="_blank">
-                                        <i class="bi bi-plus-square"></i>
-                                        Request Feature
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="https://github.com/EdwinRodger/MyMangaDataBase/stargazers"
-                                        target="_blank">
-                                        <i class="bi bi-star"></i>
-                                        Star On Github
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto pe-5">
-                        <form method="POST" action="{{ url_for('mangas.search_manga')}}" class="d-flex">
-                            {{ navsearch.hidden_tag() }}
-                            {{ navsearch.search_field(class="form-control mx-1",
-                            placeholder=manga_title) }}
-                            {{ navsearch.search_button(class="btn btn-outline-primary") }}
-                        </form>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <p class="lead ms-3">This is a demo site and some functionality is disabled</p>
+<body>
+    <nav class="bg-light-subtle">
+        <div class="container">
+            <header class="d-flex justify-content-center py-3">
+                <ul class="nav nav-pills">
+                    {% if current_section == "Home" %}
+                    <li class="nav-item"><a href="{{ url_for('home.homepage') }}" class="nav-link active"
+                            aria-current="page"><i class="bi bi-house"></i> Home</a></li>
+                    {% else %}
+                    <li class="nav-item"><a href="{{ url_for('home.homepage') }}" class="nav-link"><i
+                                class="bi bi-house"></i> Home</a></li>
+                    {% endif %}
+                    {% if current_section == "Manga" %}
+                    <li class="nav-item"><a href="{{ url_for('manga.manga_list') }}" class="nav-link active"
+                            aria-current="page"><i class="bi bi-book"></i> Manga List</a></li>
+                    {% else %}
+                    <li class=" nav-item"><a href="{{ url_for('manga.manga_list') }}" class="nav-link"><i
+                                class="bi bi-book"></i> Manga List</a>
+                    </li>
+                    {% endif %}
+                    {% if current_section == "Anime" %}
+                    <li class="nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link active"
+                            aria-current="page"><i class="bi bi-film"></i> Anime List</a></li>
+                    {% else %}
+                    <li class=" nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link"><i
+                                class="bi bi-film"></i> Anime List</a>
+                    </li>
+                    {% endif %}
+                    {% if current_section == "Settings" %}
+                    <li class="nav-item"><a href="{{ url_for('settings.settingspage') }}" class="nav-link active"
+                            aria-current="page"><i class="bi bi-gear"></i> Settings</a></li>
+                    {% else %}
+                    <li class=" nav-item"><a href="{{ url_for('settings.settingspage') }}" class="nav-link"><i
+                                class="bi bi-gear"></i> Settings</a></li>
+                    {% endif %}
+                    {% if current_section == "More" %}
+                    <li class="nav-item"><a href="{{ url_for('home.more') }}" class="nav-link active"
+                            aria-current="page"><i class="bi bi-three-dots"></i></i> More</a></li>
+                    {% else %}
+                    <li class=" nav-item"><a href="{{ url_for('home.more') }}" class="nav-link"><i
+                                class="bi bi-three-dots"></i> More</a></li>
+                    {% endif %}
+                </ul>
+            </header>
+        </div>
+    </nav>
+    {% block secondHeader %}{% endblock secondHeader %}
+    <flashMessage>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, messages in messages %}
@@ -165,9 +106,8 @@
         {% endfor %}
         {% endif %}
         {% endwith %}
-        {% block body %}
-        {% endblock %}
-    </div>
+    </flashMessage>
+    {% block body %}{% endblock body %}
 </body>
 
 </html>

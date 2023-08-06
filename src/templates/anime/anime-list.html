@@ -1,0 +1,136 @@
+{% extends 'layout.html' %}
+{% block secondHeader %}
+<!-- Secondary Header -->
+<div>
+    <div class="container">
+        <header class="d-flex justify-content-center py-3">
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="{{ url_for('anime.import_anime') }}" class="nav-link"><i
+                            class="bi bi-database-down"></i> Import</a></li>
+                <li class="nav-item"><a href="{{ url_for('anime.new_anime') }}" class="nav-link"><i
+                            class="bi bi-book"></i> Add Anime</a></li>
+                <li class="nav-item"><a href="{{ url_for('anime.export') }}" class="nav-link"><i
+                            class="bi bi-database-up"></i> Export</a></li>
+            </ul>
+        </header>
+    </div>
+</div>
+{% endblock %}
+<!-- Flash messages go here which comes from layout.html -->
+{% block body %}
+<!-- Sorting Options -->
+<div class="container">
+    <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+            {% if sort_function == "All" %}
+            <li class="nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link active"
+                    aria-current="page">All</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link">All</a></li>
+            {% endif %}
+            {% if sort_function == "Watching" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Watching') }}"
+                    class="nav-link active" aria-current="page">Watching</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Watching') }}"
+                    class="nav-link">Watching</a></li>
+            {% endif %}
+            {% if sort_function == "Completed" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Completed') }}"
+                    class="nav-link active" aria-current="page">Completed</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Completed') }}"
+                    class="nav-link">Completed</a></li>
+            {% endif %}
+            {% if sort_function == "On hold" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'On hold') }}"
+                    class="nav-link active" aria-current="page">On Hold</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'On hold') }}"
+                    class="nav-link">On Hold</a></li>
+            {% endif %}
+            {% if sort_function == "Dropped" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Dropped') }}"
+                    class="nav-link active" aria-current="page">Dropped</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Dropped') }}"
+                    class="nav-link">Dropped</a></li>
+            {% endif %}
+            {% if sort_function == "Plan to watch" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Plan to watch') }}"
+                    class="nav-link active" aria-current="page">Plan To Watch</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Plan to watch') }}"
+                    class="nav-link">Plan To Watch</a></li>
+            {% endif %}
+        </ul>
+    </header>
+</div>
+
+<!-- Table -->
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle mt-4">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">Cover</th>
+                <th scope="col">Title</th>
+                <th scope="col">Score</th>
+                <th scope="col">Episodes</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for anime in anime_list %}
+            <tr class="text-center">
+                <cover>
+                    <td>
+                        <img src="{{ url_for('static', filename='anime_cover/' + anime.cover) }}" alt="Anime Cover"
+                            style="height: 15vh;">
+                    </td>
+                </cover>
+                {% if truncate_title == "Yes" %}
+                <!-- 25vw was very small (like 1 letter) in smaller devices so min-width is used to show starting of the title at least -->
+                <td class="text-truncate" style="max-width: 25vw; min-width: 200px" data-bs-toggle="tooltip">
+                    <a class="text-decoration-underline text-reset"
+                        href="{{ url_for('anime.edit_anime', anime_id=anime.id) }}">
+                        {{ anime.title }}
+                    </a>
+                </td>
+                {% else %}
+                <td>
+                    <a class="text-decoration-underline text-reset"
+                        href="{{ url_for('anime.edit_anime', anime_id=anime.id) }}">
+                        {{ anime.title }}
+                    </a>
+                </td>
+                {% endif %}
+                <td>{{ anime.score }}</td>
+                {% if anime.episode == 0 %}
+                <td>-</td>
+                {% else %}
+                <td>
+                    <a href="{{ url_for('anime.add_one_episode', anime_id=anime.id) }}"
+                        class="text-decoration-underline text-reset">
+                        {{ anime.episode }}
+                    </a>
+                </td>
+                {% endif %}
+                {% if anime.start_date == "0001-01-01" %}
+                <td>-</td>
+                {% else %}
+                <td>{{ anime.start_date }}</td>
+                {% endif %}
+                {% if anime.end_date == "0001-01-01" %}
+                <td>-</td>
+                {% else %}
+                <td>{{ anime.end_date }}</td>
+                {% endif %}
+                <td>{{ anime.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

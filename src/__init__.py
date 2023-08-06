@@ -1,4 +1,4 @@
-import random
+import json
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -14,39 +14,25 @@ def create_app(config_class=Config):
 
     db.init_app(app)
 
+    from src.anime.routes import anime
     from src.errors.handlers import errors
-    from src.functions.routes import function
-    from src.main.routes import main
-    from src.manga.routes import mangas
-    from src.settings.routes import setting
+    from src.home.routes import home
+    from src.manga.routes import manga
+    from src.settings.routes import settings
 
-    app.register_blueprint(mangas)
-    app.register_blueprint(main)
-    app.register_blueprint(setting)
-    app.register_blueprint(function)
+    app.register_blueprint(home)
+    app.register_blueprint(manga)
+    app.register_blueprint(anime)
+    app.register_blueprint(settings)
     app.register_blueprint(errors)
 
-    from src.manga.forms import SearchBar
-
-    # Pass Stuff To Navbar
+    # Pass Stuff To Layout.html
     @app.context_processor
     def base():
-        from src.models import Manga
+        with open("json/settings.json", "r") as f:
+            json_settings = json.load(f)
+            theme = json_settings["theme"]
 
-        # Below logic finds all the manga from database, take random manga,
-        # get its title and then send it to search bar as a place holder
-        manga = Manga.query.order_by(Manga.title.name).all()
-        mangacount = len(manga)
-        try:
-            index = random.randint(0, (mangacount - 1))
-        except ValueError:
-            index = 0
-        if index != 0:
-            manga = manga[index]
-            manga_title = manga.title
-        else:
-            manga_title = "Search"
-        form = SearchBar()
-        return {"navsearch": form, "manga_title": manga_title}
+        return {"theme": theme}
 
     return app

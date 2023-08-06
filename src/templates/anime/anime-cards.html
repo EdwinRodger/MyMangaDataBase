@@ -1,0 +1,125 @@
+{% extends 'layout.html' %}
+{% block secondHeader %}
+<!-- Secondary Header -->
+<div>
+    <div class="container">
+        <header class="d-flex justify-content-center py-3">
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="{{ url_for('anime.import_anime') }}" class="nav-link"><i
+                            class="bi bi-database-down"></i> Import</a></li>
+                <li class="nav-item"><a href="{{ url_for('anime.new_anime') }}" class="nav-link"><i
+                            class="bi bi-book"></i> Add Anime</a></li>
+                <li class="nav-item"><a href="{{ url_for('anime.export') }}" class="nav-link"><i
+                            class="bi bi-database-up"></i> Export</a></li>
+            </ul>
+        </header>
+    </div>
+</div>
+{% endblock %}
+<!-- Flash messages go here which comes from layout.html -->
+{% block body %}
+<!-- Sorting Options -->
+<div class="container">
+    <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+            {% if sort_function == "All" %}
+            <li class="nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link active"
+                    aria-current="page">All</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link">All</a></li>
+            {% endif %}
+            {% if sort_function == "Watching" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Watching') }}"
+                    class="nav-link active" aria-current="page">Watching</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Watching') }}"
+                    class="nav-link">Watching</a></li>
+            {% endif %}
+            {% if sort_function == "Completed" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Completed') }}"
+                    class="nav-link active" aria-current="page">Completed</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Completed') }}"
+                    class="nav-link">Completed</a></li>
+            {% endif %}
+            {% if sort_function == "On hold" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'On hold') }}"
+                    class="nav-link active" aria-current="page">On Hold</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'On hold') }}"
+                    class="nav-link">On Hold</a></li>
+            {% endif %}
+            {% if sort_function == "Dropped" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Dropped') }}"
+                    class="nav-link active" aria-current="page">Dropped</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Dropped') }}"
+                    class="nav-link">Dropped</a></li>
+            {% endif %}
+            {% if sort_function == "Plan to watch" %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Plan to watch') }}"
+                    class="nav-link active" aria-current="page">Plan To Watch</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('anime.sort_anime', sort_function = 'Plan to watch') }}"
+                    class="nav-link">Plan To Watch</a></li>
+            {% endif %}
+        </ul>
+    </header>
+</div>
+
+<!-- Cards -->
+<div class="row row-cols-1 g-4 ms-5 me-5">
+    {% for anime in anime_list %}
+    <div class="card p-0 ms-3 h-50" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='anime_cover/' + anime.cover) }}"
+                    class="img-fluid rounded-start" alt="Anime Cover">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body pb-0">
+                    {% if truncate_title == "Yes" %}
+                    <h5 class="card-title text-truncate"><a class="text-decoration-underline text-reset"
+                            href="{{ url_for('anime.edit_anime', anime_id=anime.id) }}">
+                            {{ anime.title }}
+                        </a></h5>
+                    {% else %}
+                    <h5 class="card-title"><a class="text-decoration-underline text-reset"
+                            href="{{ url_for('anime.edit_anime', anime_id=anime.id) }}">
+                            {{ anime.title }}
+                        </a></h5>
+                    {% endif %}
+                    <p class="card-text">
+                        Score: {{ anime.score }}
+                    </p>
+                    <p class="card-text">
+                        Episodes:
+                        <a href="{{ url_for('anime.add_one_episode', anime_id=anime.id) }}"
+                            class="text-decoration-underline text-reset">
+                            {{ anime.episode }}
+                        </a>
+                    </p>
+                    <p class="card-text">
+                        Start Date:
+                        {% if anime.start_date == "0001-01-01" %}
+                        -
+                        {% else %}
+                        {{ anime.start_date }}
+                        {% endif %}
+                    </p>
+                    <p class="card-text">
+                        End Date:
+                        {% if anime.end_date == "0001-01-01" %}
+                        -
+                        {% else %}
+                        {{ anime.end_date }}
+                        {% endif %}
+                    </p>
+                    <p class="card-text">Status: {{ anime.status }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
