@@ -19,7 +19,7 @@ from src.manga.backup import (
     import_MyAnimeList_manga,
 )
 from src.manga.forms import MangaForm
-from src.manga.utils import MangaHistory, get_settings, remove_cover, save_picture
+from src.manga.utils import MangaHistory, get_settings, remove_cover, save_picture, get_layout
 from src.models import Manga
 
 today_date = datetime.date(datetime.today())
@@ -32,8 +32,9 @@ def manga_list():
     manga_list = Manga.query.order_by(Manga.title.name).all()
     settings = get_settings()
     truncate_title = settings["truncate_title"]
+    layout = get_layout()
     return render_template(
-        "manga/manga-list.html",
+        f"manga/{layout}",
         title="Manga List",
         current_section="Manga",
         manga_list=manga_list,
@@ -156,8 +157,9 @@ def sort_manga(sort_function):
     )
     settings = get_settings()
     truncate_title = settings["truncate_title"]
+    layout = get_layout()
     return render_template(
-        "manga/manga-list.html",
+        f"manga/{layout}",
         title=f"{sort_function} Manga",
         manga_list=manga_list,
         sort_function=sort_function,
@@ -192,8 +194,9 @@ def search_genre(genre):
     manga_list = Manga.query.filter(Manga.genre.like(f"%{genre}%")).all()
     settings = get_settings()
     truncate_title = settings["truncate_title"]
+    layout = get_layout()
     return render_template(
-        "manga/manga-list.html",
+        f"manga/{layout}",
         title=f"{genre} Genre",
         manga_list=manga_list,
         current_section="Manga",
@@ -207,8 +210,9 @@ def search_tags(tag):
     manga_list = Manga.query.filter(Manga.tags.like(f"%{tag}%")).all()
     settings = get_settings()
     truncate_title = settings["truncate_title"]
+    layout = get_layout()
     return render_template(
-        "manga/manga-list.html",
+        f"manga/{layout}",
         title=f"{tag} Tag",
         manga_list=manga_list,
         current_section="Manga",

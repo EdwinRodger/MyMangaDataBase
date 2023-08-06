@@ -20,8 +20,12 @@
                         <label class="form-label">{{ form.truncate_title.label }}</label>
                         {{ form.truncate_title(class="form-control") }}
                     </div>
+                    <div class="col-md-12">
+                        <label class="form-label">{{ form.layout.label }}</label>
+                        {{ form.layout(class="form-control") }}
+                    </div>
+                    <!-- Updates Settings -->
                     <div class="btn-group form my-3" role="group">
-                        <!-- Updates Settings -->
                         {{ form.save(class="btn btn-outline-primary px-auto") }}
                     </div>
                 </div>

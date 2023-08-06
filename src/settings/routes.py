@@ -18,6 +18,7 @@ def create_json_files():
                 "theme": "Dark",
                 "enable_logging": "Yes",
                 "truncate_title": "No",
+                "layout": "Table",
             }
             json.dump(settings, f)
     if not os.path.exists("json/mangalogs.json"):
@@ -42,6 +43,8 @@ def settingspage():
         json_settings["enable_logging"] = form.enable_logging.data
         # Truncate Title
         json_settings["truncate_title"] = form.truncate_title.data
+        # Layout
+        json_settings["layout"] = form.layout.data
 
         with open("json/settings.json", "w") as f:
             json.dump(json_settings, f, indent=4)
@@ -53,6 +56,11 @@ def settingspage():
         form.enable_logging.data = json_settings["enable_logging"]
         # Truncate Title
         form.truncate_title.data = json_settings["truncate_title"]
+        # Layout
+        try:
+            form.layout.data = json_settings["layout"]
+        except:
+            form.layout.data = "Table"
     return render_template(
         "settings.html",
         form=form,

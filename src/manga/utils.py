@@ -84,3 +84,12 @@ def get_settings():
     with open("json/settings.json", "r") as f:
         settings = json.load(f)
     return settings
+
+def get_layout():
+    with open("json/settings.json", "r") as f:
+        settings = json.load(f)
+    layout = settings["layout"]
+    if layout == "Card":
+        return "manga-cards.html"
+    else:
+        return "manga-list.html"

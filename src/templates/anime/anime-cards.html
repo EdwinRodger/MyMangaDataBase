@@ -67,67 +67,59 @@
     </header>
 </div>
 
-<!-- Table -->
-<div class="table-responsive">
-    <table class="table table-striped table-hover align-middle mt-4">
-        <thead>
-            <tr class="text-center">
-                <th scope="col">Cover</th>
-                <th scope="col">Title</th>
-                <th scope="col">Score</th>
-                <th scope="col">Episodes</th>
-                <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
-                <th scope="col">Status</th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            {% for anime in anime_list %}
-            <tr class="text-center">
-                <cover>
-                    <td>
-                        <img src="{{ url_for('static', filename='anime_cover/' + anime.cover) }}" alt="Anime Cover"
-                            style="height: 15vh;">
-                    </td>
-                </cover>
-                {% if truncate_title == "Yes" %}
-                <!-- 25vw was very small (like 1 letter) in smaller devices so min-width is used to show starting of the title at least -->
-                <td class="text-truncate" style="max-width: 25vw; min-width: 200px" data-bs-toggle="tooltip">
-                    {{ anime.title }}
-                </td>
-                {% else %}
-                <td>
-                    <a class="text-decoration-underline text-reset"
-                        href="{{ url_for('anime.edit_anime', anime_id=anime.id) }}">
-                        {{ anime.title }}
-                    </a>
-                </td>
-                {% endif %}
-                <td>{{ anime.score }}</td>
-                {% if anime.episode == 0 %}
-                <td>-</td>
-                {% else %}
-                <td>
-                    <a href="{{ url_for('anime.add_one_episode', anime_id=anime.id) }}"
-                        class="text-decoration-underline text-reset">
-                        {{ anime.episode }}
-                    </a>
-                </td>
-                {% endif %}
-                {% if anime.start_date == "0001-01-01" %}
-                <td>-</td>
-                {% else %}
-                <td>{{ anime.start_date }}</td>
-                {% endif %}
-                {% if anime.end_date == "0001-01-01" %}
-                <td>-</td>
-                {% else %}
-                <td>{{ anime.end_date }}</td>
-                {% endif %}
-                <td>{{ anime.status }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<!-- Cards -->
+<div class="row row-cols-1 g-4 ms-5 me-5">
+    {% for anime in anime_list %}
+    <div class="card p-0 ms-3 h-50" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='anime_cover/' + anime.cover) }}"
+                    class="img-fluid rounded-start" alt="Anime Cover">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body pb-0">
+                    {% if truncate_title == "Yes" %}
+                    <h5 class="card-title text-truncate"><a class="text-decoration-underline text-reset"
+                            href="{{ url_for('anime.edit_anime', anime_id=anime.id) }}">
+                            {{ anime.title }}
+                        </a></h5>
+                    {% else %}
+                    <h5 class="card-title"><a class="text-decoration-underline text-reset"
+                            href="{{ url_for('anime.edit_anime', anime_id=anime.id) }}">
+                            {{ anime.title }}
+                        </a></h5>
+                    {% endif %}
+                    <p class="card-text">
+                        Score: {{ anime.score }}
+                    </p>
+                    <p class="card-text">
+                        Episodes:
+                        <a href="{{ url_for('anime.add_one_episode', anime_id=anime.id) }}"
+                            class="text-decoration-underline text-reset">
+                            {{ anime.episode }}
+                        </a>
+                    </p>
+                    <p class="card-text">
+                        Start Date:
+                        {% if anime.start_date == "0001-01-01" %}
+                        -
+                        {% else %}
+                        {{ anime.start_date }}
+                        {% endif %}
+                    </p>
+                    <p class="card-text">
+                        End Date:
+                        {% if anime.end_date == "0001-01-01" %}
+                        -
+                        {% else %}
+                        {{ anime.end_date }}
+                        {% endif %}
+                    </p>
+                    <p class="card-text">Status: {{ anime.status }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

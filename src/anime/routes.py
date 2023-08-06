@@ -19,7 +19,7 @@ from src.anime.backup import (
     import_MyAnimeList_anime,
 )
 from src.anime.forms import AnimeForm
-from src.anime.utils import AnimeHistory, get_settings, remove_cover, save_picture
+from src.anime.utils import AnimeHistory, get_settings, remove_cover, save_picture, get_layout
 from src.models import Anime
 
 today_date = datetime.date(datetime.today())
@@ -32,8 +32,9 @@ def anime_list():
     anime_list = Anime.query.order_by(Anime.title.name).all()
     settings = get_settings()
     truncate_title = settings["truncate_title"]
+    layout = get_layout()
     return render_template(
-        "anime/anime-list.html",
+        f"anime/{layout}",
         title="Anime List",
         current_section="Anime",
         anime_list=anime_list,
@@ -147,8 +148,9 @@ def sort_anime(sort_function):
     )
     settings = get_settings()
     truncate_title = settings["truncate_title"]
+    layout = get_layout()
     return render_template(
-        "anime/anime-list.html",
+        f"anime/{layout}",
         title=f"{sort_function} Anime",
         anime_list=anime_list,
         sort_function=sort_function,
@@ -174,8 +176,9 @@ def search_genre(genre):
     anime_list = Anime.query.filter(Anime.genre.like(f"%{genre}%")).all()
     settings = get_settings()
     truncate_title = settings["truncate_title"]
+    layout = get_layout()
     return render_template(
-        "anime/anime-list.html",
+        f"anime/{layout}",
         title=f"{genre} Genre",
         anime_list=anime_list,
         current_section="Anime",
@@ -189,8 +192,9 @@ def search_tags(tag):
     anime_list = Anime.query.filter(Anime.tags.like(f"%{tag}%")).all()
     settings = get_settings()
     truncate_title = settings["truncate_title"]
+    layout = get_layout()
     return render_template(
-        "anime/anime-list.html",
+        f"anime/{layout}",
         title=f"{tag} Tag",
         anime_list=anime_list,
         current_section="Anime",
