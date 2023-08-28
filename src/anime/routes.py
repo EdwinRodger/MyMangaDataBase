@@ -19,7 +19,13 @@ from src.anime.backup import (
     import_MyAnimeList_anime,
 )
 from src.anime.forms import AnimeForm
-from src.anime.utils import AnimeHistory, get_settings, remove_cover, save_picture, get_layout
+from src.anime.utils import (
+    AnimeHistory,
+    get_layout,
+    get_settings,
+    remove_cover,
+    save_picture,
+)
 from src.models import Anime
 
 today_date = datetime.date(datetime.today())

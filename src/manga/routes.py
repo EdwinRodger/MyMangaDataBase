@@ -19,7 +19,13 @@ from src.manga.backup import (
     import_MyAnimeList_manga,
 )
 from src.manga.forms import MangaForm
-from src.manga.utils import MangaHistory, get_settings, remove_cover, save_picture, get_layout
+from src.manga.utils import (
+    MangaHistory,
+    get_layout,
+    get_settings,
+    remove_cover,
+    save_picture,
+)
 from src.models import Manga
 
 today_date = datetime.date(datetime.today())

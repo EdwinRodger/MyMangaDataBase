@@ -85,6 +85,7 @@ def get_settings():
         settings = json.load(f)
     return settings
 
+
 def get_layout():
     with open("json/settings.json", "r") as f:
         settings = json.load(f)
