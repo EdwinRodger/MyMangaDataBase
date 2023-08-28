@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.1.0
+
+### New
+
+- Cards Layout
+
+### Updated
+
+- "Star on github" link
+- Image links
+- Images (github)
+
+### Fixed
+
+- Little bad code
+
 ## 2.0.0
 
 ### New
