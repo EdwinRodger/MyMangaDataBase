@@ -18,7 +18,7 @@ from src.manga.backup import (
     extract_mmdb_backup,
     import_MyAnimeList_manga,
 )
-from src.manga.forms import MangaForm
+from src.manga.forms import MangaForm, MangaSearchBar
 from src.manga.utils import (
     MangaHistory,
     get_layout,
@@ -292,3 +292,33 @@ def delete_database():
             if file not in ("default-manga.svg", "default-anime.svg"):
                 os.remove(os.path.join(root, file))
     return redirect(url_for("manga.manga_list"))
+
+
+# Searches manga in the database
+@manga.route("/search", methods=["POST", "GET"])
+def search_manga():
+    form = MangaSearchBar()
+    settings = get_settings()
+    layout = get_layout()
+    truncate_title = settings["truncate_title"]
+    if form.validate_on_submit():
+        manga_list = Manga.query.filter(
+            Manga.title.like(f"%{form.search_field.data}%")
+        ).all()
+        return render_template(
+            f"manga/{layout}",
+            title=f"{form.search_field.data} Manga",
+            mangas=manga,
+            manga_list=manga_list,
+            current_section="Manga",
+            truncate_title=truncate_title,
+        )
+    manga_list = Manga.query.order_by(Manga.title.name).all()
+    return render_template(
+        f"manga/{layout}",
+        title="Manga List",
+        current_section="Manga",
+        manga_list=manga_list,
+        sort_function="All",
+        truncate_title=truncate_title,
+    )

@@ -31,3 +31,8 @@ class MangaForm(FlaskForm):
     notes = TextAreaField("Notes")
     submit = SubmitField("Add")
     update = SubmitField("Update")
+
+
+class MangaSearchBar(FlaskForm):
+    search_field = StringField("Search", validators=[DataRequired(), Length(min=2)])
+    search_button = SubmitField("Search")

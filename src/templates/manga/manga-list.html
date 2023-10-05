@@ -2,26 +2,18 @@
 {% block secondHeader %}
 <!-- Secondary Header -->
 <div>
-    <div class="container">
-        <header class="d-flex justify-content-center py-3">
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a href="{{ url_for('manga.import_manga') }}" class="nav-link"><i
-                            class="bi bi-database-down"></i> Import</a></li>
-                <li class="nav-item"><a href="{{ url_for('manga.add_manga') }}" class="nav-link"><i
-                            class="bi bi-book"></i> Add Manga</a></li>
-                <li class="nav-item"><a href="{{ url_for('manga.export') }}" class="nav-link"><i
-                            class="bi bi-database-up"></i> Export</a></li>
-            </ul>
-        </header>
-    </div>
-</div>
-{% endblock %}
-<!-- Flash messages go here which comes from layout.html -->
-{% block body %}
-<!-- Sorting Options -->
-<div class="container">
-    <header class="d-flex justify-content-center py-3">
-        <ul class="nav nav-pills">
+    <header class="d-flex py-3">
+        <!-- List Functions -->
+        <ul class="nav nav-pills me-auto ms-2">
+            <li class="nav-item"><a href="{{ url_for('manga.add_manga') }}" class="nav-link"><i class="bi bi-book"></i>
+                    Add Manga</a></li>
+            <li class="nav-item"><a href="{{ url_for('manga.import_manga') }}" class="nav-link"><i
+                        class="bi bi-database-down"></i> Import</a></li>
+            <li class="nav-item"><a href="{{ url_for('manga.export') }}" class="nav-link"><i
+                        class="bi bi-database-up"></i> Export</a></li>
+        </ul>
+        <!-- Sort Functions -->
+        <ul class="nav nav-pills mx-auto">
             {% if sort_function == "All" %}
             <li class="nav-item"><a href="{{ url_for('manga.manga_list') }}" class="nav-link active"
                     aria-current="page">All</a></li>
@@ -64,9 +56,19 @@
                     class="nav-link">Plan To Read</a></li>
             {% endif %}
         </ul>
+        <!-- Search Bar -->
+        <form method="POST" action="{{ url_for('manga.search_manga')}}" class="d-flex ms-auto me-2">
+            {{ manga_navsearch.hidden_tag() }}
+            {{ manga_navsearch.search_field(class="form-control mx-1", placeholder=manga_title) }}
+            {{ manga_navsearch.search_button(class="btn btn-outline-primary") }}
+        </form>
     </header>
 </div>
+{% endblock %}
 
+<!-- Flash messages go here which comes from layout.html -->
+
+{% block body %}
 <!-- Table -->
 <div class="table-responsive">
     <table class="table table-striped table-hover align-middle mt-4">
