@@ -18,7 +18,7 @@ from src.anime.backup import (
     extract_mmdb_backup,
     import_MyAnimeList_anime,
 )
-from src.anime.forms import AnimeForm
+from src.anime.forms import AnimeForm, AnimeSearchBar
 from src.anime.utils import (
     AnimeHistory,
     get_layout,
@@ -274,3 +274,32 @@ def delete_database():
             if file not in ("default-manga.svg", "default-anime.svg"):
                 os.remove(os.path.join(root, file))
     return redirect(url_for("anime.anime_list"))
+
+# Searches anime in the database
+@anime.route("/search", methods=["POST", "GET"])
+def search_anime():
+    form = AnimeSearchBar()
+    settings = get_settings()
+    layout = get_layout()
+    truncate_title = settings["truncate_title"]
+    if form.validate_on_submit():
+        anime_list = Anime.query.filter(
+            Anime.title.like(f"%{form.search_field.data}%")
+        ).all()
+        return render_template(
+            f"anime/{layout}",
+            title=f"{form.search_field.data} Anime",
+            animes=anime,
+            anime_list=anime_list,
+            current_section="Anime",
+            truncate_title=truncate_title,
+        )
+    anime_list = Anime.query.order_by(Anime.title.name).all()
+    return render_template(
+        f"anime/{layout}",
+        title="Anime List",
+        current_section="Anime",
+        anime_list=anime_list,
+        sort_function="All",
+        truncate_title=truncate_title,
+    )

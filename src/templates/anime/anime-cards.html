@@ -2,26 +2,18 @@
 {% block secondHeader %}
 <!-- Secondary Header -->
 <div>
-    <div class="container">
-        <header class="d-flex justify-content-center py-3">
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a href="{{ url_for('anime.import_anime') }}" class="nav-link"><i
-                            class="bi bi-database-down"></i> Import</a></li>
-                <li class="nav-item"><a href="{{ url_for('anime.new_anime') }}" class="nav-link"><i
-                            class="bi bi-book"></i> Add Anime</a></li>
-                <li class="nav-item"><a href="{{ url_for('anime.export') }}" class="nav-link"><i
-                            class="bi bi-database-up"></i> Export</a></li>
-            </ul>
-        </header>
-    </div>
-</div>
-{% endblock %}
-<!-- Flash messages go here which comes from layout.html -->
-{% block body %}
-<!-- Sorting Options -->
-<div class="container">
-    <header class="d-flex justify-content-center py-3">
-        <ul class="nav nav-pills">
+    <header class="d-flex py-3">
+        <!-- List Functions -->
+        <ul class="nav nav-pills me-auto ms-2">
+            <li class="nav-item"><a href="{{ url_for('manga.add_manga') }}" class="nav-link"><i class="bi bi-book"></i>
+                    Add Manga</a></li>
+            <li class="nav-item"><a href="{{ url_for('manga.import_manga') }}" class="nav-link"><i
+                        class="bi bi-database-down"></i> Import</a></li>
+            <li class="nav-item"><a href="{{ url_for('manga.export') }}" class="nav-link"><i
+                        class="bi bi-database-up"></i> Export</a></li>
+        </ul>
+        <!-- Sort Functions -->
+        <ul class="nav nav-pills mx-auto">
             {% if sort_function == "All" %}
             <li class="nav-item"><a href="{{ url_for('anime.anime_list') }}" class="nav-link active"
                     aria-current="page">All</a></li>
@@ -64,9 +56,19 @@
                     class="nav-link">Plan To Watch</a></li>
             {% endif %}
         </ul>
+        <!-- Search Bar -->
+        <form method="POST" action="{{ url_for('anime.search_anime')}}" class="d-flex ms-auto me-2">
+            {{ anime_navsearch.hidden_tag() }}
+            {{ anime_navsearch.search_field(class="form-control mx-1", placeholder=anime_title) }}
+            {{ anime_navsearch.search_button(class="btn btn-outline-primary") }}
+        </form>
     </header>
 </div>
+{% endblock %}
 
+<!-- Flash messages go here which comes from layout.html -->
+
+{% block body %}
 <!-- Cards -->
 <div class="row row-cols-1 g-4 ms-5 me-5 justify-content-center">
     {% for anime in anime_list %}

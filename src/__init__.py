@@ -28,6 +28,7 @@ def create_app(config_class=Config):
     app.register_blueprint(errors)
 
     from src.manga.forms import MangaSearchBar
+    from src.anime.forms import AnimeSearchBar
 
     # Pass Stuff To Layout.html
     @app.context_processor
@@ -37,21 +38,34 @@ def create_app(config_class=Config):
             theme = json_settings["theme"]
 
         from src.models import Manga
+        from src.models import Anime
 
         # Below logic finds all the manga from database, take random manga,
         # get its title and then send it to search bar as a place holder
         manga = Manga.query.order_by(Manga.title.name).all()
+        anime = Anime.query.order_by(Anime.title.name).all()
         mangacount = len(manga)
+        animecount = len(anime)
         try:
             manga_index = random.randint(0, (mangacount - 1))
         except ValueError:
             manga_index = 0
+        try:
+            anime_index = random.randint(0, (animecount - 1))
+        except ValueError:
+            anime_index = 0
         if manga_index != 0:
             manga = manga[manga_index]
             manga_title = manga.title
         else:
             manga_title = "Search"
+        if anime_index != 0:
+            anime = anime[anime_index]
+            anime_title = anime.title
+        else:
+            anime_title = "Search"
         manga_form = MangaSearchBar()
-        return {"theme": theme, "manga_navsearch": manga_form, "manga_title": manga_title}
+        anime_form = AnimeSearchBar()
+        return {"theme": theme, "manga_navsearch": manga_form, "manga_title": manga_title, "anime_navsearch": anime_form, "anime_title": anime_title}
 
     return app
