@@ -29,6 +29,7 @@ class AnimeForm(FlaskForm):
     submit = SubmitField("Add")
     update = SubmitField("Update")
 
+
 class AnimeSearchBar(FlaskForm):
     search_field = StringField("Search", validators=[DataRequired(), Length(min=2)])
     search_button = SubmitField("Search")

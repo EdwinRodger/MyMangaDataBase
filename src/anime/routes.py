@@ -275,6 +275,7 @@ def delete_database():
                 os.remove(os.path.join(root, file))
     return redirect(url_for("anime.anime_list"))
 
+
 # Searches anime in the database
 @anime.route("/search", methods=["POST", "GET"])
 def search_anime():
