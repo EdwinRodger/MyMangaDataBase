@@ -8,7 +8,7 @@ MyMangaDataBase (or MMDB for short) is
 
 - Free
 - Private
-- Open source and
+- Open source
 - Self Hosted application to track all your anime and manga.
 
 Use MMDB to make your own Anime and Manga list without the fear of a certain manga/anime not present in your tracking site's database. MMDB is a self-hosted option which means all the data remains on your device.
@@ -34,7 +34,7 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 - Cross Platform (Currently works on Windows and Linux(tested using [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)))
 - Export to MAL, Anilist, Kitsu and other services
 - Import from Anilist, Kitsu and other services
-- Simple routes to edit manga remotely
+- Simple routes to edit manga remotely (apis?)
 
 ## How To Use
 
