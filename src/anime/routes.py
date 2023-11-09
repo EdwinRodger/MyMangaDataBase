@@ -15,7 +15,7 @@ from sqlalchemy import delete
 from src import db
 from src.anime.backup import (
     export_mmdb_backup,
-    extract_mmdb_backup,
+    import_mmdb_backup,
     import_MyAnimeList_anime,
 )
 from src.anime.forms import AnimeForm, AnimeSearchBar
@@ -235,7 +235,7 @@ def importbackup(backup):
         ):
             # this will secure the file
             backup_file.save(backup_file.filename)
-            extract_mmdb_backup(backup_file.filename)
+            import_mmdb_backup(backup_file.filename)
         elif backup == "MyAnimeList" and backup_file.filename.lower().endswith(
             (".xml")
         ):

@@ -83,7 +83,7 @@ def export_mmdb_backup():
         zipfile.write("json/animelogs.json")
 
 
-def extract_mmdb_backup(filename):
+def import_mmdb_backup(filename):
     ZipFile(filename).extractall()
     with open("anime.json", "r", encoding="UTF-8") as file:
         data = json.load(file)
