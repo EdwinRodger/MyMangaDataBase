@@ -301,7 +301,7 @@ def anilist_API(series_id):
         return None
 
 
-def import_anilist_list(filename):
+def import_anilist_manga(filename):
     with open("gdpr_data.json", "r") as f:
         data = json.load(f)
     for series_type in data["lists"]:

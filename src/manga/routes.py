@@ -18,7 +18,7 @@ from src.manga.backup import (
     import_mmdb_backup,
     import_MyAnimeList_manga,
     import_MangaUpdates_list,
-    import_anilist_list,
+    import_anilist_manga,
 )
 from src.manga.forms import MangaForm, MangaSearchBar
 from src.manga.utils import (
@@ -283,7 +283,7 @@ def importbackup(backup):
         import_MangaUpdates_list(backup_file.filename, status)
     elif backup == "AniList" and backup_file.filename.lower() == "gdpr_data.json":
         backup_file.save(backup_file.filename)
-        import_anilist_list(backup_file.filename)
+        import_anilist_manga(backup_file.filename)
     else:
         flash("Choose correct file to import!", "danger")
         return redirect(url_for("manga.import_manga"))
