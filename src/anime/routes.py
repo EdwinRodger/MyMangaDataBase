@@ -236,8 +236,10 @@ def importbackup(backup):
             # this will secure the file
             backup_file.save(backup_file.filename)
             import_mmdb_backup(backup_file.filename)
-        elif backup == "MyAnimeList" and backup_file.filename.lower().endswith(
-            (".xml")
+        elif (
+            backup == "MyAnimeList"
+            and backup_file.filename.lower().endswith((".xml"))
+            and backup_file.filename.lower().startswith(("animelist"))
         ):
             # this will secure the file
             backup_file.save(backup_file.filename)
