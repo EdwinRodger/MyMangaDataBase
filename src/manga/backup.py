@@ -17,6 +17,9 @@ today_date = datetime.date(datetime.today())
 
 def delete_manga_export():
     for backup in os.listdir("."):
+        # Removing MMDB backup
+        if backup.startswith("MMDB-Manga-Export"):
+            os.remove(f"{backup}")
         if os.path.exists("manga.json"):
             os.remove("manga.json")
         if os.path.exists("backup-chapter-log.json"):
