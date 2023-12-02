@@ -10,38 +10,20 @@ import requests
 
 from src import db
 from src.models import Anime
+from src.anime import utils as anime_utils
 
 today_date = datetime.date(datetime.today())
 
 
 def delete_anime_export():
     for backup in os.listdir("."):
-        if backup.startswith("MMDB-Anime-Export"):
-            os.remove(f"{backup}")
-        if backup.endswith(".xml"):
-            os.remove(f"{backup}")
         if os.path.exists("anime.json"):
             os.remove("anime.json")
         if os.path.exists("backup-chapter-log.json"):
             os.remove("backup-chapter-log.json")
-        # Removing MU backup
-        if (
-            backup.startswith("read_")
-            or backup.startswith("wish_")
-            or backup.startswith("complete_")
-            or backup.startswith("unfinished_")
-            or backup.startswith("hold_")
-        ):
-            os.remove(f"{backup}")
-    for backup in os.listdir("src/"):
-        if backup.startswith("MMDB-Anime-Export"):
-            os.remove(f"src\\{backup}")
+        # Removing MAL backup
         if backup.endswith(".xml"):
             os.remove(f"{backup}")
-        if os.path.exists("src\\anime.json"):
-            os.remove("src\\anime.json")
-        if os.path.exists("src\\backup-chapter-log.json"):
-            os.remove("src\\backup-chapter-log.json")
         # Removing MU backup
         if (
             backup.startswith("read_")
@@ -51,6 +33,13 @@ def delete_anime_export():
             or backup.startswith("hold_")
         ):
             os.remove(f"{backup}")
+        # Removing AniList backup
+        if backup.startswith("gdpr_data") and backup.endswith(".json"):
+            os.remove(f"{backup}")
+    for backup in os.listdir("src//"):
+        # Removing MMDB backup
+        if backup.startswith("MMDB-Anime-Export"):
+            os.remove(f"src//{backup}")
 
 
 def export_mmdb_backup():
@@ -190,3 +179,131 @@ def import_MyAnimeList_anime(filename):
 
     db.session.commit()
     delete_anime_export()
+
+
+def anilist_API(series_id):
+    query = """
+    query ($id: Int) { # Define which variables will be used in the query (id)
+        Media (id: $id, type: ANIME) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
+            title {
+                english
+            }
+            coverImage{
+                extraLarge
+            }
+            description
+            genres
+            staff{
+                edges{
+                    node{
+                        name{
+                            full
+                        }
+                    }
+                    role
+                }
+            }
+        }
+    }
+    """
+
+    url = "https://graphql.anilist.co"
+
+    variables = {"id": series_id}
+
+    # Make the HTTP Api request
+    response = requests.post(url, json={"query": query, "variables": variables})
+    response_data = response.json()["data"]["Media"]
+
+    if response.status_code == 200:
+        title = response_data["title"]["english"]
+
+        cover_url = response_data["coverImage"]["extraLarge"]
+        cover_image_name = anime_utils.online_image_downloader(cover_url, title)
+
+        description = response_data["description"]
+        genre = ", ".join(response_data["genres"])
+
+        authors = []
+        for author in response_data["staff"]["edges"]:
+            if "Story" in author["role"]:
+                name = author["node"]["name"]["full"]
+                authors.append(name)
+        authors = ", ".join(authors)
+
+        artists = []
+        for artist in response_data["staff"]["edges"]:
+            if ("Art") in artist["role"]:
+                name = artist["node"]["name"]["full"]
+                artists.append(name)
+        artists = ", ".join(artists)
+
+        print("Metadata fetched successfully: ", title)
+        return (
+            str(title),
+            str(cover_image_name),
+            str(description),
+            str(genre),
+            str(authors),
+            str(artists),
+        )
+    else:
+        print("Query failed: ", series_id)
+        return None
+
+
+def import_anilist_anime(filename):
+    with open("gdpr_data.json", "r") as f:
+        data = json.load(f)
+    for series_type in data["lists"]:
+        if series_type["series_type"] == 0:
+            if series_type["started_on"] != 0:
+                start_date = str(series_type["started_on"])
+                start_date = datetime.strptime(start_date, "%Y%m%d")
+                start_date = start_date.strftime("%Y-%m-%d")
+            else:
+                start_date = "0001-01-01"
+            if series_type["finished_on"] != 0:
+                end_date = str(series_type["finished_on"])
+                end_date = datetime.strptime(end_date, "%Y%m%d")
+                end_date = end_date.strftime("%Y-%m-%d")
+            else:
+                end_date = "0001-01-01"
+            if series_type["status"] == 0:
+                status = "Watching"
+            elif series_type["status"] == 1:
+                status = "Plan to watch"
+            elif series_type["status"] == 2:
+                status = "Completed"
+            elif series_type["status"] == 3:
+                status = "Dropped"
+            elif series_type["status"] == 4:
+                status = "On hold"
+
+            metadata = anilist_API(series_type["series_id"])
+
+            if metadata is not None:
+                anime = Anime(
+                    cover=metadata[1],
+                    title=metadata[0],
+                    episode=series_type["progress"],
+                    start_date=start_date,
+                    end_date=end_date,
+                    score=round(series_type["score"] / 10),
+                    status=status,
+                    description=metadata[2],
+                    genre=metadata[3],
+                )
+            else:
+                anime = Anime(
+                    title=series_type["series_id"],
+                    episode=series_type["progress"],
+                    start_date=start_date,
+                    end_date=end_date,
+                    score=round(series_type["score"] / 10),
+                    status=status,
+                )
+            db.session.add(anime)
+            time.sleep(1)
+    # Commiting entries to database
+    db.session.commit()

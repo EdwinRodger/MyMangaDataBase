@@ -2,6 +2,8 @@ import json
 import os
 import secrets
 from datetime import datetime
+import requests
+import shutil
 
 from flask import current_app
 from PIL import Image
@@ -94,3 +96,14 @@ def get_layout():
         return "anime-cards.html"
     else:
         return "anime-list.html"
+
+
+def online_image_downloader(img_url, title):
+    file_name = os.urandom(8).hex()
+    res = requests.get(img_url, stream=True, timeout=30)
+    if res.status_code == 200:
+        with open(f"src/static/anime_cover/{file_name}.jpg", "wb") as image:
+            shutil.copyfileobj(res.raw, image)
+        return f"{file_name}.jpg"
+    print("Image couldn't be retrieved: ", title)
+    return "default-anime.svg"

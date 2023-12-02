@@ -17,6 +17,7 @@ from src.anime.backup import (
     export_mmdb_backup,
     import_mmdb_backup,
     import_MyAnimeList_anime,
+    import_anilist_anime,
 )
 from src.anime.forms import AnimeForm, AnimeSearchBar
 from src.anime.utils import (
@@ -244,6 +245,9 @@ def importbackup(backup):
             # this will secure the file
             backup_file.save(backup_file.filename)
             import_MyAnimeList_anime(backup_file.filename)
+        elif backup == "AniList" and backup_file.filename.lower() == "gdpr_data.json":
+            backup_file.save(backup_file.filename)
+            import_anilist_anime(backup_file.filename)
         else:
             flash("Choose correct file to import!", "danger")
             return redirect(url_for("anime.import_anime"))
