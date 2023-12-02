@@ -70,5 +70,21 @@
             </div>
         </form>
     </div>
+    <div class="content-section mx-1 my-3">
+        <form action="{{ url_for('manga.importbackup', backup='AniList') }}" method="post"
+            enctype="multipart/form-data">
+            <div class="card bg-dark border-white">
+                <div class="card-body">
+                    <h5 class="card-title">AniList Import</h5>
+                    <p class="card-text">Imports " gdpr_data.json " file</p>
+                    <div class="d-flex">
+                        <input type="submit" class="me-3 btn btn-secondary btn-lg">
+                        <input class="form-control form-control-lg" id="formFileLg" name="file" type="file" ,
+                            accept=".json">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock body %}

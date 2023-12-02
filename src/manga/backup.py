@@ -10,39 +10,23 @@ import requests
 
 from src import db
 from src.models import Manga
-from src.manga import web_scraper
+from src.manga import web_scraper, utils
 
 today_date = datetime.date(datetime.today())
 
 
 def delete_manga_export():
     for backup in os.listdir("."):
+        # Removing MMDB backup
         if backup.startswith("MMDB-Manga-Export"):
-            os.remove(f"{backup}")
-        if backup.endswith(".xml"):
             os.remove(f"{backup}")
         if os.path.exists("manga.json"):
             os.remove("manga.json")
         if os.path.exists("backup-chapter-log.json"):
             os.remove("backup-chapter-log.json")
-        # Removing MU backup
-        if (
-            backup.startswith("read_")
-            or backup.startswith("wish_")
-            or backup.startswith("complete_")
-            or backup.startswith("unfinished_")
-            or backup.startswith("hold_")
-        ):
-            os.remove(f"{backup}")
-    for backup in os.listdir("src/"):
-        if backup.startswith("MMDB-Manga-Export"):
-            os.remove(f"src\\{backup}")
+        # Removing MAL backup
         if backup.endswith(".xml"):
             os.remove(f"{backup}")
-        if os.path.exists("src\\manga.json"):
-            os.remove("src\\manga.json")
-        if os.path.exists("src\\backup-chapter-log.json"):
-            os.remove("src\\backup-chapter-log.json")
         # Removing MU backup
         if (
             backup.startswith("read_")
@@ -51,6 +35,9 @@ def delete_manga_export():
             or backup.startswith("unfinished_")
             or backup.startswith("hold_")
         ):
+            os.remove(f"{backup}")
+        # Removing AniList backup
+        if backup.startswith("gdpr_data") and backup.endswith(".json"):
             os.remove(f"{backup}")
 
 
@@ -241,3 +228,135 @@ def import_MangaUpdates_list(filename, status):
         db.session.add(manga)
         # Commiting entries to database
         db.session.commit()
+
+
+def anilist_API(series_id):
+    query = """
+    query ($id: Int) { # Define which variables will be used in the query (id)
+        Media (id: $id, type: MANGA) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
+            title {
+                english
+            }
+            coverImage{
+                extraLarge
+            }
+            description
+            genres
+            staff{
+                edges{
+                    node{
+                        name{
+                            full
+                        }
+                    }
+                    role
+                }
+            }
+        }
+    }
+    """
+
+    url = "https://graphql.anilist.co"
+
+    variables = {"id": series_id}
+
+    # Make the HTTP Api request
+    response = requests.post(url, json={"query": query, "variables": variables})
+    response_data = response.json()["data"]["Media"]
+
+    if response.status_code == 200:
+        title = response_data["title"]["english"]
+
+        cover_url = response_data["coverImage"]["extraLarge"]
+        cover_image_name = utils.online_image_downloader(cover_url, title)
+
+        description = response_data["description"]
+        genre = ", ".join(response_data["genres"])
+
+        authors = []
+        for author in response_data["staff"]["edges"]:
+            if "Story" in author["role"]:
+                name = author["node"]["name"]["full"]
+                authors.append(name)
+        authors = ", ".join(authors)
+
+        artists = []
+        for artist in response_data["staff"]["edges"]:
+            if ("Art") in artist["role"]:
+                name = artist["node"]["name"]["full"]
+                artists.append(name)
+        artists = ", ".join(artists)
+
+        print("Metadata fetched successfully: ", title)
+        return (
+            str(title),
+            str(cover_image_name),
+            str(description),
+            str(genre),
+            str(authors),
+            str(artists),
+        )
+    else:
+        print("Query failed: ", series_id)
+        return None
+
+
+def import_anilist_list(filename):
+    with open("gdpr_data.json", "r") as f:
+        data = json.load(f)
+    for series_type in data["lists"]:
+        if series_type["series_type"] == 1:
+            if series_type["started_on"] != 0:
+                start_date = str(series_type["started_on"])
+                start_date = datetime.strptime(start_date, "%Y%m%d")
+                start_date = start_date.strftime("%Y-%m-%d")
+            else:
+                start_date = "0001-01-01"
+            if series_type["finished_on"] != 0:
+                end_date = str(series_type["finished_on"])
+                end_date = datetime.strptime(end_date, "%Y%m%d")
+                end_date = end_date.strftime("%Y-%m-%d")
+            else:
+                end_date = "0001-01-01"
+            if series_type["status"] == 0:
+                status = "Reading"
+            elif series_type["status"] == 1:
+                status = "Plan to read"
+            elif series_type["status"] == 2:
+                status = "Completed"
+            elif series_type["status"] == 3:
+                status = "Dropped"
+            elif series_type["status"] == 4:
+                status = "On hold"
+
+            metadata = anilist_API(series_type["series_id"])
+
+            if metadata is not None:
+                manga = Manga(
+                    title=metadata[0],
+                    start_date=start_date,
+                    end_date=end_date,
+                    volume=series_type["progress_volume"],
+                    chapter=series_type["progress"],
+                    status=status,
+                    score=round(series_type["score"] / 100),
+                    artist=metadata[4],
+                    author=metadata[5],
+                    cover=metadata[1],
+                    description=metadata[2],
+                    genre=metadata[3],
+                )
+            else:
+                manga = Manga(
+                    title=series_type["series_id"],
+                    start_date=start_date,
+                    end_date=end_date,
+                    volume=series_type["progress_volume"],
+                    chapter=series_type["progress"],
+                    status=status,
+                    score=round(series_type["score"] / 100),
+                )
+            db.session.add(manga)
+            time.sleep(1)
+    # Commiting entries to database
+    db.session.commit()
