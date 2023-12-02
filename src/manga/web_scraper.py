@@ -1,19 +1,7 @@
-import os
-import shutil
-
 import requests
 from bs4 import BeautifulSoup
 
-
-def image_downloader(img_url, title):
-    file_name = os.urandom(8).hex()
-    res = requests.get(img_url, stream=True, timeout=30)
-    if res.status_code == 200:
-        with open(f"src/static/manga_cover/{file_name}.jpg", "wb") as image:
-            shutil.copyfileobj(res.raw, image)
-        return f"{file_name}.jpg"
-    print("Image couldn't be retrieved: ", title)
-    return "default-manga.svg"
+import src.manga.utils as manga_utils
 
 
 # Collects metadata of manga from ManagUpdates which contains description, genres etc.
@@ -41,7 +29,7 @@ def manga_metadata(url, title):
         manga_description = " ".join(manga_description[1:]).replace("Less...", "")
     # After collecting the image on right side (cover image), we send it to get downloaded.
     try:
-        manga_cover = image_downloader(images[0].get("src").strip(), title)
+        manga_cover = manga_utils.online_image_downloader(images[0].get("src").strip(), title)
     except IndexError:
         print("Image couldn't be retrieved: ", title)
         manga_cover = "default-manga.svg"
