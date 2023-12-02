@@ -17,6 +17,7 @@ from src.manga.backup import (
     export_mmdb_backup,
     import_mmdb_backup,
     import_MyAnimeList_manga,
+    import_MangaUpdates_list,
 )
 from src.manga.forms import MangaForm, MangaSearchBar
 from src.manga.utils import (
@@ -241,6 +242,14 @@ def importbackup(backup):
     if request.method == "POST":
         # get the file from the files object
         backup_file = request.files["file"]
+        # Mapping file prefixes to status values for MangaUpdates
+        prefix_to_status = {
+            "read": "Reading",
+            "wish": "Plan to read",
+            "complete": "Completed",
+            "unfinished": "Dropped",
+            "hold": "On hold",
+        }
         # Checking if no file is sent
         if backup_file.filename == "":
             flash("Choose a file to import!", "danger")
@@ -262,6 +271,17 @@ def importbackup(backup):
             # this will secure the file
             backup_file.save(backup_file.filename)
             import_MyAnimeList_manga(backup_file.filename)
+        elif (
+            backup == "MangaUpdates"
+            and backup_file.filename.lower().endswith(".txt")
+            and backup_file.filename.lower().startswith(tuple(prefix_to_status.keys()))
+        ):
+            # Setting backup status according to file prefix
+            prefix = backup_file.filename.lower().split("_")[0]
+            status = prefix_to_status[prefix]
+
+            backup_file.save(backup_file.filename)
+            import_MangaUpdates_list(backup_file.filename, status)
         else:
             flash("Choose correct file to import!", "danger")
             return redirect(url_for("manga.import_manga"))

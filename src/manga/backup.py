@@ -10,6 +10,7 @@ import requests
 
 from src import db
 from src.models import Manga
+from src.manga import web_scraper
 
 today_date = datetime.date(datetime.today())
 
@@ -201,3 +202,42 @@ def import_MyAnimeList_manga(filename):
 
     db.session.commit()
     delete_manga_export()
+
+
+def import_MangaUpdates_list(filename, status):
+    # Reading lines from MU backup file
+    with open(filename, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+    # Getting date object as MU doesn't support date editing
+    d = datetime.strptime("0001-01-01", "%Y-%m-%d")
+    date = d.date()
+    # Getting entries from backup file
+    for line in lines[1:]:
+        # Cleaning entry line and converting it into list
+        line = line.strip("\n").split("\t")
+        # 4th index is score and it is 'N/A' if not set on MU
+        if line[4] == "N/A":
+            rating = 0
+        else:
+            # Rounding score if it is set in decimals
+            rating = round(int(line[4]))
+        # Getting Metadata
+        metadata = web_scraper.manga_search(line[0])
+        # Adding entries to database
+        manga = Manga(
+            title=line[0],
+            start_date=date,
+            end_date=date,
+            volume=line[1],
+            chapter=line[2],
+            status=status,
+            score=rating,
+            artist=metadata[0],
+            author=metadata[1],
+            cover=metadata[2],
+            description=metadata[3],
+            genre=metadata[4],
+        )
+        db.session.add(manga)
+        # Commiting entries to database
+        db.session.commit()
