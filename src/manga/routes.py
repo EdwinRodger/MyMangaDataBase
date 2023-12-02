@@ -236,60 +236,55 @@ def import_manga():
 
 
 # Imports backup based on file extension
-@manga.route("/import/<string:backup>", methods=["GET", "POST"])
+@manga.route("/import/<string:backup>", methods=["POST"])
 def importbackup(backup):
-    # check if the method is post
-    if request.method == "POST":
-        # get the file from the files object
-        backup_file = request.files["file"]
-        # Mapping file prefixes to status values for MangaUpdates
-        prefix_to_status = {
-            "read": "Reading",
-            "wish": "Plan to read",
-            "complete": "Completed",
-            "unfinished": "Dropped",
-            "hold": "On hold",
-        }
-        # Checking if no file is sent
-        if backup_file.filename == "":
-            flash("Choose a file to import!", "danger")
-            return redirect(url_for("manga.import_manga"))
-        # If file is sent through MMDB form, checking if file name is correct. If correct, then extracting the import
-        elif (
-            backup == "MyMangaDataBase"
-            and backup_file.filename.lower().endswith((".zip"))
-            and backup_file.filename.startswith(("MMDB-Manga-Export"))
-        ):
-            # this will secure the file
-            backup_file.save(backup_file.filename)
-            import_mmdb_backup(backup_file.filename)
-        elif (
-            backup == "MyAnimeList"
-            and backup_file.filename.lower().endswith((".xml"))
-            and backup_file.filename.lower().startswith(("mangalist"))
-        ):
-            # this will secure the file
-            backup_file.save(backup_file.filename)
-            import_MyAnimeList_manga(backup_file.filename)
-        elif (
-            backup == "MangaUpdates"
-            and backup_file.filename.lower().endswith(".txt")
-            and backup_file.filename.lower().startswith(tuple(prefix_to_status.keys()))
-        ):
-            # Setting backup status according to file prefix
-            prefix = backup_file.filename.lower().split("_")[0]
-            status = prefix_to_status[prefix]
+    # get the file from the files object
+    backup_file = request.files["file"]
+    # Mapping file prefixes to status values for MangaUpdates
+    prefix_to_status = {
+        "read": "Reading",
+        "wish": "Plan to read",
+        "complete": "Completed",
+        "unfinished": "Dropped",
+        "hold": "On hold",
+    }
+    # Checking if no file is sent
+    if backup_file.filename == "":
+        flash("Choose a file to import!", "danger")
+        return redirect(url_for("manga.import_manga"))
+    # If file is sent through MMDB form, checking if file name is correct. If correct, then extracting the import
+    elif (
+        backup == "MyMangaDataBase"
+        and backup_file.filename.lower().endswith((".zip"))
+        and backup_file.filename.startswith(("MMDB-Manga-Export"))
+    ):
+        # this will secure the file
+        backup_file.save(backup_file.filename)
+        import_mmdb_backup(backup_file.filename)
+    elif (
+        backup == "MyAnimeList"
+        and backup_file.filename.lower().endswith((".xml"))
+        and backup_file.filename.lower().startswith(("mangalist"))
+    ):
+        # this will secure the file
+        backup_file.save(backup_file.filename)
+        import_MyAnimeList_manga(backup_file.filename)
+    elif (
+        backup == "MangaUpdates"
+        and backup_file.filename.lower().endswith(".txt")
+        and backup_file.filename.lower().startswith(tuple(prefix_to_status.keys()))
+    ):
+        # Setting backup status according to file prefix
+        prefix = backup_file.filename.lower().split("_")[0]
+        status = prefix_to_status[prefix]
 
-            backup_file.save(backup_file.filename)
-            import_MangaUpdates_list(backup_file.filename, status)
-        else:
-            flash("Choose correct file to import!", "danger")
-            return redirect(url_for("manga.import_manga"))
-        return redirect(
-            url_for("manga.manga_list")
-        )  # Display thsi message after uploading
+        backup_file.save(backup_file.filename)
+        import_MangaUpdates_list(backup_file.filename, status)
+    else:
+        flash("Choose correct file to import!", "danger")
+        return redirect(url_for("manga.import_manga"))
     return redirect(
-        url_for("manga.import_manga")
+        url_for("manga.manga_list")
     )  # Display thsi message after uploading
 
 
