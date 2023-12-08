@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="d-flex justify-content-center mt-5 mb-5">
+    {% if url %}
+    <img src="{{ url }}" alt="405 Method Not Aloowed GIF" class="img-fluid">
+    {% else %}
+    <img src="{{ url_for('static', filename='error_assests/405 not allowed.jpg') }}" alt="405 not allowed JPG"
+        class="img-fluid">
+    {% endif %}
+</div>
+<div>
+    <figure class="text-center">
+        <blockquote class="blockquote">
+            <p class="fs-1">Method Not Allowed (405)</p>
+            <p>Nope!</p>
+        </blockquote>
+    </figure>
+</div>
+{% endblock body %}
