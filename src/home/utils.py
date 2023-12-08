@@ -140,7 +140,10 @@ def check_for_update():
     url = "https://api.github.com/repos/EdwinRodger/MyMangaDataBase/tags"
 
     # Fetch the JSON response from the API
-    response = requests.get(url).json()
+    try:
+        response = requests.get(url).json()
+    except:
+        return False
 
     # File path to store the version hash
     version_hash_file = "json/versionhash.json"
