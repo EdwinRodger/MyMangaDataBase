@@ -1,5 +1,7 @@
 import os
 from datetime import datetime
+import time
+import random
 
 from flask import (
     Blueprint,
@@ -29,6 +31,7 @@ from src.manga.utils import (
     save_picture,
 )
 from src.models import Manga
+from src.manga import web_scraper
 
 today_date = datetime.date(datetime.today())
 
@@ -143,6 +146,33 @@ def edit_manga(manga_id):
         history=history,
     )
 
+
+# Updates metadata related to the manga
+# manga_id = 0 means whole database will get updated
+@manga.route("/function/update-metadata/<int:manga_id>")
+def update_metadata(manga_id):
+    if manga_id != 0:
+        manga = Manga.query.get_or_404(manga_id)
+        if manga.cover != "default-manga.svg":
+            cover_path = f"src/static/manga_cover/{manga.cover}"
+            if os.path.exists(cover_path):
+                os.remove(cover_path)
+        metadata = web_scraper.manga_search(manga.title)
+        manga.artist, manga.author, manga.cover, manga.description, manga.genre = metadata
+        db.session.commit()
+    else:
+        manga_list = Manga.query.order_by(Manga.title.name).all()
+        for manga in manga_list:
+            if manga.cover != "default-manga.svg":
+                cover_path = f"src/static/manga_cover/{manga.cover}"
+                if os.path.exists(cover_path):
+                    os.remove(cover_path)
+            time.sleep(random.randint(2, 5))
+            metadata = web_scraper.manga_search(manga.title)
+            manga.artist, manga.author, manga.cover, manga.description, manga.genre = metadata
+            db.session.commit()
+        return redirect(url_for("manga.manga_list"))
+    return redirect(url_for("manga.edit_manga", manga_id=manga_id))
 
 # Delete A Manga
 @manga.route("/delete/<int:manga_id>", methods=["POST"])

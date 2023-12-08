@@ -151,6 +151,8 @@
                         <!-- Updates Manga -->
                         {{ form.update(class="btn btn-primary px-auto") }}
                         <!-- Return to home page -->
+                        <a href="{{ url_for('manga.update_metadata', manga_id = manga.id) }}" class="btn btn-warning">Get Metadata From MangaUpdates</a>
+                        <!-- Return to home page -->
                         <a href="{{ url_for('home.homepage') }}" class="btn btn-secondary">Go Home</a>
                         <!-- Deletes Manga -->
                         <button type="button" class="btn btn-danger px-auto" data-bs-toggle="modal"
