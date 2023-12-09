@@ -35,7 +35,6 @@ def checks():
     with app.app_context():
         db.create_all()
     create_json_files()
-    check_for_update()
     delete_anime_export()
     delete_manga_export()
 
