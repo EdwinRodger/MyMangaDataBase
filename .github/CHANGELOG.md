@@ -1,29 +1,36 @@
 # Changelog
 
+## 2.2.1
+
+### Fix
+
+- New version update message not showing
+- Metadata from MangaUpdates giving error
+
 ## 2.2.0
 
 ### New
 
 - Search Feature
-  - Manga 3842581b8dd804e28d8d93318e461dee247e14de
-  - Anime 0afbc62625f7dac65f125308630a0d38edd6343a
+  - Manga
+  - Anime
 - Import user list from
-  - MangaUpdates (Manga e598e638c808db1eb66f1cf997108fa8933eb22b)
-  - AniList (Manga ff5cc112698135078adbe9f52baf8155e96449fd and Anime be201e665cc1abdfc6369d3d54cedff8cbdec276)
-- 405 Method Not Allowed error page a4037e9192a667717ce6c4acdfe6c4e4f099a9a5
-- Get online metadata from [MangaUpdates](mangaupdates.com) 262997d69da019f10f5703edb41e7939d1cd298d
+  - MangaUpdates (Manga)
+  - AniList (Manga and Anime)
+- 405 Method Not Allowed error page
+- Get online metadata from [MangaUpdates](mangaupdates.com)
 
 ### Updated
 
-- Extra file check before uploading MAL import file d9eba95da5e5456e9d914ed63eb44c4731c9f79b
-- Exports and Backup deletion logic d6a6d0dac4978355daa0e147a7a42ad3651bf08f 8beba44c0b2547764c641fa73a178ad0cf35ffcc
+- Extra file check before uploading MAL import file
+- Exports and Backup deletion logic
 
 ### Fixed
 
-- Card layout not being centered 81de64b430f0b64aba13c7498deaf24dc38e65ca
-- Anime info not opening when truncating title in table mode 0799aa70f1ba203fd0b60688deac71c57e5bf78b
-- Getting error when checking for update when no internet connection 79debe4b1ec9d51661baf47e79f191371dd20c70
-- No image showing on 404 error page 05008d3ffa05b381cfa1320ad9f75ec37b3fc3f5
+- Card layout not being centered
+- Anime info not opening when truncating title in table mode
+- Getting error when checking for update when no internet connection
+- No image showing on 404 error page
 
 ## 2.1.0
 
