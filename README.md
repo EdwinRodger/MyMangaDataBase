@@ -23,7 +23,11 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 - Dark Theme
 - Editable metadata (genre, description etc.)
 - Export to MMDB
-- Import from MyAnimeList, MMDB
+- Import from
+  - AniList (Anime & Manga)
+  - MangaUpdates (Manga)
+  - MyAnimeList (Anime & Manga)
+  - MMDB (Anime & Manga)
 - Responsive UI
 - Self Hosted
 - Sort by status
@@ -33,18 +37,17 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 
 - Cross Platform (Currently works on Windows and Linux(tested using [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)))
 - Export to MAL, Anilist, Kitsu and other services
-- Import from Anilist, Kitsu and other services
 - Simple routes to edit manga remotely (apis?)
 
 ## How To Use
 
 - Install python 3.10 for [Windows](https://www.python.org/downloads/release/python-3101/) or [Linux](https://tecadmin.net/how-to-install-python-3-10-on-ubuntu-debian-linuxmint/) based on your OS
-- Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest) (MyMangaDataBase-{version}.zip)
+- Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest) (Source Code (zip))
 - Extract the files from the zip folder
 - To run MMDB, Simply run `MyMangaDataBase.cmd`(Windows) or `MyMangaDataBase.sh`(Linux) depending on your OS. This will -
     - Automatically make virtual environment
     - Install all required packages in it
-    - MyMangaDataBase will open on your default browser
+    - Open MyMangaDataBase (`http://127.0.0.1:6070/`) on your browser
 
 
 ## Want to Contribute?
