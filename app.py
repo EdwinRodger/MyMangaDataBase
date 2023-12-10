@@ -8,7 +8,6 @@ from flask import request
 
 from src import create_app, db
 from src.anime.backup import delete_anime_export
-from src.home.utils import check_for_update
 from src.manga.backup import delete_manga_export
 from src.settings.routes import create_json_files
 
