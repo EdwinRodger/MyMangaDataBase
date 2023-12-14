@@ -7,4 +7,5 @@ class SettingsForm(FlaskForm):
     enable_logging = SelectField("Enable Logging", choices=["Yes", "No"])
     truncate_title = SelectField("Truncate Title", choices=["Yes", "No"])
     layout = SelectField("Layout", choices=["Table", "Card"])
+    mmdb_promotion = SelectField("MMDB Promotion", choices=["Yes", "No"])
     save = SubmitField("Save")
