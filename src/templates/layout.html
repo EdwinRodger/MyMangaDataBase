@@ -101,7 +101,7 @@
         {% if messages %}
         {% for category, messages in messages %}
         <div class="alert alert-{{ category }} text-center rounded-0">
-            {{ messages }}
+            {{ messages | safe }}
         </div>
         {% endfor %}
         {% endif %}

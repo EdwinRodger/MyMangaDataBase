@@ -27,6 +27,7 @@ from src.anime.utils import (
     remove_cover,
     save_picture,
 )
+from src.home.utils import mmdb_promotion
 from src.models import Anime
 
 today_date = datetime.date(datetime.today())
@@ -310,3 +311,13 @@ def search_anime():
         sort_function="All",
         truncate_title=truncate_title,
     )
+
+
+from src.anime.routes import anime
+
+
+@anime.before_request
+def before_request():
+    endpoint = request.endpoint
+    if endpoint == "anime.anime_list":
+        mmdb_promotion(anime_list)()

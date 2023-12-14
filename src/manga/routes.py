@@ -15,6 +15,7 @@ from flask import (
 from sqlalchemy import delete
 
 from src import db
+from src.home.utils import mmdb_promotion
 from src.manga.backup import (
     export_mmdb_backup,
     import_mmdb_backup,
@@ -371,3 +372,10 @@ def search_manga():
         sort_function="All",
         truncate_title=truncate_title,
     )
+
+
+@manga.before_request
+def before_request():
+    endpoint = request.endpoint
+    if endpoint == "manga.manga_list":
+        mmdb_promotion(manga_list)()

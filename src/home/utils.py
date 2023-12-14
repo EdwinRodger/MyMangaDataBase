@@ -1,10 +1,12 @@
 import hashlib
 import json
 import os
+import random
 import statistics
 from collections import Counter
 
 import requests
+from flask import flash
 
 from src.models import Anime, Manga
 
@@ -172,3 +174,26 @@ def check_for_update():
 
     # An update is available
     return True
+
+
+def mmdb_promotion(func):
+    def wrapper(*args, **kwargs):
+        with open("json/settings.json", "r") as f:
+            json_settings = json.load(f)
+
+        if json_settings["mmdb_promotion"] == "Yes":
+            num = random.randint(1, 25)
+            if num == 1:
+                flash(
+                    'Star MyMangaDataBase on <a href="https://github.com/EdwinRodger/MyMangaDataBase/blob/main/docs/help.md" target="_blank">GitHub</a>!',
+                    "info",
+                )
+            if num == 2:
+                flash(
+                    'Like MyMangaDataBase on <a href="https://alternativeto.net/software/mymangadatabase/" target="_blank">AlternativeTo</a>!',
+                    "info",
+                )
+
+        return func(*args, **kwargs)
+
+    return wrapper
