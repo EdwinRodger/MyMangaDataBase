@@ -52,6 +52,7 @@ def manga_list():
         manga_list=manga_list,
         sort_function="All",
         truncate_title=truncate_title,
+        settings = settings,
     )
 
 
@@ -217,6 +218,7 @@ def sort_manga(sort_function):
         sort_function=sort_function,
         current_section="Manga",
         truncate_title=truncate_title,
+        settings = settings,
     )
 
 
@@ -253,6 +255,7 @@ def search_genre(genre):
         manga_list=manga_list,
         current_section="Manga",
         truncate_title=truncate_title,
+        settings = settings,
     )
 
 
@@ -269,6 +272,7 @@ def search_tags(tag):
         manga_list=manga_list,
         current_section="Manga",
         truncate_title=truncate_title,
+        settings = settings,
     )
 
 
@@ -375,6 +379,7 @@ def search_manga():
             manga_list=manga_list,
             current_section="Manga",
             truncate_title=truncate_title,
+            settings = settings,
         )
     manga_list = Manga.query.order_by(Manga.title.name).all()
     return render_template(
@@ -384,6 +389,7 @@ def search_manga():
         manga_list=manga_list,
         sort_function="All",
         truncate_title=truncate_title,
+        settings = settings,
     )
 
 

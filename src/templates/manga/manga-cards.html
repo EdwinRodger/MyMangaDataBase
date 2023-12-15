@@ -70,6 +70,7 @@
 
 {% block body %}
 <!-- Cards -->
+{% if settings["layout"] == "Card" %}
 <div class="row row-cols-1 g-4 ms-5 me-5 justify-content-center">
     {% for manga in manga_list %}
     <div class="card p-0 ms-3 h-50" style="max-width: 540px;">
@@ -134,4 +135,70 @@
     </div>
     {% endfor %}
 </div>
+{% else %}
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3">
+        {% for manga in manga_list %}
+        <div class="col my-2">
+            <div class="card p-0 text-bg-dark" style="max-width: 540px; overflow: hidden;">
+                <img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}" class="img-fluid row-md-4"
+                    alt="Anime Cover" style="filter:blur(5px); -webkit-filter:blur(5px);">
+                <div class="card-img-overlay" style="background-color: rgba(0,0,0, 0.4);">
+                    <div class="card-body pb-0">
+                        {% if truncate_title == "Yes" %}
+                        <h5 class="card-title text-truncate"><a class="text-decoration-underline text-reset"
+                                href="{{ url_for('manga.edit_manga', manga_id=manga.id) }}">
+                                {{ manga.title }}
+                            </a></h5>
+                        {% else %}
+                        <h5 class="card-title"><a class="text-decoration-underline text-reset"
+                                href="{{ url_for('manga.edit_manga', manga_id=manga.id) }}">
+                                {{ manga.title }}
+                            </a></h5>
+                        {% endif %}
+                        <p class="card-text">
+                            Score: {{ manga.score }}
+                        </p>
+                        <div class="d-flex">
+                            <p class="card-text">
+                                Volumes:
+                                <a href="{{ url_for('manga.add_one_volume', manga_id=manga.id) }}"
+                                    class="text-decoration-underline text-reset">
+                                    {{ manga.volume }}
+                                </a>
+                            </p>
+                            &emsp;
+                            <p class="card-text">
+                                Chapters:
+                                <a href="{{ url_for('manga.add_one_chapter', manga_id=manga.id) }}"
+                                    class="text-decoration-underline text-reset">
+                                    {{ manga.chapter }}
+                                </a>
+                            </p>
+                        </div>
+                        <p class="card-text">
+                            Start Date:
+                            {% if manga.start_date == "0001-01-01" %}
+                            -
+                            {% else %}
+                            {{ manga.start_date }}
+                            {% endif %}
+                        </p>
+                        <p class="card-text">
+                            End Date:
+                            {% if manga.end_date == "0001-01-01" %}
+                            -
+                            {% else %}
+                            {{ manga.end_date }}
+                            {% endif %}
+                        </p>
+                        <p class="card-text">Status: {{ manga.status }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
 {% endblock body %}

@@ -92,7 +92,7 @@ def get_layout():
     with open("json/settings.json", "r") as f:
         settings = json.load(f)
     layout = settings["layout"]
-    if layout == "Card":
+    if layout == "Card" or layout == "Image Overlay Card":
         return "manga-cards.html"
     else:
         return "manga-list.html"
