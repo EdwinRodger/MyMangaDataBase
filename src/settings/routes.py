@@ -19,7 +19,7 @@ def create_json_files():
                 "enable_logging": "Yes",
                 "truncate_title": "No",
                 "layout": "Table",
-                "mmdb_promotion": "Yes"
+                "mmdb_promotion": "Yes",
             }
             json.dump(settings, f)
     if not os.path.exists("json/mangalogs.json"):

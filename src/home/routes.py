@@ -1,6 +1,11 @@
 from flask import Blueprint, render_template, request
 
-from src.home.utils import anime_overview_data, check_for_update, manga_overview_data, mmdb_promotion
+from src.home.utils import (
+    anime_overview_data,
+    check_for_update,
+    manga_overview_data,
+    mmdb_promotion,
+)
 
 home = Blueprint("home", __name__)
 

@@ -15,9 +15,9 @@ from sqlalchemy import delete
 from src import db
 from src.anime.backup import (
     export_mmdb_backup,
+    import_anilist_anime,
     import_mmdb_backup,
     import_MyAnimeList_anime,
-    import_anilist_anime,
 )
 from src.anime.forms import AnimeForm, AnimeSearchBar
 from src.anime.utils import (

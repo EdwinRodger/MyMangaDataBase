@@ -27,8 +27,8 @@ def create_app(config_class=Config):
     app.register_blueprint(settings)
     app.register_blueprint(errors)
 
-    from src.manga.forms import MangaSearchBar
     from src.anime.forms import AnimeSearchBar
+    from src.manga.forms import MangaSearchBar
 
     # Pass Stuff To Layout.html
     @app.context_processor
@@ -37,8 +37,7 @@ def create_app(config_class=Config):
             json_settings = json.load(f)
             theme = json_settings["theme"]
 
-        from src.models import Manga
-        from src.models import Anime
+        from src.models import Anime, Manga
 
         # Below logic finds all the anime/manga from database, take random title,
         # get its title and then send it to search bar as a place holder

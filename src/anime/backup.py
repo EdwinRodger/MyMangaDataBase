@@ -9,8 +9,8 @@ from zipfile import ZipFile
 import requests
 
 from src import db
-from src.models import Anime
 from src.anime import utils as anime_utils
+from src.models import Anime
 
 today_date = datetime.date(datetime.today())
 

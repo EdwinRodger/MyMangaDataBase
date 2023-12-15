@@ -1,7 +1,7 @@
 import os
-from datetime import datetime
-import time
 import random
+import time
+from datetime import datetime
 
 from flask import (
     Blueprint,
@@ -16,12 +16,13 @@ from sqlalchemy import delete
 
 from src import db
 from src.home.utils import mmdb_promotion
+from src.manga import web_scraper
 from src.manga.backup import (
     export_mmdb_backup,
+    import_anilist_manga,
+    import_MangaUpdates_list,
     import_mmdb_backup,
     import_MyAnimeList_manga,
-    import_MangaUpdates_list,
-    import_anilist_manga,
 )
 from src.manga.forms import MangaForm, MangaSearchBar
 from src.manga.utils import (
@@ -32,7 +33,6 @@ from src.manga.utils import (
     save_picture,
 )
 from src.models import Manga
-from src.manga import web_scraper
 
 today_date = datetime.date(datetime.today())
 
@@ -159,7 +159,13 @@ def update_metadata(manga_id):
             if os.path.exists(cover_path):
                 os.remove(cover_path)
         metadata = web_scraper.manga_search(manga.title)
-        manga.artist, manga.author, manga.cover, manga.description, manga.genre = metadata
+        (
+            manga.artist,
+            manga.author,
+            manga.cover,
+            manga.description,
+            manga.genre,
+        ) = metadata
         db.session.commit()
     else:
         manga_list = Manga.query.order_by(Manga.title.name).all()
@@ -170,10 +176,17 @@ def update_metadata(manga_id):
                     os.remove(cover_path)
             time.sleep(random.randint(2, 5))
             metadata = web_scraper.manga_search(manga.title)
-            manga.artist, manga.author, manga.cover, manga.description, manga.genre = metadata
+            (
+                manga.artist,
+                manga.author,
+                manga.cover,
+                manga.description,
+                manga.genre,
+            ) = metadata
             db.session.commit()
         return redirect(url_for("manga.manga_list"))
     return redirect(url_for("manga.edit_manga", manga_id=manga_id))
+
 
 # Delete A Manga
 @manga.route("/delete/<int:manga_id>", methods=["POST"])

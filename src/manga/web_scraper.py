@@ -29,7 +29,9 @@ def manga_metadata(url, title):
         manga_description = " ".join(manga_description[1:]).replace("Less...", "")
     # After collecting the image on right side (cover image), we send it to get downloaded.
     try:
-        manga_cover = manga_utils.online_image_downloader(images[0].get("src").strip(), title)
+        manga_cover = manga_utils.online_image_downloader(
+            images[0].get("src").strip(), title
+        )
     except IndexError:
         print("Image couldn't be retrieved: ", title)
         manga_cover = "default-manga.svg"

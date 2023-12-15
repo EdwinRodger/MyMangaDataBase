@@ -9,8 +9,8 @@ from zipfile import ZipFile
 import requests
 
 from src import db
+from src.manga import utils, web_scraper
 from src.models import Manga
-from src.manga import web_scraper, utils
 
 today_date = datetime.date(datetime.today())
 

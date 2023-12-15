@@ -1,10 +1,10 @@
 import json
 import os
 import secrets
-from datetime import datetime
-import requests
 import shutil
+from datetime import datetime
 
+import requests
 from flask import current_app
 from PIL import Image
 
