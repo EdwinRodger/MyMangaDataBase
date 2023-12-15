@@ -48,6 +48,7 @@ def anime_list():
         anime_list=anime_list,
         sort_function="All",
         truncate_title=truncate_title,
+        settings = settings,
     )
 
 
@@ -164,6 +165,7 @@ def sort_anime(sort_function):
         sort_function=sort_function,
         current_section="Anime",
         truncate_title=truncate_title,
+        settings = settings,
     )
 
 
@@ -191,6 +193,7 @@ def search_genre(genre):
         anime_list=anime_list,
         current_section="Anime",
         truncate_title=truncate_title,
+        settings = settings,
     )
 
 
@@ -207,6 +210,7 @@ def search_tags(tag):
         anime_list=anime_list,
         current_section="Anime",
         truncate_title=truncate_title,
+        settings = settings,
     )
 
 
@@ -301,6 +305,7 @@ def search_anime():
             anime_list=anime_list,
             current_section="Anime",
             truncate_title=truncate_title,
+            settings = settings,
         )
     anime_list = Anime.query.order_by(Anime.title.name).all()
     return render_template(
@@ -310,6 +315,7 @@ def search_anime():
         anime_list=anime_list,
         sort_function="All",
         truncate_title=truncate_title,
+        settings = settings,
     )
 
 
