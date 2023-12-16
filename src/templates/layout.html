@@ -110,4 +110,25 @@
     {% block body %}{% endblock body %}
 </body>
 
+<!-- Masonry -->
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<!-- imagesLoaded -->
+<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+<!-- Took this script from https://masonry.desandro.com/layout#imagesloaded and https://codepen.io/desandro/pen/MwJoZQ -->
+<script>
+    // init Masonry
+    var grid = document.querySelector('#masonary-id');
+
+    var msnry = new Masonry(grid, {
+        itemSelector: '.masonary-class',
+        columnWidth: '.masonary-class',
+        percentPosition: true
+    });
+
+    imagesLoaded(grid).on('progress', function () {
+        // layout Masonry after each image loads
+        msnry.layout();
+    });
+</script>
+
 </html>

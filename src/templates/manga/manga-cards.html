@@ -137,9 +137,9 @@
 </div>
 {% else %}
 <div class="container">
-    <div class="row row-cols-1 row-cols-md-3">
+    <div id="masonary-id" class="row row-cols-1 row-cols-md-3" data-masonry='{"percentPosition": true }'>
         {% for manga in manga_list %}
-        <div class="col my-2">
+        <div class="col my-2 masonary-class">
             <div class="card p-0 text-bg-dark" style="max-width: 540px; overflow: hidden;">
                 <img src="{{ url_for('static', filename='manga_cover/' + manga.cover) }}" class="img-fluid row-md-4"
                     alt="Anime Cover" style="filter:blur(5px); -webkit-filter:blur(5px);">
