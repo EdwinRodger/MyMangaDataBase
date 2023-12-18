@@ -43,7 +43,6 @@ manga = Blueprint("manga", __name__, url_prefix="/manga")
 def manga_list():
     manga_list = Manga.query.order_by(Manga.title.name).all()
     settings = get_settings()
-    truncate_title = settings["truncate_title"]
     layout = get_layout()
     return render_template(
         f"manga/{layout}",
@@ -51,8 +50,7 @@ def manga_list():
         current_section="Manga",
         manga_list=manga_list,
         sort_function="All",
-        truncate_title=truncate_title,
-        settings = settings,
+        settings=settings,
     )
 
 
@@ -209,7 +207,6 @@ def sort_manga(sort_function):
         Manga.query.filter_by(status=sort_function).order_by(Manga.title.name).all()
     )
     settings = get_settings()
-    truncate_title = settings["truncate_title"]
     layout = get_layout()
     return render_template(
         f"manga/{layout}",
@@ -217,8 +214,7 @@ def sort_manga(sort_function):
         manga_list=manga_list,
         sort_function=sort_function,
         current_section="Manga",
-        truncate_title=truncate_title,
-        settings = settings,
+        settings=settings,
     )
 
 
@@ -247,15 +243,13 @@ def add_one_volume(manga_id):
 def search_genre(genre):
     manga_list = Manga.query.filter(Manga.genre.like(f"%{genre}%")).all()
     settings = get_settings()
-    truncate_title = settings["truncate_title"]
     layout = get_layout()
     return render_template(
         f"manga/{layout}",
         title=f"{genre} Genre",
         manga_list=manga_list,
         current_section="Manga",
-        truncate_title=truncate_title,
-        settings = settings,
+        settings=settings,
     )
 
 
@@ -264,15 +258,13 @@ def search_genre(genre):
 def search_tags(tag):
     manga_list = Manga.query.filter(Manga.tags.like(f"%{tag}%")).all()
     settings = get_settings()
-    truncate_title = settings["truncate_title"]
     layout = get_layout()
     return render_template(
         f"manga/{layout}",
         title=f"{tag} Tag",
         manga_list=manga_list,
         current_section="Manga",
-        truncate_title=truncate_title,
-        settings = settings,
+        settings=settings,
     )
 
 
@@ -367,7 +359,6 @@ def search_manga():
     form = MangaSearchBar()
     settings = get_settings()
     layout = get_layout()
-    truncate_title = settings["truncate_title"]
     if form.validate_on_submit():
         manga_list = Manga.query.filter(
             Manga.title.like(f"%{form.search_field.data}%")
@@ -378,8 +369,7 @@ def search_manga():
             mangas=manga,
             manga_list=manga_list,
             current_section="Manga",
-            truncate_title=truncate_title,
-            settings = settings,
+            settings=settings,
         )
     manga_list = Manga.query.order_by(Manga.title.name).all()
     return render_template(
@@ -388,8 +378,7 @@ def search_manga():
         current_section="Manga",
         manga_list=manga_list,
         sort_function="All",
-        truncate_title=truncate_title,
-        settings = settings,
+        settings=settings,
     )
 
 

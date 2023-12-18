@@ -82,7 +82,7 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card-body pb-0">
-                        {% if truncate_title == "Yes" %}
+                        {% if settings["truncate_title"] == "Yes" %}
                         <h5 class="card-title text-truncate"><a class="text-decoration-underline text-reset"
                                 href="{{ url_for('manga.edit_manga', manga_id=manga.id) }}">
                                 {{ manga.title }}
@@ -147,7 +147,7 @@
                     alt="Anime Cover" style="filter:blur(5px); -webkit-filter:blur(5px);">
                 <div class="card-img-overlay" style="background-color: rgba(0,0,0, 0.4);">
                     <div class="card-body pb-0">
-                        {% if truncate_title == "Yes" %}
+                        {% if settings["truncate_title"] == "Yes" %}
                         <h5 class="card-title text-truncate"><a class="text-decoration-underline text-reset"
                                 href="{{ url_for('manga.edit_manga', manga_id=manga.id) }}">
                                 {{ manga.title }}

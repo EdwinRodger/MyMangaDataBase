@@ -39,7 +39,6 @@ anime = Blueprint("anime", __name__, url_prefix="/anime")
 def anime_list():
     anime_list = Anime.query.order_by(Anime.title.name).all()
     settings = get_settings()
-    truncate_title = settings["truncate_title"]
     layout = get_layout()
     return render_template(
         f"anime/{layout}",
@@ -47,8 +46,7 @@ def anime_list():
         current_section="Anime",
         anime_list=anime_list,
         sort_function="All",
-        truncate_title=truncate_title,
-        settings = settings,
+        settings=settings,
     )
 
 
@@ -156,7 +154,6 @@ def sort_anime(sort_function):
         Anime.query.filter_by(status=sort_function).order_by(Anime.title.name).all()
     )
     settings = get_settings()
-    truncate_title = settings["truncate_title"]
     layout = get_layout()
     return render_template(
         f"anime/{layout}",
@@ -164,8 +161,7 @@ def sort_anime(sort_function):
         anime_list=anime_list,
         sort_function=sort_function,
         current_section="Anime",
-        truncate_title=truncate_title,
-        settings = settings,
+        settings=settings,
     )
 
 
@@ -185,15 +181,13 @@ def add_one_episode(anime_id):
 def search_genre(genre):
     anime_list = Anime.query.filter(Anime.genre.like(f"%{genre}%")).all()
     settings = get_settings()
-    truncate_title = settings["truncate_title"]
     layout = get_layout()
     return render_template(
         f"anime/{layout}",
         title=f"{genre} Genre",
         anime_list=anime_list,
         current_section="Anime",
-        truncate_title=truncate_title,
-        settings = settings,
+        settings=settings,
     )
 
 
@@ -202,15 +196,13 @@ def search_genre(genre):
 def search_tags(tag):
     anime_list = Anime.query.filter(Anime.tags.like(f"%{tag}%")).all()
     settings = get_settings()
-    truncate_title = settings["truncate_title"]
     layout = get_layout()
     return render_template(
         f"anime/{layout}",
         title=f"{tag} Tag",
         anime_list=anime_list,
         current_section="Anime",
-        truncate_title=truncate_title,
-        settings = settings,
+        settings=settings,
     )
 
 
@@ -293,7 +285,6 @@ def search_anime():
     form = AnimeSearchBar()
     settings = get_settings()
     layout = get_layout()
-    truncate_title = settings["truncate_title"]
     if form.validate_on_submit():
         anime_list = Anime.query.filter(
             Anime.title.like(f"%{form.search_field.data}%")
@@ -304,8 +295,7 @@ def search_anime():
             animes=anime,
             anime_list=anime_list,
             current_section="Anime",
-            truncate_title=truncate_title,
-            settings = settings,
+            settings=settings,
         )
     anime_list = Anime.query.order_by(Anime.title.name).all()
     return render_template(
@@ -314,8 +304,7 @@ def search_anime():
         current_section="Anime",
         anime_list=anime_list,
         sort_function="All",
-        truncate_title=truncate_title,
-        settings = settings,
+        settings=settings,
     )
 
 
