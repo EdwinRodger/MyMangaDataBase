@@ -308,9 +308,6 @@ def search_anime():
     )
 
 
-from src.anime.routes import anime
-
-
 @anime.before_request
 def before_request():
     endpoint = request.endpoint
