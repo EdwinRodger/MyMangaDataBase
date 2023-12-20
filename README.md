@@ -19,7 +19,6 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 
 ## Features
 
-<!-- - Customizable -->
 - Dark Theme
 - Editable metadata (genre, description etc.)
 - Export to MMDB
