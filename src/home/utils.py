@@ -190,7 +190,7 @@ def mmdb_promotion(func):
                 )
             if num == 2:
                 flash(
-                    'Like MyMangaDataBase on <a href="https://alternativeto.net/software/mymangadatabase/" target="_blank">AlternativeTo</a>!',
+                    'Like MyMangaDataBase on <a href="https://alternativeto.net/software/mymangadatabase/about/" target="_blank">AlternativeTo</a>!',
                     "info",
                 )
 
