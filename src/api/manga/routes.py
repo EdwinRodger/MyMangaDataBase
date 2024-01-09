@@ -34,3 +34,33 @@ def add_manga():
             jsonify({"message": "There is some error in data", "error": str(e)}),
             400,
         )
+
+@manga_API.route("/edit", methods=["PUT"])
+def edit_manga():
+    data = request.get_json()
+    try:
+        manga = Manga.query.filter_by(title=data["title"]).first()
+        manga_history = MangaHistory()
+        old_name = manga.title
+        manga.title = data["title"]
+        manga.start_date = data["start_date"]
+        manga.end_date = data["end_date"]
+        manga.volume = data["volume"]
+        manga.chapter = data["chapter"]
+        manga.status = data["status"]
+        manga.score = data["score"]
+        manga.description = data["description"]
+        manga.genre = data["genre"]
+        manga.tags = data["tags"]
+        manga.author = data["author"]
+        manga.artist = data["artist"]
+        manga.notes = data["notes"]
+        db.session.commit()
+        manga_history.check_rename(old_name=old_name, new_name=data["title"])
+        manga_history.add_chapter(manga.title, data["chapter"])
+        return jsonify({"message": "Data received"}), 200
+    except Exception as e:
+        return (
+            jsonify({"message": "There is some error in data", "error": str(e)}),
+            400,
+        )
