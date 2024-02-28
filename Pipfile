@@ -13,6 +13,9 @@ pillow = "*"
 beautifulsoup4 = "*"
 
 [dev-packages]
+black = "*"
+pyclean = "*"
+isort = "*"
 
 [requires]
 python_version = "3.10"
