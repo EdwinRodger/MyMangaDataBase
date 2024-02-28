@@ -1,5 +1,29 @@
 # Changelog
 
+## 2.3.0
+
+### New
+
+- Shameless MMDB social promotions :P and setting to remove it
+- Image overlay card layout
+- Cascading grid layout using [Masonary](https://masonry.desandro.com/) and [imagesLoaded](https://imagesloaded.desandro.com/)
+- MyMangaDataBase APIs -
+  - Add
+  - Edit
+  - Delete
+  
+### Updated
+
+- Containerised settings.html (Now its more centered)
+- Showing AniList API credits on import pages
+- Alternativeto url when redirecting from flash message
+- "Truncate Title" logic
+
+### Fix
+
+- Corrected wording
+- Linting, sorting & removing unused imports
+
 ## 2.2.1
 
 ### Fix
