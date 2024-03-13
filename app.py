@@ -1,6 +1,7 @@
 import json
 import logging
 import sys
+import webbrowser
 from time import strftime
 
 import waitress
@@ -42,6 +43,8 @@ def run():
     if sys.argv[-1].lower() == "super-saiyan":
         app.run(host="127.0.0.1", port=6070, debug=True)
     else:
+        print("Server running on http://127.0.0.1:6070")
+        webbrowser.open_new_tab("http://127.0.0.1:6070")
         waitress.serve(app=app, host="127.0.0.1", port=6070)
 
 
