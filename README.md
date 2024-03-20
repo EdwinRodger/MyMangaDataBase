@@ -47,9 +47,9 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 ### For Linux (Tested using [WSL](https://learn.microsoft.com/en-us/windows/wsl/about))
 
 1. Install [Python](https://python.org) and [Git](https://git-scm.com) if not already installed
-2. Clone repo or download source code from [latest releases](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest)
-3. Install pipenv ([How to install](https://github.com/pypa/pipenv?tab=readme-ov-file#installation))
-4. Run - `cd ./MyMangaDataBase`
+2. Install pipenv ([How to install](https://github.com/pypa/pipenv?tab=readme-ov-file#installation))
+3. Clone repo or download MyMangaDataBase-{version}-linux from [latest releases](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest)
+4. Run - `cd ./MyMangaDataBase-{version}-linux/MyMangaDataBase-main`
 5. Run - `pipenv install`
 6. Run - `pipenv run ./app.py` or `pipenv run python3 ./app.py`
 
