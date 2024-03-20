@@ -40,9 +40,8 @@ def credits():
 def before_request():
     endpoint = request.endpoint
     action = {
-        "home.homepage": homepage,
         "home.more": more,
         "home.credits": credits,
-    }.get(endpoint, homepage)
+    }.get(endpoint, more)
 
     mmdb_promotion(action)()
