@@ -1,5 +1,29 @@
 # Changelog
 
+## 2.4.0
+
+### New
+
+- .exe file to run on windows
+- Server start message
+- Opens site on browser as soon as the script is run
+
+### Updated
+
+- Readme.md
+  - Cleared roadmap
+  - Updated how to use guide
+  - Added a guide to host on pythonanywhere.org
+  - Removed running from MMDB.cmd/sh
+
+### Fixed
+
+- Update modal not showing whenever a new MMDB version is released
+
+### Removed
+
+- Command files to install pip packages and run MyMangaDataBase
+
 ## 2.3.0
 
 ### New
