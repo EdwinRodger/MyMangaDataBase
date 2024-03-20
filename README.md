@@ -34,20 +34,34 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 
 ## Road Map
 
-- Cross Platform (Currently works on Windows and Linux(tested using [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)))
-- Export to MAL, Anilist, Kitsu and other services
-- Simple routes to edit manga remotely (apis?)
+- Make APIs
 
 ## How To Use
 
-- Install python 3.10 for [Windows](https://www.python.org/downloads/release/python-3101/) or [Linux](https://tecadmin.net/how-to-install-python-3-10-on-ubuntu-debian-linuxmint/) based on your OS
-- Install source code from latest [release](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest) (Source Code (zip))
-- Extract the files from the zip folder
-- To run MMDB, Simply run `MyMangaDataBase.cmd`(Windows) or `MyMangaDataBase.sh`(Linux) depending on your OS. This will -
-    - Automatically make virtual environment
-    - Install all required packages in it
-    - Open MyMangaDataBase (`http://127.0.0.1:6070/`) on your browser
+### For Windows
 
+1. Install latest MMDB version from releases page.
+2. Extract and open zip file
+3. Run MyMangaDataBase.exe
+
+### For Linux (Tested using [WSL](https://learn.microsoft.com/en-us/windows/wsl/about))
+
+1. Install [Python](https://python.org) and [Git](https://git-scm.com) if not already installed
+2. Clone repo or download source code from [latest releases](https://github.com/EdwinRodger/MyMangaDataBase/releases/latest)
+3. Install pipenv ([How to install](https://github.com/pypa/pipenv?tab=readme-ov-file#installation))
+4. Run - `cd ./MyMangaDataBase`
+5. Run - `pipenv install`
+6. Run - `pipenv run ./app.py` or `pipenv run python3 ./app.py`
+
+## Host on pythonanywhere.org
+
+1. Make an account on pythonanywhere.org
+2. Using console, git clone `https://github.com/EdwinRodger/MyMangaDataBase.git`
+3. In Files tab, goto MyMangaDataBase folder, then click on 'Open Bash Console here'
+4. Run - `pip3 install -r requirements.txt`
+5. In Web tab, under Code section change 'Source Code' and 'Working Directory' to `/home/MyMangaDataBase/MyMangaDataBase`
+6. Reload your webapp
+7. It should get hosted on your-username.pythonanywhere.org 
 
 ## Want to Contribute?
 
@@ -63,12 +77,6 @@ If you have [git](https://git-scm.com/) installed on your device, you can clone 
 git clone https://github.com/EdwinRodger/MyMangaDataBase.git
 ```
 
-Run `MyMangaDataBase.cmd/sh` to run the app. It will -
-1. Make virtual environment
-2. Install other packages in that virtual environment if not already installed
-3. Automatically run the app on port 6070 in default browser
-
-Alternatively -
 1. Run command `python app.py` (Make sure you are in virtual environement).
 2. Open `http://127.0.0.1:6070/` in browser
 
