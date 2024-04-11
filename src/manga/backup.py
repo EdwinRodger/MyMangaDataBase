@@ -366,7 +366,7 @@ def import_anilist_manga(filename):
                     status=status,
                     score=round(series_type["score"] / 100),
                 )
+            # Commiting entries to database
             db.session.add(manga)
+            db.session.commit()
             time.sleep(1)
-    # Commiting entries to database
-    db.session.commit()

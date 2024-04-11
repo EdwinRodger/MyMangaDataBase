@@ -312,7 +312,7 @@ def import_anilist_anime(filename):
                     score=round(series_type["score"] / 10),
                     status=status,
                 )
+            # Commiting entries to database
             db.session.add(anime)
+            db.session.commit()
             time.sleep(1)
-    # Commiting entries to database
-    db.session.commit()
