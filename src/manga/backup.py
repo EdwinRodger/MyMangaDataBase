@@ -364,7 +364,7 @@ def import_anilist_manga(filename):
                     volume=series_type["progress_volume"],
                     chapter=series_type["progress"],
                     status=status,
-                    score=round(series_type["score"] / 100),
+                    score=round(series_type["score"] / 10),
                 )
             # Commiting entries to database
             db.session.add(manga)
