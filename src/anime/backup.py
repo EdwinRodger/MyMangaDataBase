@@ -190,6 +190,7 @@ def anilist_API(series_id):
         Media (id: $id, type: ANIME) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
             title {
                 english
+                romaji
             }
             coverImage{
                 extraLarge
@@ -220,6 +221,8 @@ def anilist_API(series_id):
 
     if response.status_code == 200:
         title = response_data["title"]["english"]
+        if title == None:
+            title = response_data["title"]["romaji"]
 
         cover_url = response_data["coverImage"]["extraLarge"]
         cover_image_name = anime_utils.online_image_downloader(cover_url, title)
