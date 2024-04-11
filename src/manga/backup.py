@@ -265,8 +265,12 @@ def anilist_API(series_id):
     variables = {"id": series_id}
 
     # Make the HTTP Api request
-    response = requests.post(url, json={"query": query, "variables": variables})
-    response_data = response.json()["data"]["Media"]
+    try:
+        response = requests.post(url, json={"query": query, "variables": variables})
+        response_data = response.json()["data"]["Media"]
+    except Exception as e:
+        print(f"Error in response: {e},\n\tResponse: {response.text},\n\tseries_id: {series_id}")
+        return None
 
     if response.status_code == 200:
         title = response_data["title"]["english"]
@@ -291,7 +295,7 @@ def anilist_API(series_id):
                 artists.append(name)
         artists = ", ".join(artists)
 
-        print("Metadata fetched successfully: ", title)
+        print(f"Metadata fetched successfully: [{series_id}] {title}")
         return (
             str(title),
             str(cover_image_name),
