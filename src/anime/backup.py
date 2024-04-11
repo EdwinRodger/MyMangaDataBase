@@ -215,12 +215,8 @@ def anilist_API(series_id):
     variables = {"id": series_id}
 
     # Make the HTTP Api request
-    try:
-        response = requests.post(url, json={"query": query, "variables": variables})
-        response_data = response.json()["data"]["Media"]
-    except Exception as e:
-        print(f"Error in response: {e},\nResponse: {response.text},\nseries_id: {series_id}")
-        return None
+    response = requests.post(url, json={"query": query, "variables": variables})
+    response_data = response.json()["data"]["Media"]
 
     if response.status_code == 200:
         title = response_data["title"]["english"]
@@ -287,7 +283,10 @@ def import_anilist_anime(filename):
             elif series_type["status"] == 4:
                 status = "On hold"
 
-            metadata = anilist_API(series_type["series_id"])
+            try:
+                metadata = anilist_API(series_type["series_id"])
+            except Exception as e:
+                print(f"Error in query: {e},\n\tseries_id: {series_type['series_id']}")
 
             if metadata is not None:
                 anime = Anime(
