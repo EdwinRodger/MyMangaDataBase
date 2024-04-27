@@ -41,6 +41,9 @@ def checks():
 def run():
     if sys.argv[-1].lower() == "super-saiyan":
         app.run(host="127.0.0.1", port=6070, debug=True)
+    elif sys.argv[-1].lower() == "checks":
+        checks()
+        print("checks done!")
     else:
         print("Server running on http://127.0.0.1:6070")
         webbrowser.open_new_tab("http://127.0.0.1:6070")
