@@ -55,13 +55,7 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 
 ## Host on pythonanywhere.org
 
-1. Make an account on pythonanywhere.org
-2. Using console, git clone `https://github.com/EdwinRodger/MyMangaDataBase.git`
-3. In Files tab, goto MyMangaDataBase folder, then click on 'Open Bash Console here'
-4. Run - `pip3 install -r requirements.txt`
-5. In Web tab, under Code section change 'Source Code' and 'Working Directory' to `/home/MyMangaDataBase/MyMangaDataBase`
-6. Reload your webapp
-7. It should get hosted on your-username.pythonanywhere.org 
+Follow [this video](https://github.com/EdwinRodger/MyMangaDataBase/tree/main/docs/videos) to host your own animanga database on pythonanywhere.org
 
 ## Want to Contribute?
 
