@@ -55,7 +55,9 @@ Try demo at https://mymangadatabase.pythonanywhere.com/
 
 ## Host on pythonanywhere.org
 
-Follow [this video](https://github.com/EdwinRodger/MyMangaDataBase/tree/main/docs/videos) to host your own animanga database on pythonanywhere.org
+Follow [this amazing video](https://github.com/EdwinRodger/MyMangaDataBase/tree/main/docs/videos) to host your own animanga database on pythonanywhere.org
+
+(No need to thank me on music used)
 
 ## Want to Contribute?
 
@@ -78,7 +80,7 @@ git clone https://github.com/EdwinRodger/MyMangaDataBase.git
 
 Pass `super-saiyan` argument while running `app.py`, it will turn on flask debugging.
 
-## TLDR
+## Extra Stuff
 
 To run the code perfectly, you can use any python version between 3.8 to 3.10 and this project is made in python version 3.10.1
 
