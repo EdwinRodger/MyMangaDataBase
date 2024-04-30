@@ -20,16 +20,16 @@ def create_app(config_class=Config):
     from src.home.routes import home
     from src.manga.routes import manga
     from src.settings.routes import settings
-    from src.api.anime.routes import anime_API
-    from src.api.manga.routes import manga_API
+    # from src.api.anime.routes import anime_API
+    # from src.api.manga.routes import manga_API
 
     app.register_blueprint(home)
     app.register_blueprint(manga)
     app.register_blueprint(anime)
     app.register_blueprint(settings)
     app.register_blueprint(errors)
-    app.register_blueprint(anime_API)
-    app.register_blueprint(manga_API)
+    # app.register_blueprint(anime_API)
+    # app.register_blueprint(manga_API)
 
     from src.anime.forms import AnimeSearchBar
     from src.manga.forms import MangaSearchBar
