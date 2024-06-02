@@ -15,13 +15,6 @@ def checks():
     delete_anime_export()
     delete_manga_export()
 
-try:
-    with open("json/settings.json", "r") as f:
-        settings = json.load(f)
-except Exception as e:
-    print(e)
-    print("It looks like settings file not found. Please run the following command - `python3 app.py checks`.")
-
 if sys.argv[-1].lower() == "checks":
     checks()
     print("Checks done!")
