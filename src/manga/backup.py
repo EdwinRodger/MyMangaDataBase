@@ -46,7 +46,7 @@ def delete_manga_export():
 
 
 def export_mmdb_backup():
-    path = f"src\\MMDB-Manga-Export-{today_date}.zip"
+    path = f"src/MMDB-Manga-Export-{today_date}.zip"
     mangas = Manga.query.all()
     obj = {}
     i = 0
@@ -71,7 +71,7 @@ def export_mmdb_backup():
             i += 1
         json.dump(obj, backup_json_file, indent=4)
     with ZipFile(path, "w") as zipfile:
-        for root, _, files in os.walk("src\\static\\manga_cover\\"):
+        for root, _, files in os.walk("src/static/manga_cover/"):
             for file in files:
                 zipfile.write(os.path.join(root, file))
         zipfile.write("manga.json")
