@@ -11,7 +11,6 @@ flask-wtf = "*"
 requests = "*"
 pillow = "*"
 beautifulsoup4 = "*"
-auto-py-to-exe = "*"
 
 [dev-packages]
 black = "*"
