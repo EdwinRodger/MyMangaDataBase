@@ -271,7 +271,7 @@ def delete_database():
     db.session.execute(delete_db)
     db.session.commit()
     anime_history.clear_all_history()
-    for root, _, files in os.walk("src\\static\\anime_cover\\"):
+    for root, _, files in os.walk("src/static/anime_cover/"):
         for file in files:
             # This if block will prevent deletion of default cover image files
             if file not in ("default-manga.svg", "default-anime.svg"):
