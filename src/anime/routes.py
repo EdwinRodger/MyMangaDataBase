@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+import platform
 
 from flask import (
     Blueprint,
@@ -94,6 +95,11 @@ def edit_anime(anime_id):
     old_name = anime.title
     history = anime_history.get_history(anime.title)
     if form.validate_on_submit():
+        # In linux if DateField is None it will be set to 0001-01-01
+        if form.start_date.data == None:
+            form.start_date.data = "0001-01-01"
+        if form.end_date.data == None:
+            form.end_date.data = "0001-01-01"
         if form.cover.data:
             remove_cover(anime.cover)
             picture_file = save_picture(form.cover.data)
@@ -131,6 +137,7 @@ def edit_anime(anime_id):
         legend="Update Anime",
         current_section="Anime",
         history=history,
+        platform=platform
     )
 
 

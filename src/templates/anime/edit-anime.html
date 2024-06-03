@@ -41,7 +41,11 @@
                         {% else %}
                         {{ form.start_date(class="form-control") }}
                         {% endif %}
+                        {% if platform.system() == "Windows" %}
                         <p class="text-muted">If you don't know Start Date, Enter 01-01-0001 in above field.</p>
+                        {% else %}
+                        <p class="text-muted">If you don't know Start Date, Leave the above field empty</p>
+                        {% endif %}
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">{{ form.end_date.label }}</label>
@@ -55,7 +59,11 @@
                         {% else %}
                         {{ form.end_date(class="form-control") }}
                         {% endif %}
-                        <p class="text-muted">If you don't know End Date, Enter 01-01-0001 in above field</p>
+                        {% if platform.system() == "Windows" %}
+                        <p class="text-muted">If you don't know End Date, Enter 01-01-0001 in above field.</p>
+                        {% else %}
+                        <p class="text-muted">If you don't know End Date, Leave the above field empty</p>
+                        {% endif %}
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">
