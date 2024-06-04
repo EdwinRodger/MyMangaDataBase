@@ -60,6 +60,11 @@ def manga_list():
 def add_manga():
     form = MangaForm()
     if form.validate_on_submit():
+        # In linux if DateField is None(0001-01-01) it will be set to 0001-01-01
+        if form.start_date.data == None:
+            form.start_date.data = "0001-01-01"
+        if form.end_date.data == None:
+            form.end_date.data = "0001-01-01"
         if form.cover.data:
             picture_file = save_picture(form.cover.data)
         else:
@@ -102,7 +107,7 @@ def edit_manga(manga_id):
     history = manga_history.get_history(manga.title)
     old_name = manga.title
     if form.validate_on_submit():
-        # In linux if DateField is None it will be set to 0001-01-01
+        # In linux if DateField is None(0001-01-01) it will be set to 0001-01-01
         if form.start_date.data == None:
             form.start_date.data = "0001-01-01"
         if form.end_date.data == None:
